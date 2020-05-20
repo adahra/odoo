@@ -1,0 +1,484 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* vit_mlm_reiva
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 8.0-20160628\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2016-08-02 11:46+0000\n"
+"PO-Revision-Date: 2016-08-09 13:22-0400\n"
+"Last-Translator: <>\n"
+"Language-Team: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: \n"
+"Language: en_US\n"
+"X-Generator: Poedit 1.8.8\n"
+
+#. module: vit_mlm_reiva
+#: model:email.template,body_html:vit_mlm_reiva.set_password_email_reiva
+msgid ""
+"\n"
+"                \n"
+"<p>Hi ${object.name},</p>\n"
+"\n"
+"<p>${object.partner_id.parent_id.name} wishes to have you discover first-hand, a Business Opportunity to be launched in the next few weeks. &nbsp;It’s called&nbsp;<span style=\"font-weight: bold;\">REÏVA International</span>, a Canadian Company based in Québec that offers an array of innovative health products and an outstanding Compensation Plan.</p>\n"
+"\n"
+"<p>When you get to the website by clicking on the link below, you will be asked to create a personal password to access information on the Company, its Products and Compensation Plan, information that is currently reserved for our invitees.</p>\n"
+"\n"
+"<p>If the project is of interest to you, you may then send out your own invitations to personal contacts that you believe might have an interest. &nbsp;You should be aware that answering this email message and/or sending out invitations will not put you or your invitees under any obligation whatsoever.</p>\n"
+"\n"
+"<p>When REÏVA is ready to announce its pre-launch date, all invitees that have answered will be informed of their privilege to confirm their position before the opportunity is opened to the public and the genealogy will respect the sequence of created positions in the order that they were received.</p>\n"
+"\n"
+"<ul>\n"
+"\t<li><a href=\"${object.signup_url}\">To access the section reserved for invitees, you must first create your password by clicking here.</a></li>\n"
+"\t<li>You will then be directed to the section reserved for our invited guests.</li>\n"
+"\t<li>Sélectionnez au besoin la langue de votre choix au bas de la page</li>\n"
+"\t<li>For your future visits:</li>\n"
+"\t<ol>\n"
+"\t\t<li>go directly to <a href=\"http://www.reiva.ca\">www.reiva.ca</a>;</li>\n"
+"\t\t<li>simply click on the SIGN IN tab in the main menu;</li>\n"
+"\t\t<li>Enter your email address and the password previously created, and click on the <span style=\"font-style: italic;\">Log in</span>&nbsp;button. You will then be directed to the section reserved for our invited guests.</li>\n"
+"\t</ol>\n"
+"</ul>\n"
+"\n"
+"\n"
+"<p>Thank you and enjoy the visit!</p>\n"
+"${object.partner_id.parent_id.name}\n"
+"<br>\n"
+"${object.partner_id.parent_id.email}\n"
+"<br>\n"
+"\n"
+"<br>\n"
+"and\n"
+"\n"
+"<pre>${object.company_id.name or ''}\n"
+"${object.company_id.email or ''}\n"
+"${object.company_id.phone or ''}\n"
+"</pre>\n"
+"\n"
+"\n"
+"<p><span style=\"font-style: italic;\"></span></p>\n"
+"\n"
+"\n"
+"<p><span style=\"font-style: italic;\">If you no longer wish to receive emails from REÏVA, please <a href=\"mailto:unsuscribe@reiva.net?cc=${object.partner_id.parent_id.email}&amp;subject=Unsuscribe me&amp;body=Please do not send me emails from REÏVA.\">click here</a>.</span></p>\n"
+"                \n"
+"            "
+msgstr ""
+"\n"
+"                \n"
+"<p>Hi ${object.name},</p>\n"
+"\n"
+"<p>${object.partner_id.parent_id.name} wishes to have you discover first-hand, a Business Opportunity to be launched in the next few weeks. &nbsp;It’s called&nbsp;<span style=\"font-weight: bold;\">REÏVA International</span>, a Canadian Company based in Québec that offers an array of innovative health products and an outstanding Compensation Plan.</p>\n"
+"\n"
+"<p>When you get to the website by clicking on the link below, you will be asked to create a personal password to access information on the Company, its Products and Compensation Plan, information that is currently reserved for our invitees.</p>\n"
+"\n"
+"<p>If the project is of interest to you, you may then send out your own invitations to personal contacts that you believe might have an interest. &nbsp;You should be aware that answering this email message and/or sending out invitations will not put you or your invitees under any obligation whatsoever.</p>\n"
+"\n"
+"<p>When REÏVA is ready to announce its pre-launch date, all invitees that have answered will be informed of their privilege to confirm their position before the opportunity is opened to the public and the genealogy will respect the sequence of created positions in the order that they were received.</p>\n"
+"\n"
+"<ul>\n"
+"\t<li><a href=\"${object.signup_url}\">To access the section reserved for invitees, you must first create your password by clicking here.</a></li>\n"
+"\t<li>You will then be directed to the section reserved for our invited guests.</li>\n"
+"\t<li>Sélectionnez au besoin la langue de votre choix au bas de la page</li>\n"
+"\t<li>For your future visits:</li>\n"
+"\t<ol>\n"
+"\t\t<li>go directly to <a href=\"http://www.reiva.ca\">www.reiva.ca</a>;</li>\n"
+"\t\t<li>simply click on the SIGN IN tab in the main menu;</li>\n"
+"\t\t<li>Enter your email address and the password previously created, and click on the <span style=\"font-style: italic;\">Log in</span>&nbsp;button. You will then be directed to the section reserved for our invited guests.</li>\n"
+"\t</ol>\n"
+"</ul>\n"
+"\n"
+"\n"
+"<p>Thank you and enjoy the visit!</p>\n"
+"${object.partner_id.parent_id.name}\n"
+"<br>\n"
+"${object.partner_id.parent_id.email}\n"
+"<br>\n"
+"\n"
+"<br>\n"
+"and\n"
+"\n"
+"<pre>${object.company_id.name or ''}\n"
+"${object.company_id.email or ''}\n"
+"${object.company_id.phone or ''}\n"
+"</pre>\n"
+"\n"
+"\n"
+"<p><span style=\"font-style: italic;\"></span></p>\n"
+"\n"
+"\n"
+"<p><span style=\"font-style: italic;\">If you no longer wish to receive emails from REÏVA, please <a href=\"mailto:unsuscribe@reiva.net?cc=${object.partner_id.parent_id.email}&amp;subject=Unsuscribe me&amp;body=Please do not send me emails from REÏVA.\">click here</a>.</span></p>\n"
+"                \n"
+"            "
+
+#. module: vit_mlm_reiva
+#: model:email.template,body_html:vit_mlm_reiva.email_template_invitation
+msgid ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"\n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Invitation Email to join REIVA. bla-bla\n"
+"    </p>\n"
+"    <p>\n"
+"    In a few momment you will receive an email for login and resetting your password.\n"
+"    </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"<br/>\n"
+"</div>\n"
+"            "
+msgstr ""
+"\n"
+"<div style=\"font-family: 'Lucica Grande', Ubuntu, Arial, Verdana, sans-serif; font-size: 12px; color: rgb(34, 34, 34); background-color: rgb(255, 255, 255); \">\n"
+"\n"
+"    <p>Dear ${object.name},</p>\n"
+"    <p>\n"
+"    Invitation Email to join REIVA. bla-bla\n"
+"    </p>\n"
+"    <p>\n"
+"    In a few momment you will receive an email for login and resetting your password.\n"
+"    </p>\n"
+"<br/>\n"
+"Best Regards,\n"
+"<br/>\n"
+"<br/>\n"
+"${user.name}\n"
+"<br/>\n"
+"<br/>\n"
+"\n"
+"<br/>\n"
+"</div>\n"
+"            "
+
+#. module: vit_mlm_reiva
+#: model:email.template,body_html:vit_mlm_reiva.reset_password_email
+msgid ""
+"\n"
+"<p>A password reset was requested for the Odoo account linked to this email.</p>\n"
+"\n"
+"<p>You may change your password by following <a href=\"${object.signup_url}\">this link</a>.</p>\n"
+"\n"
+"<p>Note: If you do not expect this, you can safely ignore this email.</p>"
+msgstr ""
+"\n"
+"<p>A password reset was requested for the Odoo account linked to this email.</p>\n"
+"\n"
+"<p>You may change your password by following <a href=\"${object.signup_url}\">this link</a>.</p>\n"
+"\n"
+"<p>Note: If you do not expect this, you can safely ignore this email.</p>"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "&nbsp;"
+msgstr "&nbsp;"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "&nbsp; &nbsp;"
+msgstr "&nbsp; &nbsp;"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Vous pouvez consulter ici les résultats de vos invitations : la liste de vos invités&nbsp;et ceux qui ont répondu&nbsp;à votre invitation."
+msgstr "&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Vous pouvez consulter ici les résultats de vos invitations : la liste de vos invités&nbsp;et ceux qui ont répondu&nbsp;à votre invitation."
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "&times;"
+msgstr "&times;"
+
+#. module: vit_mlm_reiva
+#: model:email.template,subject:vit_mlm_reiva.set_password_email_reiva
+msgid "A special invitation from ${object.partner_id.parent_id.name} and ${object.company_id.name}"
+msgstr "A special invitation from ${object.partner_id.parent_id.name} and ${object.company_id.name}"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Accept Invitation"
+msgstr "Accept Invitation"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_reiva.icon_menu
+msgid "Accueil"
+msgstr "Accueil"
+
+#. module: vit_mlm_reiva
+#: view:res.partner:vit_mlm_reiva.view_member_form3
+msgid "Activate"
+msgstr "Activate"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "BIENVENUE À TOUS NOS INVITÉS!"
+msgstr "BIENVENUE À TOUS NOS INVITÉS!"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Compensation Plan"
+msgstr "Compensation Plan"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Consulter"
+msgstr "Consulter"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Contactez par téléphone les gens de votre entourage qui sont susceptibles d'être intéressés et mentionnez qu'ils recevront une invitation de votre part par courriel."
+msgstr "Contactez par téléphone les gens de votre entourage qui sont susceptibles d'être intéressés et mentionnez qu'ils recevront une invitation de votre part par courriel."
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Dear"
+msgstr "Dear"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Donnez votre opinion"
+msgstr "Donnez votre opinion"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Découvrez en primeur le PLAN de RÉMUNÉRATION REÏVA&nbsp;avant même son prélancement"
+msgstr "Découvrez en primeur le PLAN de RÉMUNÉRATION REÏVA&nbsp;avant même son prélancement"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Découvrez le Plan de Rémunération Reïva au moyen d'une présentation sommaire et d'une présentation détaillée exposant son fonctionnement."
+msgstr "Découvrez le Plan de Rémunération Reïva au moyen d'une présentation sommaire et d'une présentation détaillée exposant son fonctionnement."
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Découvrir l'opportunité"
+msgstr "Découvrir l'opportunité"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_reiva.icon_menu
+msgid "Faire une Invitation"
+msgstr "Faire une Invitation"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Faire une invitation&nbsp;"
+msgstr "Faire une invitation&nbsp;"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.member_view
+msgid "GUEST SHEET"
+msgstr "GUEST SHEET"
+
+#. module: vit_mlm_reiva
+#: model:email.template,subject:vit_mlm_reiva.email_template_invitation
+msgid "Invitation Email to join REIVA"
+msgstr "Invitation Email to join REIVA"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Invite potential Associate"
+msgstr "Invite potential Associate"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Inviter"
+msgstr "Inviter"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Inviter une personne"
+msgstr "Inviter une personne"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Invitez les personnes parmi vos contacts qui sont susceptibles d'être intéressées&nbsp;par l'opporutnité d'affaires REIVA et qui pourraient se joindre à votre équipe.&nbsp;"
+msgstr "Invitez les personnes parmi vos contacts qui sont susceptibles d'être intéressées&nbsp;par l'opporutnité d'affaires REIVA et qui pourraient se joindre à votre équipe.&nbsp;"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Lancez vos invitations : vos invités recevront un message avec un lien et pourront choisir un mot de passe pour se connecter ensuite à volonté afin de pouvoir consulter notre opportunité et faire leurs invitations."
+msgstr "Lancez vos invitations : vos invités recevront un message avec un lien et pourront choisir un mot de passe pour se connecter ensuite à volonté afin de pouvoir consulter notre opportunité et faire leurs invitations."
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Les outils de développement de votre équipe Reïva"
+msgstr "Les outils de développement de votre équipe Reïva"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_reiva.icon_menu
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Liste de vos invités"
+msgstr "Liste de vos invités"
+
+#. module: vit_mlm_reiva
+#: model:res.groups,name:vit_mlm_reiva.group_mlm_vp
+msgid "MLM / Head of Network"
+msgstr "MLM / Head of Network"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Partager"
+msgstr "Partager"
+
+#. module: vit_mlm_reiva
+#: model:ir.model,name:vit_mlm_reiva.model_res_partner
+msgid "Partner"
+msgstr "Partner"
+
+#. module: vit_mlm_reiva
+#: model:email.template,subject:vit_mlm_reiva.reset_password_email
+msgid "Password reset"
+msgstr "Password reset"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_reiva.icon_menu
+msgid "Plan de"
+msgstr "Plan de"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Plan de rémunération"
+msgstr "Plan de rémunération"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Please take 15 seconds to complete this short survey about your interest in REIVA"
+msgstr "Please take 15 seconds to complete this short survey about your interest in REIVA"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Pre-Registration"
+msgstr "Pre-Registered"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Pre-Registration List"
+msgstr "Pre-Registered List"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Preview REIVA Compensation Plan and unique advantages for future Independent Associates"
+msgstr "Preview REIVA Compensation Plan and unique advantages for future Independent Associates"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_reiva.icon_menu
+msgid "Rémunération"
+msgstr "Rémunération"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Répondre au sondage"
+msgstr "Répondre au sondage"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.member_create
+msgid "SEND AN INVITATION"
+msgstr "SEND AN INVITATION"
+
+#. module: vit_mlm_reiva
+#: view:res.partner:vit_mlm_reiva.view_member_form3
+#: view:website:vit_mlm_website.member_view
+msgid "Send Invitation"
+msgstr "Send Invitation"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Send an invitation email to potential Independent Associate"
+msgstr "Send an invitation email to potential Independent Associate"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Survey"
+msgstr "Survey"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.member_form
+msgid "Upline ID"
+msgstr "Invited by"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Veuillez prendre 15 secondes pour répondre à ce court sondage sur votre intérêt envers REÏVA"
+msgstr "Veuillez prendre 15 secondes pour répondre à ce court sondage sur votre intérêt envers REÏVA"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Voir le plan"
+msgstr "Voir le plan"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Vos résultats"
+msgstr "Vos résultats"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_reiva.icon_menu
+msgid "Votre opinion svp"
+msgstr "Votre opinion svp"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Vous pourrez consulter les résultats de vos invitations et vous serez prévenu un peu avant notre pré-lancement afin de vous donner l’occasion, si vous le désirez, de prendre place en respectant l’ordre des invitations."
+msgstr "Vous pourrez consulter les résultats de vos invitations et vous serez prévenu un peu avant notre pré-lancement afin de vous donner l’occasion, si vous le désirez, de prendre place en respectant l’ordre des invitations."
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Vous pouvez démarrer dès maintenant et sans obligation"
+msgstr "Vous pouvez démarrer dès maintenant et sans obligation"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.member_list
+msgid "YOUR INVITATIONS"
+msgstr "YOUR INVITATIONS"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "Your current state is an invited Guest. To upgrade your state please accept this invitation."
+msgstr "Your current state is an invited Guest. To upgrade your state please accept this invitation."
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.member_create
+#: view:website:vit_mlm_website.member_list
+#: view:website:vit_mlm_website.member_view
+msgid "background-color: gray;"
+msgstr "background-color: gray;"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.member_list
+#: view:website:vit_mlm_website.member_view
+msgid "color: white;"
+msgstr "color: white;"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.member_create
+msgid "color: white;margin-left: 25%;"
+msgstr "color: white;margin-left: 25%;"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "ÉTAPE&nbsp; 1"
+msgstr "STEP&nbsp; 1"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "ÉTAPE&nbsp; 2"
+msgstr "STEP&nbsp; 2"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "ÉTAPE&nbsp; 3"
+msgstr "STEP&nbsp; 3"
+
+#. module: vit_mlm_reiva
+#: view:website:vit_mlm_website.mlm_homepage
+msgid "ÉTAPE&nbsp; 4"
+msgstr "STEP&nbsp; 4"

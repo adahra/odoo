@@ -1,0 +1,539 @@
+<?xml version="1.0"?>
+<openerp>
+<data>
+
+    <!-- VIEW FOR IMPORT MEMBER -->
+    <record model="ir.ui.view" id="view_import_member_new">
+        <field name="name">netpro.import_member_new.tree</field>
+        <field name="model">netpro.import_member_new</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="netpro.import_member_new">
+                <field name="NOPOL"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_import_member_new">
+        <field name="name">Import Member New / Renew</field>
+        <field name="res_model">netpro.import_member_new</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record model="ir.ui.view" id="view_import_member_endorse">
+        <field name="name">netpro.import_member_endorse.tree</field>
+        <field name="model">netpro.import_member_endorse</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="netpro.import_member_endorse">
+                <field name="POL"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_import_member_endorse">
+        <field name="name">Import Member Endorse</field>
+        <field name="res_model">netpro.import_member_endorse</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree</field>
+    </record>
+
+    <record id="policy_member_view" model="ir.ui.view">
+        <field name="name">policy.member.view</field>
+        <field name="model">netpro.policy</field>
+        <field name="inherit_id" ref="vit_policy.view_netpro_policy_form" />
+        <field name="arch" type="xml">
+            <button name="action_endorse" position="after">
+                <!-- button import member new -->
+                <button string="Import Member" context="{'default_policy_id':active_id}" attrs="{'invisible':[('state','not in',['open','renew'])]}" type="action" name="%(action_import_member_new)d" class="oe_highlight" />
+
+                <!-- button import member endorse -->
+                <button string="Import Member" context="{'default_policy_id':active_id}" attrs="{'invisible':[('state','!=','endorsed')]}" type="action" name="%(action_import_member_endorse)d" class="oe_highlight" />
+            </button>
+            <notebook position="inside">
+                <page string="Member">
+                    <field name="member_ids" context="{'default_policy_category':policy_category_id, 'default_policy_id':active_id, 'default_insurance_period_start':insurance_period_start, 'default_insurance_period_end':insurance_period_end}">
+                        <tree>
+                            <field name="name"/>
+                            <field name="birthdate"/>
+                            <field name="employee_id"/>
+                            <field name="member_no"/>
+                            <field name="insurance_period_start"/>
+                            <field name="insurance_period_end"/>
+                            <field name="state"/>
+                        </tree>
+                        <form>
+                            <group>
+                                <field name="policy_id" readonly="True"/>
+                                <field name="policy_category" readonly="True"/>
+                                <field name="insurance_period_start"/>
+                                <field name="insurance_period_end" readonly="True"/>
+                            </group>
+                            <notebook>
+                                <page string="General Member Data">
+                                <group>
+                                    <group>
+                                        <field name="member_no" select="0" widget="statinfo"/>
+                                        <field name="name" select="0"/>
+                                        <field name="parent_id" on_change="onchange_class(parent_id)" domain="[('policy_id','=',policy_id)]" attrs="{'invisible':[('policy_category','in',[2, ''])]}" widget="selection" />
+                                        <field name="census_no" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="gender_id" select="0"/>
+                                        <field name="marital_status" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="email" select="0" />
+                                        <field name="mobile_phone" select="0"/>
+                                        <field name="date_of_birth" select="0" on_change="onchange_DoB(date_of_birth)"/>
+                                        <field name="age" select="0"/>
+                                        <field name="birth_place" select="0"/>
+                                        <field name="vip" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="black_listed" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="hold_car_swipe_claim" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <separator string="Remarks" colspan="4"/>
+                                        <field name="remarks" colspan="4" nolabel="1" select="0"/>
+                                    </group>
+
+                                    <group>
+                                        <field name="class_id" widget="selection" domain="[('policy_id','=',policy_id)]"/>
+                                        <field name="membership_id" widget="selection"/>
+                                        <field name="card_no" select="0"/>
+                                        <field name="register_no" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="group_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="payor_id" domain="[('policy_holder_flag','=',1)]" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="premium_type_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="area_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="country_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="pre_existing_waived" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="exclude_this_member" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="mno" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <field name="pmno" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                        <!-- <field name="state" select="0"/> -->
+                                        <field name="upd_code" />
+                                        <field name="upd_date" />
+                                        <field name="masa_tunggu" attrs="{'invisible':[('policy_category','in',[1, ''])]}" />
+                                        <field name="masa_tunggu_value" attrs="{'invisible':['|',('masa_tunggu','=',False),('policy_category','in',[1, ''])]}" />
+                                        <field name="grace_period" attrs="{'invisible':[('policy_category','in',[1, ''])]}" />
+                                        <field name="grace_period_value" attrs="{'invisible':['|',('grace_period','=',False),('policy_category','in',[1, ''])]}" />
+                                        <field name="member_policy_exception_check" attrs="{'invisible':[('policy_category','in',[1, ''])]}" />
+                                    </group>
+                                </group>
+                                </page>
+                            </notebook>
+                        </form>
+                    </field>
+                </page>
+            </notebook>
+        </field>
+    </record>
+
+    <record id="view_netpro_member_filter" model="ir.ui.view">
+        <field name="name">netpro.member.select</field>
+        <field name="model">netpro.member</field>
+        <field name="arch" type="xml">
+            <search string="Search Invoice">
+                <group expand="0" string="Group By...">group_by
+                    <filter name='policy_holder' string="Policy Holder" domain="[]"  context="{'':'policy_holder'}"/>
+                </group>
+           </search>
+        </field>
+    </record>
+
+    <record model="ir.ui.view" id="view_netpro_member_form">
+        <field name="name">netpro.member.form</field>
+        <field name="model">netpro.member</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="netpro.member" version="7.0">
+                <header>                                             
+                    <button string="Confirm" type="object" states="draft"                     
+                        name="action_confirm" class="oe_highlight"/>                 
+                                             
+                    <button string="Cancel" type="object" states="actived"
+                        name="action_cancel"/>
+
+                    <button string="Non Active" type="object" states="actived"
+                        name="action_nonactive"/>    
+
+                    <field name="state" widget="statusbar"/>
+                </header>
+                <sheet>
+                <group string="Member Info">
+                    <field name="policy_id" domain="[('policy_category_id','=',policy_category)]" attrs="{'required':[('policy_category','=',1)]}" on_change="onchange_policy_member(policy_id)"/>
+                    <field name="policy_holder" readonly="True"/>
+                    <field name="policy_category" readonly="True"/>
+                    <field name="insurance_period_start" attrs="{'required':[('policy_category','=',1)]}" select="2"/>
+                    <field name="insurance_period_end" attrs="{'required':[('policy_category','=',1)]}" select="0"/>
+                </group>
+
+                <notebook>
+                    <page string="General Member Data">
+                        <group>
+                            <group>
+                                <field name="member_no" select="0" widget="statinfo"/>
+                                <field name="name" select="0"/>
+                                <field name="employee_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="parent_id" on_change="onchange_class(parent_id)" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="census_no" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="gender_id" select="0"/>
+                                <field name="marital_status" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="email" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="mobile_phone" select="0"/>
+                                <field name="date_of_birth" select="0" on_change="onchange_DoB(date_of_birth)"/>
+                                <field name="age" select="0"/>
+                                <field name="birth_place" select="0"/>
+                                <field name="salary" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="vip" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="black_listed" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="hold_car_swipe_claim" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <separator string="Remarks" colspan="4"/>
+                                <field name="remarks" colspan="4" nolabel="1" select="0"/>
+                            </group>
+
+                            <group>
+                                <field name="class_id" widget="selection" attrs="{'required':[('policy_category','=',1)]}" domain="[('policy_id','=',policy_id)]"/>
+                                <field name="membership_id" attrs="{'required':[('policy_category','=',1)]}" widget="selection"/>
+                                <field name="card_no" select="0"/>
+                                <field name="register_no" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="period_start" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="period_end" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="stnc" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="group_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="payor_id" domain="[('policy_holder_flag','=',1)]" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="premium_type_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="area_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="country_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="pre_existing_waived" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="exclude_this_member" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="dummy_member" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="mno" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="pmno" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <!-- <field name="state" select="0"/> -->
+                                <field name="trans_type" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="suspend_tpa" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                <field name="upd_code" attrs="{'invisible':[('policy_category','in',[1, ''])]}"/>
+                                <field name="upd_date" attrs="{'invisible':[('policy_category','in',[1, ''])]}"/>
+                                <field name="masa_tunggu" attrs="{'invisible':[('policy_category','in',[1, ''])]}" />
+                                <field name="masa_tunggu_value" attrs="{'invisible':['|',('masa_tunggu','=',False),('policy_category','in',[1, ''])]}" />
+                                <field name="grace_period" attrs="{'invisible':[('policy_category','in',[1, ''])]}" />
+                                <field name="grace_period_value" attrs="{'invisible':['|',('grace_period','=',False),('policy_category','in',[1, ''])]}" />
+                                <field name="member_policy_exception_check" attrs="{'invisible':[('policy_category','in',[1, ''])]}" />
+                            </group>
+                        </group>
+                    </page>
+
+                    <page string="Plan">
+                        <field name="member_plan_ids" colspan="4" nolabel="1" select="0"/>
+                    </page>
+
+                    <page string="Family">
+                        <field name="family_ids" colspan="4" nolabel="1" context="{'default_parent_id':active_id,'default_policy_category':policy_category, 'default_policy_id':policy_id, 'default_insurance_period_start':insurance_period_start, 'default_insurance_period_end':insurance_period_end}">
+                            <form>
+                                <group>
+                                    <field name="parent_id" readonly="True"/>
+                                    <field name="policy_id" readonly="True"/>
+                                    <field name="policy_category" readonly="True"/>
+                                    <field name="insurance_period_start" readonly="True"/>
+                                    <field name="insurance_period_end" readonly="True"/>
+                                </group>
+                                <notebook>
+                                    <page string="General Member Data">
+                                    <group>
+                                        <group>
+                                            <field name="member_no" select="0" widget="statinfo"/>
+                                            <field name="name" select="0"/>
+                                            <field name="census_no" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="gender_id" select="0"/>
+                                            <field name="marital_status" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="email" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="mobile_phone" select="0"/>
+                                            <field name="date_of_birth" select="0" on_change="onchange_DoB(date_of_birth)"/>
+                                            <field name="age" select="0"/>
+                                            <field name="birth_place" select="0"/>
+                                            <field name="vip" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="black_listed" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="hold_car_swipe_claim" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <separator string="Remarks" colspan="4"/>
+                                            <field name="remarks" colspan="4" nolabel="1" select="0"/>
+                                        </group>
+
+                                        <group>
+                                            <field name="class_id" widget="selection" domain="[('policy_id','=',policy_id)]"/>
+                                            <field name="membership_id" widget="selection"/>
+                                            <field name="card_no" select="0"/>
+                                            <field name="register_no" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="group_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="payor_id" domain="[('policy_holder_flag','=',1)]" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="premium_type_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="area_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="country_id" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="pre_existing_waived" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="exclude_this_member" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="mno" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <field name="pmno" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                                            <!-- <field name="state" select="0"/> -->
+                                            <field name="upd_code" attrs="{'invisible':[('policy_category','in',[1, ''])]}"/>
+                                            <field name="upd_date" attrs="{'invisible':[('policy_category','in',[1, ''])]}"/>
+                                            <field name="masa_tunggu" attrs="{'invisible':[('policy_category','in',[1, ''])]}" />
+                                            <field name="masa_tunggu_value" attrs="{'invisible':['|',('masa_tunggu','=',False),('policy_category','in',[1, ''])]}" />
+                                            <field name="grace_period" attrs="{'invisible':[('policy_category','in',[1, ''])]}" />
+                                            <field name="grace_period_value" attrs="{'invisible':['|',('grace_period','=',False),('policy_category','in',[1, ''])]}" />
+                                            <field name="member_policy_exception_check" attrs="{'invisible':[('policy_category','in',[1, ''])]}" />
+                                        </group>
+                                    </group>
+                                    </page>
+                                </notebook>
+                            </form>
+                        </field>
+                    </page>
+
+                    <page string="Claim History">
+                        <field name="claim_history_ids" colspan="4" nolabel="1" select="0"/>
+                    </page>
+
+                    <page string="Account">
+                        <group>
+                            <field name="account_no" select="0"/>
+                            <field name="account_name" select="0"/>
+                            <field name="bank" select="0"/>
+                            <field name="bank_name" select="0"/>
+                            <field name="bank_branch" select="0"/>
+                        </group>
+                    </page>
+
+                    <page string="Company Info" attrs="{'invisible':[('policy_category','in',[2, ''])]}">
+                        <group>
+                            <field name="company_id" select="0"/>
+                            <separator string="Address" colspan="4"/>
+                            <field name="company_address" colspan="4" nolabel="1" select="0"/>
+                            <field name="title" select="0"/>
+                            <field name="division" select="0"/>
+                            <field name="branch" select="0"/>
+                            <field name="occupation" select="0"/>
+                        </group>
+                    </page>
+
+                    <page string="Personal Info">
+                        <group>
+                            <field name="id_no" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                            <separator string="Address" colspan="4"/>
+                            <field name="street" colspan="4" nolabel="1" select="0"/>
+                            <field name="city" select="0"/>
+                            <field name="province" select="0"/>
+                            <field name="zip" select="0"/>
+                            <field name="phone" select="0"/>
+                            <field name="mobile" select="0"/>
+                            <field name="fax" select="0"/>
+                            <field name="height" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                            <field name="weight" select="0" attrs="{'invisible':[('policy_category','in',[2, ''])]}"/>
+                        </group>
+                    </page>
+
+                    <page string="Policy Exception">
+                        <!-- <group>
+                            <field name="member_policy_exception_check" />
+                        </group> -->
+                        <field name="member_policy_exception_ids" nolabel="1" attrs="{'invisible':[('member_policy_exception_check','=',False)]}" widget="many2many">
+                            <tree editable="bottom">
+                                <field name="diagnosis_id" />
+                            </tree>
+                        </field>
+                    </page>
+
+                    <!-- <page string="Change History">
+                        <field name="member_change_history_ids" />
+                    </page> -->
+                </notebook>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_netpro_member_tree">
+        <field name="name">netpro.member.tree</field>
+        <field name="model">netpro.member</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="netpro.member" colors="red:state == 'nonactive'">
+                <field name="policy_holder" invisible='1'/>
+                <field name="policy_id"/>
+                <field name="name"/>
+                <field name="birthdate"/>
+                <field name="employee_id"/>
+                <field name="member_no"/>
+                <field name="insurance_period_start"/>
+                <field name="insurance_period_end"/>
+                <field name="state"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_netpro_member">
+        <field name="name">Member</field>
+        <field name="res_model">netpro.member</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name='context'>{'group_by': 'policy_holder','default_policy_category':1}</field>
+        <field name="domain">[('policy_category', '=', 1)]</field>
+    </record>
+
+    <record model="ir.actions.act_window" id="action_netpro_member_individu">
+        <field name="name">Member</field>
+        <field name="res_model">netpro.member</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+        <field name='context'>{'group_by': 'policy_holder','default_policy_category':2}</field>
+        <field name="domain">[('policy_category', '=', 2)]</field>
+    </record>
+    
+    <record model="ir.ui.view" id="view_netpro_member_plan_form">
+        <field name="name">netpro.member_plan.form</field>
+        <field name="model">netpro.member_plan</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="netpro.member_plan">
+                <group>
+                    <!-- <field name="plan_schedule_id" select="2"/> -->
+                    <field name="product_plan_id" select="2"/>
+                    <field name="bamount" select="0"/>
+                    <field name="plan_limit" select="0"/>
+                    <field name="remaining_limit" select="0"/>
+                    <field name="family_limit" select="0"/>
+                    <field name="family_remaining_limit" select="0"/>
+                    <field name="hi_plan" select="0"/>
+                    <field name="aso" select="0"/>
+                    <field name="excess" select="0"/>
+                    <field name="per_disability" select="0"/>
+                    <separator string="Member Plan Details" colspan="4"/>
+                    <field name="member_plan_detail_ids" colspan="4" nolabel="1" select="0"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_netpro_member_plan_tree">
+        <field name="name">netpro.member_plan.tree</field>
+        <field name="model">netpro.member_plan</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="netpro.member_plan">
+                <field name="member_id"/>
+                <!-- <field name="plan_schedule_id"/> -->
+                <field name="product_plan_id"/>
+                <field name="bamount"/>
+                <field name="plan_limit"/>
+                <field name="remaining_limit"/>
+                <field name="family_limit"/>
+                <field name="family_remaining_limit"/>
+                <field name="hi_plan"/>
+                <field name="aso"/>
+                <field name="excess"/>
+                <field name="per_disability"/>
+
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_netpro_member_plan">
+        <field name="name">Member Plan</field>
+        <field name="res_model">netpro.member_plan</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+        
+    <record model="ir.ui.view" id="view_netpro_member_plan_detail_form">
+        <field name="name">netpro.member_plan_detail.form</field>
+        <field name="model">netpro.member_plan_detail</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="netpro.member_plan_detail">
+                <group>
+                    <field name="benefit_id"/>
+                    <field name="reim" select="0"/>
+                    <field name="provider_limit" select="0"/>
+                    <field name="non_provider_limit" select="0"/>
+                    <field name="unit" select="0"/>
+                    <field name="usage" select="0"/>
+                    <field name="remaining" select="0"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_netpro_member_plan_detail_tree">
+        <field name="name">netpro.member_plan_detail.tree</field>
+        <field name="model">netpro.member_plan_detail</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="netpro.member_plan_detail">
+                <field name="member_plan_id"/>
+                <field name="benefit_id"/>
+                <field name="reim"/>
+                <field name="provider_limit"/>
+                <field name="non_provider_limit"/>
+                <field name="unit"/>
+                <field name="usage"/>
+                <field name="remaining"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_netpro_member_plan_detail">
+        <field name="name">Member Plan Detail</field>
+        <field name="res_model">netpro.member_plan_detail</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+    <!-- CLAIM HISTORY -->
+    <record model="ir.ui.view" id="view_netpro_member_claim_history_form">
+        <field name="name">netpro.member_claim_history.form</field>
+        <field name="model">netpro.member_claim_history</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="netpro.member_claim_history">
+                <group>
+                    <field name="claim_id" select="2"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_netpro_member_claim_history_tree">
+        <field name="name">netpro.member_claim_history.tree</field>
+        <field name="model">netpro.member_claim_history</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="netpro.member_claim_history">
+                <field name="claim_id"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_netpro_member_claim_history">
+        <field name="name">Member Claim History</field>
+        <field name="res_model">netpro.member_claim_history</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+
+
+    <record model="ir.ui.view" id="view_netpro_member_policy_exception_form">
+        <field name="name">netpro.member_policy_exception.form</field>
+        <field name="model">netpro.member_policy_exception</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="netpro.member_policy_exception">
+                <group>
+                    <field name="diagnosis_id" select="2"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_netpro_member_policy_exception_tree">
+        <field name="name">netpro.member_policy_exception.tree</field>
+        <field name="model">netpro.member_policy_exception</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="netpro.member_policy_exception">
+                <field name="diagnosis_id"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_netpro_member_policy_exception">
+        <field name="name">Member Policy Exception</field>
+        <field name="res_model">netpro.member_policy_exception</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+        
+</data>
+</openerp>

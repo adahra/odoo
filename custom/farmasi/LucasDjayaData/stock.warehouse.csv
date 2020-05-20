@@ -1,0 +1,4 @@
+"id","name","code","reception_steps"
+"wh_gba","Gudang Bahan Awal","GBA","two_steps"
+"wh_bgk","Gudang Bahan Kemas","GBK","two_steps"
+"wh_goj","Gudang Obat Jadi Pusat","GOJ","two_steps"

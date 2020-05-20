@@ -1,0 +1,273 @@
+<openerp>
+	<data> 
+
+       <!--Operasional--> 
+       <record model="ir.ui.view" id="krs_tree_view">
+            <field name="name">krs.tree</field>
+            <field name="model">operasional.krs</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Kartu Studi" version="7.0">
+                    <field name="kode"/>
+                    <field name="partner_id"/>  
+                    <field name="npm" invisible="1"/> 
+                    <field name="tahun_ajaran_id"/>                       
+                    <field name="prodi_id"/>            
+                    <field name="semester_id"/>
+                    <field name="kurikulum_id"/>
+                    <field name="state" invisible="0"/>
+                </tree>
+            </field>
+        </record>
+
+       <!--Operasional KRS detail--> 
+       <record model="ir.ui.view" id="krs_detail_tree_view">
+            <field name="name">krs.detail.tree</field>
+            <field name="model">operasional.krs_detail</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="MK KHS" version="7.0">
+                    <field name="krs_id" string='Kode KHS'/>
+                    <field name="mata_kuliah_id"/>  
+                    <field name="sks" /> 
+                    <field name="nilai_huruf_field" string="Nilai Akhir"/>                       
+                    <field name="is_konversi"/>            
+                    <field name="state" />
+                </tree>
+            </field>
+        </record>
+
+    <record id="act_invoice_kartu_studi" model="ir.actions.act_window">
+            <field name="name">Invoice</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <!-- <field name="view_id" ref="vit_universities_v8.invoice_tree_mhs"/> -->
+            <field name="search_id" ref="account.view_account_invoice_filter"/>
+            <field name="domain">[('krs_id','=',active_id),('type','=','out_invoice')]</field>
+            <field name="context">{'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale','search_default_group_by_state':True}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    ...
+                </p><p>
+                    Belum ada invoice untuk partner ini...
+                </p>
+            </field>
+        </record> 
+
+        
+        <record id="krs_form_view" model="ir.ui.view">
+            <field name="name">krs.form</field>
+            <field name="model">operasional.krs</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Kartu Studi" version="7.0">
+                    <header>
+                        <button name='confirm' string='Confirm' icon="gtk-execute" states='draft' type='object' groups="vit_universities_v8.group_univ_staff_baak"/>
+                        <button name='done' string='Done' states='confirm' type='object' groups="vit_universities_v8.group_univ_staff_baak"/>
+                        <button name='cancel' string='(Batal)' class="oe_link oe_edit_only" states='confirm' type='object' groups="vit_universities_v8.group_univ_staff_baak"/>
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>
+                	<sheet>
+                        <div class="oe_right oe_button_box">
+                            <button name="%(act_invoice_kartu_studi)d"  type="action"
+                            class="oe_stat_button" icon="fa-money" string="Pembayaran" groups="vit_universities_v8.group_univ_staff_baak"/>
+                           <!--  <label for="invoice_id" string="Pembayaran:" class="oe_inline"/>
+                            <field name="invoice_id" class="oe_inline" context="{'default_type':'out_invoice','type': 'out_invoice'}"/> -->
+                        </div>                        
+	                    <group>
+	                    	<group>                          
+			                    <field name="kode" readonly="1"/>
+                                <!-- <field name="partner_id" on_change="onchange_partner(tahun_ajaran_id,fakultas_id,jurusan_id,kelas_id, partner_id,npm)" attrs="{'readonly': [('state','!=','draft')]}"/> -->
+			                    <field name="partner_id" on_change="onchange_partner(tahun_ajaran_id,fakultas_id, prodi_id,kelas_id, partner_id,npm,konsentrasi_id)" attrs="{'readonly': [('state','!=','draft')]}" required="1"/>
+			                    <field name="npm" invisible="1"/> 
+			                    <field name="kelas_id" widget="selection" attrs="{'readonly': [('state','!=','draft')]}"/>
+			                    <!-- <field name="employee_id"/> -->
+			                    
+
+		                    </group>
+		                    <group>
+			                    <field name="tahun_ajaran_id" widget="selection" attrs="{'readonly': [('state','!=','draft')]}"/>			                    
+                                <field name='fakultas_id' widget="selection" attrs="{'readonly': [('state','!=','draft')]}" domain="[('is_internal','=',True)]"/>
+                                
+                                <field name="prodi_id" widget="selection" attrs="{'readonly': [('state','!=','draft')]}" domain="[('fakultas_id','=',fakultas_id),('is_internal','=',True)]"/> 
+                                <field name='konsentrasi_id' widget="selection" attrs="{'readonly': [('state','!=','draft')]}"/> 
+                                <field name="max_smt" invisible="1"/>                                                     
+			                    <!--button string="View Ipk" type="object" name="button_ipk" states="draft" /-->
+			                </group>    
+	                    </group>
+                        <group>
+                            <group>
+                                <!-- <field name="semester_id" on_change="onchange_semester(npm,tahun_ajaran_id,jurusan_id, semester_id, partner_id)" attrs="{'readonly': [('state','!=','draft')]}" options="{'limit': 8, 'create': false, 'create_edit': false}" /> -->
+                                <field name="is_tambahan" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                <field name="reason" attrs="{'required':[('is_tambahan','=',True)],'readonly': [('state','!=','draft')],'invisible': [('is_tambahan','=',False)]}"/>
+                                <field name="semester_id" on_change="onchange_semester(npm,tahun_ajaran_id, prodi_id, semester_id, partner_id,konsentrasi_id)" attrs="{'readonly': [('state','!=','draft')]}" options="{'limit': 8, 'create': false, 'create_edit': false}" />
+                                <!-- widget="selection" domain="[('name','&lt;=',max_smt)]"/> -->
+                                <!-- <field name="semester_id" widget="selection"/> -->
+                                <field name="kurikulum_id" widget="selection" invisible="1"/>
+                            </group>
+                            <group>   
+                                <field name="user_id"/>     
+                                <field name="sks_tot" invisible="1"/>          
+                                <field name="ips" string="IPK"/>  
+                                <field name="ips_field_persemester" readonly="1" string="IPS"/>  
+                                <field name="ips_field" invisible="1"/>                           
+                            </group>    
+                        </group>                        
+                        <notebook colspan="4">
+                            <page string="Kartu Studi">
+                                <separator string="Kartu Rencana Studi" attrs="{'invisible': [('state','in',('confirm','done'))]}"/>
+                                <separator string="Kartu Hasil Studi" attrs="{'invisible': [('state','=','draft')]}"/>
+                                <field view_mode="tree,form" name="krs_detail_ids" nolabel="1" attrs="{'readonly': [('state','=','done')]}">
+                                    <tree editable="bottom" attrs="{'readonly': [('state','=','done')]}">
+                                        <field name="mata_kuliah_id" attrs="{'readonly': [('state','!=','draft')]}" required="1"/>
+                                        <field name="sks" sum="Total SKS" attrs="{'readonly': [('state','!=','draft')]}"/>
+                                        <field name="absensi" attrs="{'readonly': [('state','!=','confirm')]}" string="Absensi" invisible="1"/>
+                                        <field name="ulangan" invisible="1"/>
+                                        <field name="quiz" invisible="1"/>
+                                        <field name="presentasi" invisible="1"/>
+                                        <field name="lainnya" invisible="1"/>
+
+                                        <field name="tugas" attrs="{'readonly': [('state','!=','confirm')]}" invisible="1"/>
+                                        <field name="uts" attrs="{'readonly': [('state','!=','confirm')]}" invisible="1"/>
+                                        <field name="uas" attrs="{'readonly': [('state','!=','confirm')]}" invisible="1"/>
+                                        <field name="uts_huruf" readonly="1"/>
+                                        <field name="uas_huruf" readonly="1"/>
+                                        <field name="nilai_huruf" invisible="1"/>
+                                        <field name="nilai_angka" attrs="{'invisible': [('state','=','draft')]}" invisible="1"/>
+                                        <field name="nilai_huruf_field" string="Nilai Akhir" readonly="1"/>
+                                        <field name="is_konversi" string="*" readonly="True"/>
+                                        <field name="state" invisible="1"/>
+                                        <field name="is_import" invisible="1"/>
+                                    </tree>
+                                    <form>
+                                        <field name="mata_kuliah_id"/>
+                                        <field name="sks"/>
+                                    </form>
+                                </field>
+                           </page>                       
+                        </notebook>
+
+                    </sheet>    
+                </form>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="transkrip_tree_view">
+            <field name="name">transkrip.tree</field>
+            <field name="model">operasional.transkrip</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Transkrip Nilai">
+                    <field name="partner_id"/> 
+                    <field name="npm" invisible="1"/> 
+                    <field name="tempat_lahir"/>
+                    <field name="tanggal_lahir"/> 
+                    <field name="tahun_ajaran_id"/>
+                    <field name="prodi_id"/> 
+                    <!-- <field name="jurusan_id"/>  -->
+                    <!-- <field name="transkrip_detail_ids"/> -->
+                </tree>
+            </field>
+        </record>
+
+        <record id="transkrip_form_view" model="ir.ui.view">
+            <field name="name">transkrip.form</field>
+            <field name="model">operasional.transkrip</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Transkrip" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="partner_id"/>
+                                <field name="npm" invisible="1"/> 
+                                <field name="tempat_lahir"/>
+                                <field name="tanggal_lahir"/> 
+                                <field name="ipk"/>
+                                <!-- <field name='total_sks'/> -->
+                            </group>
+                            <group>
+                                <field name="tahun_ajaran_id"/>
+                                <field name="fakultas_id"/>
+                                <field name="prodi_id"/> 
+                                <field name="konsentrasi_id"/>
+                                <newline/> 
+                                <field name="yudisium_id"/>
+                                <field name="t_sks" invisible="1"/>
+                                <field name="t_nilai" invisible="1"/>
+                                                  
+                            </group>                          
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Transkrip">
+                                <field view_mode="tree,form" name="transkrip_detail_ids" nolabel="1">
+                                    <tree>
+                                        <field name="mata_kuliah_id"/>
+                                        <field name="sks" sum="Total SKS"/>
+                                        <field name="nilai_angka" invisible="1"/> 
+                                        <field name="nilai_huruf_field"/>
+                                        <field name="is_konversi" string="*Konversi" readonly="1"/>
+                                        <!-- <field name="krs_id" string="KHS" invisible="0"/>  -->                                        
+                                    </tree>                                   
+                                </field>
+                                <group>
+                                    <group >
+                                        <field view_mode="tree,form" name="transkrip_resume_ids" nolabel="1">
+                                        <tree>
+                                            <field name="transkrip_id" invisible="1"/>
+                                            <field name="nilai_id" invisible="1"/>
+                                            <field name="nilai" />
+                                            <field name="jumlah_sks" sum="Total"/>
+                                            <field name="jumlah" sum="Total"/> 
+                                            <!-- <field name="krs_id" string="KHS" invisible="0"/>  -->                                        
+                                        </tree>
+                                        </field>  
+                                    </group>
+                                    <group>
+                                    </group>
+                                </group>    
+                           </page>
+                        </notebook>
+                    </sheet>    
+                </form>
+            </field>
+        </record>
+
+    <record id="act_res_partner_kartu_studi" model="ir.actions.act_window">
+            <field name="name">Kartu Studi</field>
+            <field name="res_model">operasional.krs</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="krs_tree_view"/>
+            <field name="search_id" ref="vit_universities_v8.kartu_studi_search"/>
+            <field name="domain">[('partner_id','=',active_id)]</field>
+            <field name="context">{'default_partner_id':active_id,'search_default_group_by_state':True}</field>
+            <field name="help" type="html">
+                <p class="oe_view_nocontent_create">
+                    ...
+                </p><p>
+                    Belum ada kartu Studi...
+                </p>
+            </field>
+        </record> 
+
+        <record id="res_partner_view_fees_buttons" model="ir.ui.view">
+            <field name="name">Kartu Studi</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form" />
+            <field name="priority" eval="25"/>
+            <field name="arch" type="xml">
+                <xpath expr="//div[@name='buttons']" position="inside">
+                    <button name="%(act_res_partner_kartu_studi)d"  type="action"
+                        class="oe_stat_button" icon="fa-certificate" string="Kartu Studi" groups="vit_universities_v8.group_univ_staff_baak"/>
+                </xpath>
+            </field>
+        </record>
+
+
+
+
+    </data>   
+</openerp>

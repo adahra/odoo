@@ -1,0 +1,3 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_vit_bank_statement_import,access_vit_bank_statement_import,model_vit_bank_statement_import,,1,0,0,0
+access_account_vit_bank_statement_import,access_account_vit_bank_statement_import,model_vit_bank_statement_import,account.group_account_user,1,1,1,1

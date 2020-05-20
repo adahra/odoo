@@ -1,0 +1,336 @@
+<openerp>
+	<data>
+
+        <record model="ir.ui.view" id="absensi_mhs_search">
+            <field name="name">Cari Absensi</field>
+            <field name="model">absensi</field>
+            <field name="arch" type="xml">
+                <search string="Cari jadwal">
+                    <group col="10" colspan="4">
+                         <field name="name"/>
+                         <field name="employee_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="12" col="10">
+                        <filter icon="terp-project" string="Dosen" help="By Pengajar" context="{'group_by':'employee_id'}"/>
+                        <filter icon="terp-project" string="Tahun Ajaran" help="By Tahun Ajaran" context="{'group_by':'tahun_ajaran_id'}"/>
+                        <filter icon="terp-project" string="Fakultas" help="By Fakultas" context="{'group_by':'fakultas_id'}"/>
+                        <!-- <filter icon="terp-project" string="Jurusan" help="By Jurusan" context="{'group_by':'jurusan_id'}"/> -->
+                        <filter icon="terp-project" string="Program Studi" help="By Prodi" context="{'group_by':'prodi_id'}"/>
+                        <filter icon="terp-project" string="Kelas" help="By Kelas" context="{'group_by':'kelas_id'}"/>
+                        <filter icon="terp-project" string="Semester" help="By Semester" context="{'group_by':'semester_id'}"/>
+                        <filter icon="terp-project" string="Mata Kuliah" help="By Mata Kuliah" context="{'group_by':'mata_kuliah_id'}"/>
+                        <filter icon="terp-project" string="State" help="By State" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+    
+
+        <record model="ir.ui.view" id="absensi_mhs_tree_view">
+            <field name="name">absensi.tree</field>
+            <field name="model">absensi</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Absensi" version="7.0">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="kelas_id"/>                   
+                    <field name="tahun_ajaran_id"/>
+                    <field name="fakultas_id"/>
+                    <field name="prodi_id"/>
+                    <field name="mata_kuliah_id"/>
+                    <field name="state" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="absensi_mhs_form_view">
+            <field name="name">absensi.form</field>
+            <field name="model">absensi</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Absensi Kuliah" version="7.0">
+                    <header>
+                        <button name='open_absensi' string='Confirm' states='draft' type='object' groups="vit_universities_v8.group_univ_manager_baak,vit_universities_v8.group_univ_staff_prodi"/>
+                        <button name='close_absensi' string='Close' class="oe_highlight" states='open' type='object' groups="vit_universities_v8.group_univ_dosen"/>
+                        <button name='cancel_absensi' string='Cancel' states='open,close' type='object' groups="vit_universities_v8.group_univ_ka_baak"/>
+                                        
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>                      
+<!--                     <sheet> -->
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="employee_id"/> 
+                                <field name="semester_id" domain="[('name','&lt;',3)]"/>
+                                <field name="user_id" invisible="1"/>
+                            </group>
+                            <group>
+                                <field name="tahun_ajaran_id"/>
+                                <field name="fakultas_id" domain="[('is_internal','=',True)]"/>
+                                <field name="prodi_id" domain="[('fakultas_id','=',fakultas_id),('is_internal','=',True)]"/>
+                            </group>
+                        </group>
+                        <group>    
+                            <group>
+                                <field name="mata_kuliah_id"/> 
+                                <field name="sesi"/>                                                     
+                            </group>
+                            <group>
+                                <field name="konsentrasi_id"/>
+                               <field name="kelas_id" on_change="onchange_kelas(tahun_ajaran_id, fakultas_id, prodi_id,kelas_id,konsentrasi_id)" attrs="{'invisible':[('semester_id','not in',(9,10))]}"/> 
+                            </group>
+                        </group>
+                        <button name="query_mahasiswa_by_pengajuan_krs" string="Query Mahasiswa" type="object" groups="vit_universities_v8.group_univ_staff_baak,vit_universities_v8.group_univ_dosen" attrs="{'invisible':['|',('semester_id','in',(9,10)),('state','!=','draft')]}"/>
+                        <notebook colspan="4">
+                            <page string="Absensi">
+                                <group colspan="4">
+                                    <group>
+                                    </group>
+                                    <group>
+                                        <label for="session"/>
+                                        <div>
+                                        <field name='session' class="oe_inline"/>
+                                        <button name="check_all_absen_per_day" string="Check All" type="object" class="oe_inline" groups="vit_universities_v8.group_univ_dosen" states='open'/>
+                                        <button name="uncheck_all_absen_per_day" string="UnCheck All" type="object" class="oe_inline" groups="vit_universities_v8.group_univ_dosen" states='open'/>
+                                        <button name="confirm_absen_per_day" string="Confirm" class="oe_inline oe_highlight" type="object" groups="vit_universities_v8.group_univ_dosen" states='open'/>
+                                        </div>
+                                    </group>
+                                </group>
+                                <field name="absensi_ids" nolabel="1" widget="one2many_list" attrs="{'readonly':[('state','=','close')]}">
+                                    <tree string="Absensi" editable="bottom">
+                                        <field name="partner_id" readonly="1"/>
+                                        <field name="read_1" invisible="1"/>
+                                        <field name="absensi_1" attrs="{'readonly':[('read_1','=',True)]}"/>
+                                        <field name="read_2" invisible="1"/>
+                                        <field name="absensi_2" attrs="{'readonly':[('read_2','=',True)]}"/>
+                                        <field name="read_3" invisible="1"/>
+                                        <field name="absensi_3" attrs="{'readonly':[('read_3','=',True)]}"/>
+                                        <field name="read_4" invisible="1"/>
+                                        <field name="absensi_4" attrs="{'readonly':[('read_4','=',True)]}"/>
+                                        <field name="read_5" invisible="1"/>
+                                        <field name="absensi_5" attrs="{'readonly':[('read_5','=',True)]}"/>
+                                        <field name="read_6" invisible="1"/>
+                                        <field name="absensi_6" attrs="{'readonly':[('read_6','=',True)]}"/>
+                                        <field name="read_7" invisible="1"/>
+                                        <field name="absensi_7" attrs="{'readonly':[('read_7','=',True)]}"/>
+                                        <field name="read_8" invisible="1"/>
+                                        <field name="absensi_8" attrs="{'readonly':[('read_8','=',True)]}"/>
+                                        <field name="read_9" invisible="1"/>
+                                        <field name="absensi_9" attrs="{'readonly':[('read_9','=',True)]}"/>
+                                        <field name="read_10" invisible="1"/>
+                                        <field name="absensi_10" attrs="{'readonly':[('read_10','=',True)]}"/>
+                                        <field name="read_11" invisible="1"/>
+                                        <field name="absensi_11" attrs="{'readonly':[('read_11','=',True)]}"/>
+                                        <field name="read_12" invisible="1"/>
+                                        <field name="absensi_12" attrs="{'readonly':[('read_12','=',True)]}"/>
+                                        <field name="read_13" invisible="1"/>
+                                        <field name="absensi_13" attrs="{'readonly':[('read_13','=',True)]}"/>
+                                        <field name="read_14" invisible="1"/>
+                                        <field name="absensi_14" attrs="{'readonly':[('read_14','=',True)]}"/>                              
+                                        <field name="percentage"/>
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field> 
+                            </page>
+                            <page string="Nilai">
+                                <p class="oe_grey">Presentase nilai bisa di set ulang pada tab Setting</p>
+                                    <p class="oe_grey">Default penilaian: Absensi(10%), Tugas(20%), UTS(30%), UAS(40%)</p>
+                                <group colspan="4">
+                                    <group>
+                                    </group>
+                                    <group>
+                                        <button name="posting_nilai_uts" string="Posting Nilai UTS" type="object" groups="vit_universities_v8.group_univ_dosen" attrs="{'invisible':[('state','!=','open')]}"/>
+                                        <button name="posting_nilai_uas" string="Posting Nilai UAS" type="object" groups="vit_universities_v8.group_univ_dosen" attrs="{'invisible':[('state','!=','open')]}"/>
+                                    </group>
+                                </group>
+                                <field name="absensi_nilai_ids" nolabel="1" widget="one2many_list">
+                                    <tree string="Absensi" editable="bottom">
+                                        <field name="partner_id" readonly="1"/>
+                                        <field name="ulangan" invisible="1"/>
+                                        <field name="presentasi" invisible="1"/>
+                                        <field name="quiz" invisible="1"/>
+                                        <field name="tugas" string="Tugas/Quiz" attrs="{'readonly':[('state','!=','open')]}"/>
+                                        <field name="lainnya" invisible="1"/>
+                                        <field name="allow_uts" invisible="1"/>
+                                        <field name="uts" attrs="{'readonly':['|',('state','!=','open'),('allow_uts','=',False)]}"/>
+                                        <field name="uts_huruf" readonly="1"/>
+                                        <field name="allow_uas" invisible="1"/>
+                                        <field name="uas" attrs="{'readonly':['|',('state','!=','open'),('allow_uts','=',False)]}"/>
+                                        <field name="uas_huruf" readonly="1"/>                               
+                                        <field name="state" invisible="1"/>
+                                    </tree>
+                                </field>        
+                            </page>                            
+                            <page string="Setting" groups="vit_universities_v8.group_univ_dosen" invisible="1">
+                                <sheet>
+                                    <p class="oe_grey">Setting presentase nilai ini berlaku jika jumlah (Absensi+Tugas+UTS+UAS+Ulangan+Presentasi+Quiz+Lainnya = 100 (%)</p>
+                                    <p class="oe_grey">Default penilaian: Absensi(10%), Tugas(20%), UTS(30%), UAS(40%)</p>
+                                    <group col='4'>
+                                        <group col='1'>
+                                            <label for="absensi" />
+                                            <field name="absensi" nolabel="1" /> 
+                                        </group>
+                                        <group col='1'>
+                                            <label for="tugas" />
+                                            <field name="tugas" nolabel="1"/> 
+                                        </group>
+                                         <group col='1'>
+                                             <label for="uts" />
+                                             <field name="uts"  nolabel="1"/> 
+                                        </group>
+                                        <group col='1'>
+                                            <label for="uas" />
+                                            <field name="uas" nolabel="1"/> 
+                                        </group>
+                                    </group>
+                                    <group col='4'>
+                                        <group col='1'>
+                                            <label for="ulangan" />
+                                            <field name="ulangan" nolabel="1" /> 
+                                        </group>
+                                        <group col='1'>
+                                            <label for="presentasi" />
+                                            <field name="presentasi" nolabel="1"/> 
+                                        </group>
+                                         <group col='1'>
+                                             <label for="quiz" />
+                                             <field name="quiz"  nolabel="1"/> 
+                                        </group>
+                                        <group col='1'>
+                                            <label for="lainnya" />
+                                            <field name="lainnya" nolabel="1"/> 
+                                        </group>
+                                    </group>
+                                </sheet>                                
+                            </page> 
+                            <page string="History Absensi">
+                                <field name="history_absensi_ids" nolabel="1" widget="one2many_list" attrs="{'readonly':[('state','=','close')]}">
+                                    <tree string="History">
+                                        <field name="absensi_id" invisible="1"/>
+                                        <field name="history_absensi_1"/>
+                                        <field name="history_absensi_2"/>
+                                        <field name="history_absensi_3"/>
+                                        <field name="history_absensi_4"/>
+                                        <field name="history_absensi_5"/>
+                                        <field name="history_absensi_6"/>
+                                        <field name="history_absensi_7"/>
+                                        <field name="history_absensi_8"/>
+                                        <field name="history_absensi_9"/>
+                                        <field name="history_absensi_10"/>
+                                        <field name="history_absensi_11"/>
+                                        <field name="history_absensi_12"/>
+                                        <field name="history_absensi_13"/>
+                                        <field name="history_absensi_14"/>                              
+                                    </tree>
+                                </field> 
+                            </page>       
+                        </notebook>
+<!--                     </sheet>    -->
+                </form>
+            </field>
+        </record>
+
+
+        <record model="ir.ui.view" id="master_penilaian_mhs_tree_view">
+            <field name="name">Penilaian</field>
+            <field name="model">master.penilaian</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Absensi" version="7.0">
+                    <field name="tahun_ajaran_id"/>
+                    <field name="absensi"/>
+                    <field name="tugas"/>                   
+                    <field name="uts"/>
+                    <field name="uas"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="master_penilaian_mhs_form_view">
+            <field name="name">Penilaian</field>
+            <field name="model">master.penilaian</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Master Penilaian" version="7.0">
+                    <header>
+                        <button name='confirm_penilaian' string='Confirm' states='draft' type='object' groups="vit_universities_v8.group_univ_ka_baak"/>
+                        <button name='cancel_penilaian' string='Cancel' states='confirm' type='object' groups="vit_universities_v8.group_univ_ka_baak"/>
+                                        
+                        <field name="state" widget="statusbar" nolabel="1"/>
+                    </header>                      
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="tahun_ajaran_id"/>
+                            </group>
+                            <group>
+                                <field name="absensi"/>
+                                <field name="tugas"/>
+                                <field name="uts"/>
+                                <field name="uas"/>                                    
+                            </group>
+                        </group>
+<!--                         <notebook >
+                            <page string="Matakuliah">
+                                <field view_mode="tree" name="mk_detail_ids" nolabel="1">
+                                    <tree version="7.0">
+                                        <field name="kode"/>
+                                        <field name="nama"/>
+                                        <field name="sks"/>
+                                        <field name="dosen_id" />                              
+                                    </tree>
+                                </field> 
+                            </page>
+                           
+                        </notebook> -->
+                    </sheet>   
+                </form>
+            </field>
+        </record>
+        
+
+
+        <record model="ir.actions.act_window" id="absensi_mhs_list_action">
+            <field name="name">Absensi dan Nilai</field>
+            <field name="res_model">absensi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="absensi_mhs_search"/>
+            <field name="view_id" ref="absensi_mhs_tree_view"/>                      
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data absensi.</p><p>disini belum ada data tentang absensi !</p></field>
+        </record>
+
+
+        <record model="ir.actions.act_window" id="penilaian_list_action">
+            <field name="name">Penilaian</field>
+            <field name="res_model">master.penilaian</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>                   
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data master penilaian.</p><p>disini belum ada data tentang master penilaian !</p></field>
+        </record>
+
+
+            <menuitem id="master_absensi" name="Absensi dan Nilai" parent="vit_universities_v8.master_data_kbm" action="absensi_mhs_list_action" sequence="30"/>
+            <menuitem id="master_penilaian" name="Penilaian" parent="vit_universities_v8.master_data" action="penilaian_list_action" sequence="74"/>
+
+        <!--sequance-->
+        <record forcecreate="1" id="seq_type_absensi_mhs" model="ir.sequence.type">
+            <field name="name">Absensi</field>
+            <field name="code">absensi</field>
+        </record>
+        
+        <record  forcecreate="1" id="seq_absensi_mhs" model="ir.sequence">
+            <field name="name">Absensi</field>
+            <field name="code">absensi</field>
+            <field name="prefix">%(y)s/</field>
+            <field name="padding">5</field>
+        </record> 
+
+	</data>
+</openerp>	

@@ -1,0 +1,51 @@
+<openerp>
+<data>
+    <record model="ir.ui.view" id="view_netpro_diagnosis_form">
+        <field name="name">netpro.diagnosis.form</field>
+        <field name="model">netpro.diagnosis</field>
+        <field name="type">form</field>
+        <field name="arch" type="xml">
+            <form string="netpro.diagnosis">
+                <group>
+                    <field name="diagnosis" select="1"/>
+                    <field name="name" select="2"/>
+                    <field name="description" select="0"/>
+                    <field name="description_1" select="0"/>
+                    <field name="exclusion_f" select="0"/>
+                    <field name="pre_existing_f" select="0"/>
+                    <field name="standard_fee" select="0"/>
+                    <field name="standard_treatment_day" select="0"/>
+                    <field name="diagnosis_map" select="0"/>
+                    <field name="poly" select="0"/>
+                    <field name="last_opr" select="0"/>
+                    <field name="allowed_f" select="0"/>
+                </group>
+            </form>
+        </field>
+    </record>
+    <record model="ir.ui.view" id="view_netpro_diagnosis_tree">
+        <field name="name">netpro.diagnosis.tree</field>
+        <field name="model">netpro.diagnosis</field>
+        <field name="type">tree</field>
+        <field name="arch" type="xml">
+            <tree string="netpro.diagnosis">
+                <field name="diagnosis" select="1"/>
+                <field name="name" select="2"/>
+                <field name="description" select="0"/>
+                <field name="description_1" select="0"/>
+                <field name="exclusion_f" select="0"/>
+                <field name="pre_existing_f" select="0"/>
+                <field name="standard_fee" select="0"/>
+                <field name="standard_treatment_day" select="0"/>
+                <field name="diagnosis_map" select="0"/>
+            </tree>
+        </field>
+    </record>
+    <record model="ir.actions.act_window" id="action_netpro_diagnosis">
+        <field name="name">Diagnosis</field>
+        <field name="res_model">netpro.diagnosis</field>
+        <field name="view_type">form</field>
+        <field name="view_mode">tree,form</field>
+    </record>
+</data>
+</openerp>

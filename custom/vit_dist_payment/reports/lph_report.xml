@@ -1,0 +1,20 @@
+<openerp>
+    <data>
+		<report id="lph_report" 
+			 string="Print LPH" 
+			 model="vit_dist_payment.lph" 
+			 name="lph.report" 
+			 rml="vit_dist_payment/reports/lph_report.rml" 
+			 header="False"
+		/>
+		
+		<!--report id="report_webkit" 
+			 model="academic.session" 
+			 name="academic.session.report" 
+			 file="academic/report/session.mako" 
+			 string="Session Report" 
+			 report_type="webkit"
+		/-->
+    </data>
+</openerp>
+

@@ -1,0 +1,605 @@
+<openerp>
+	<data>
+
+
+		<!-- tree partner reliance -->
+		<record id="view_partner_tree_reliance" model="ir.ui.view">
+		    <field name="name">res_partner_tree_reliance</field>
+		    <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_tree"/>
+		    <field name="arch" type="xml">
+		    	<field name="display_name" position="after">
+					<field name='reliance_id'	/>
+					<field name='ls_client_sid'	/>
+					<field name='ls_client_id'	/>
+
+					<field name='ajri_nomor_partisipan'   />
+					<field name='ajri_nomor_polis' 		 />
+					
+					<field name='health_nomor_polis' 	 />
+					<field name='health_member_id' 		 />
+					
+					<field name='refi_no_debitur' 		 />
+					<field name='rmi_sid' 		 />
+					<field name='rmi_account_no' 	 />
+
+					<field name='arg_cust_code' 		 />
+					<field name='arg_nomor_polis' 		 />
+
+		        </field>
+		    </field>
+		</record>
+
+
+		<!-- search partner reliance -->
+		<record id="view_partner_filter_reliance" model="ir.ui.view">
+		    <field name="name">partner.filter.reliance</field>
+		    <field name="model">res.partner</field>
+		    <field name="arch" type="xml">
+		        <search string="Search Partner">
+				            
+		            <field name="name"/>
+					<field name='reliance_id'/>
+					
+					<field name='ajri_nomor_partisipan'/>
+					<field name='ajri_nomor_polis'/>
+
+					<field name='health_nomor_polis'/>
+					<field name='health_member_id'/>					
+
+					<field name='ls_client_sid'/>
+					<field name='ls_client_id'/>
+
+					<field name='refi_no_debitur'/>
+					<field name='rmi_sid'/>
+					<field name='rmi_account_no'/>
+
+					<!-- <field name='arg_company_code'/> -->
+					<field name='arg_cust_code'/>
+					<field name='arg_nomor_polis'/>
+					
+					<field name='city'/>
+					<field name='state_id'/>
+
+					<!-- <field name='agent_id'/>-->
+					<!-- <field name='parent_id'/>-->
+
+	                <filter string="LS" icon="terp-personal" 
+	                    domain="['|',('ls_client_sid','!=',False),('ls_client_id','!=',False)]" name="nasabah_ls"
+	                	context="{}"/>
+	                	
+	                <filter string="AJRI" icon="terp-personal" 
+	                    domain="[('ajri_nomor_polis','!=',False)]" name="nasabah_ajri"
+	                	context="{}"/>
+
+	                <filter string="ARG" icon="terp-personal" 
+	                    domain="[('arg_cust_code','!=',False)]" name="nasabah_arg"
+	                	context="{}"/>
+
+	                <filter string="RMI" icon="terp-personal" 
+	                    domain="[('rmi_account_no','!=',False)]" name="nasabah_rmi"
+	                	context="{}"/>
+
+	                <filter string="REFI" icon="terp-personal" 
+	                    domain="[('refi_no_debitur','!=',False)]" name="nasabah_refi"
+	                	context="{}"/>
+
+	                <filter string="HEALTH" icon="terp-personal" 
+	                    domain="[('health_nomor_polis','!=',False)]" name="nasabah_health"
+	                	context="{}"/>
+
+
+		            <group expand="1" string="Group By...">
+		                
+		                <filter string="Country" icon="terp-personal" 
+		                    domain="[]" name="group_by_country_id"
+		                	context="{'group_by':'country_id'}"/>
+
+		                <filter string="State" icon="terp-personal" 
+		                    domain="[]" name="group_by_state_id"
+		                	context="{'group_by':'state_id'}"/>
+
+		                <filter string="Company" icon="terp-personal" 
+		                    domain="[]" name="group_by_parent_id"
+		                	context="{'group_by':'parent_id'}"/>
+
+		                <filter string="Penghasilan" icon="terp-personal" 
+		                    domain="[]" name="group_by_pekerjaan_penghasilan_per_tahun"
+		                	context="{'group_by':'pekerjaan_penghasilan_per_tahun'}"/>
+
+		                <filter string="Pekerjaan" icon="terp-personal" 
+		                    domain="[]" name="group_by_pekerjaan_nama"
+		                	context="{'group_by':'pekerjaan_nama'}"/>
+
+		                <filter string="Agama" icon="terp-personal" 
+		                    domain="[]" name="group_by_perorangan_agama"
+		                	context="{'group_by':'perorangan_agama'}"/>
+
+		                <filter string="Jenis Kelamin" icon="terp-personal" 
+		                    domain="[]" name="group_by_perorangan_jenis_kelamin"
+		                	context="{'group_by':'perorangan_jenis_kelamin'}"/>
+
+		                <filter string="Initial BU" icon="terp-personal" 
+		                    domain="[]" name="group_by_initial_bu"
+		                	context="{'group_by':'initial_bu'}"/>
+
+		                <filter string="Weekly Growth" icon="terp-personal"
+		                    domain="[]" name="group_by_week"
+		                	context="{'group_by':'create_date:week'}"/>
+		                <filter string="Monthly Growth" icon="terp-personal"
+		                    domain="[]" name="group_by_month"
+		                	context="{'group_by':'create_date'}"/>
+
+		            </group>                                        
+		
+		        </search>
+		    </field>
+		</record>
+
+
+
+		<!-- form partner -->
+        <record id="view_partner_form_reliance" model="ir.ui.view">
+            <field name="name">res_partner_form_reliance</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_partner_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//div[@name='buttons']" position="inside">
+	                <button class="oe_inline oe_stat_button" 
+	                	string="In Campaign?" type="object" name="button_in_campaign"
+	                    icon="fa-star"/> 
+	                <!-- <button class="oe_inline oe_stat_button" 
+	                	string="Merge" type="object" name="button_merge"
+	                    icon="fa-star"/> --> 
+                </xpath>  
+
+            	<field name="website" position="after">
+					<field name='reliance_id' 		 />
+					<field name='related_partner_id' />
+					<field name='initial_bu' />
+					<field name='risk_profile' />
+					<!-- <field name='nomor_nasabah' />
+					<field name='agent_id' 			 />  -->     
+      		
+            	</field>
+
+            	<page string="Sales &amp; Purchases" position="attributes">
+					<attribute name="attrs">{'invisible':True}</attribute>
+            	</page>
+            	<!-- <page string="Accounting" position="attributes">
+					<attribute name="attrs">{'invisible':True}</attribute>
+            	</page> -->
+
+            	<notebook position="inside">
+            		<page string="Keluarga" 
+            			attrs="{'invisible': [('is_company','=',True)]}" >
+            			<field name="partner_keluarga_ids">
+            				<tree string="keluarga">
+								<field name='nama' 				 />
+								<field name='nomor_telepon' 	 />
+								<field name='hubungan_keluarga'  />
+								<field name='alamat' 			 />
+								<field name='tgl_lahir' />			
+								<field name='jenis_kelamin' />		
+								<field name='pendidikan' />		
+								<field name='profesi' />											
+            				</tree>
+            			</field>
+            		</page>
+            		
+            		<page string="Ahli Waris" 
+            			attrs="{'invisible': [('is_company','=',True)]}">
+            			<field name="partner_ahli_waris_ids">
+            				<tree string="ahli waris">
+								<field name='nama' 				 />
+								<field name='nomor_telepon' 	 />
+								<field name='hubungan_keluarga'  />
+								<field name='alamat' 			 />
+								<field name='pendidikan_terakhir' />
+            				</tree>
+            			</field>
+            		</page>
+
+            		<page string="Perorangan" 
+            			attrs="{'invisible': [('is_company','=',True)]}">
+            			<group>
+	            			<group>
+								<field name='perorangan_tempat_lahir' 		 />
+								<field name='perorangan_tanggal_lahir' 		 />
+								<field name='perorangan_nomor_ktp' 					 />
+								<field name='perorangan_kewarganegaraan' 			 />
+								<field name='perorangan_npwp' 						 />
+								<field name='perorangan_status_perkawinan' 			 />
+								<field name='perorangan_alamat_surat_menyurat' 		 />
+								<field name='perorangan_jenis_kelamin' 				 />
+								<field name='perorangan_nama_istri_suami' 			 />
+								<field name='perorangan_alamat_email' 				 />
+								<field name='perorangan_pendidikan_terakhir' 		 />
+								<field name='perorangan_masa_berlaku_ktp' 			 />
+								<field name='perorangan_agama' 						 />
+								<field name='perorangan_tujuan_investasi' 			 />
+								<field name='perorangan_kitas' 						 />
+								<field name='perorangan_masa_berlaku_kitas' 		 />
+								<field name='perorangan_paspor' 					 />
+								<field name='perorangan_masa_berlaku_paspor' 		 />
+							</group>
+							<group>
+								<field name='perorangan_nama_gadis_ibu_kandung' 	 />
+								<field name='perorangan_sumber_dana_yg_akan_diinvestasikan' />
+								<field name='perorangan_alamat_tempat_tinggal_saat_ini' />
+								<field name='perorangan_periode_asuransi' 			 />
+								<field name='perorangan_lokasi_resiko' 				 />
+								<field name='perorangan_harga_pertanggungan' 		 />
+								<field name='perorangan_kondisi_bangunan' 			 />
+								<field name='perorangan_penggunaan_bangunan_kendaraan' />
+								<field name='perorangan_wilayah_kendaraan' 			 />
+								<field name='perorangan_obyek_pertanggungan' 		 />
+								<field name='perorangan_jenis_pertanggungan' 		 />
+								<field name='perorangan_jenis_perluasan' 			 />
+								<field name='perorangan_pengalaman_klaim' 			 />
+								<field name='perorangan_status_nasabah' 			 />
+								<field name='perorangan_kegiatan_berorganisasi' 	 />
+								<field name='perorangan_nama_organisasi' 			 />
+								<field name='perorangan_jabatan' 	 />	
+	            			</group>
+            			</group>
+
+            			<separator string="Hobbies" />
+            			<field name="hobby_ids" />
+
+            		</page>
+
+            		<page string="Pekerjaan" 
+            			attrs="{'invisible': [('is_company','=',True)]}">
+            			<group>
+							<field name='pekerjaan_nama' 				 />
+							<field name='pekerjaan_nama_perusahaan' 	 />
+							<field name='pekerjaan_alamat_perusahaan' 	 />
+							<field name='pekerjaan_bidang_usaha' 		 />
+							<field name='pekerjaan_penghasilan_per_tahun' />
+							<field name='pekerjaan_jabatan' 			 />
+							<field name='pekerjaan_penghasilan_per_bulan' />
+							<field name='pekerjaan_nomor_npwp' 			 />
+							<field name='pekerjaan_nomor_telepon' 		 />
+							<field name='pekerjaan_alamat_email' 		 />
+							<field name='pekerjaan_masa_kerja' 			 />
+							<field name='pekerjaan_nama_direktur' 		 />
+							<field name='pekerjaan_nomor_extension' 	 />
+							<field name='pekerjaan_nomor_faksimile' 	 />
+						</group>
+            		</page>
+
+            		<page string="Perusahaan" >
+            			<group>
+							<field name='perusahaan_npwp' 						 />
+							<field name='perusahaan_bidang_usaha' 				 />
+							<field name='perusahaan_siup' 						 />
+							<field name='perusahaan_tdp' 						 />
+							<field name='perusahaan_akte_pendirian' 			 />
+							<field name='perusahaan_nomor_ijin_usaha' 			 />
+							<field name='perusahaan_nama_direktur' 				 />
+							<field name='perusahaan_sumber_dana' 				 />
+							<field name='perusahaan_tujuan_asuransi_investasi' 	 />
+							<field name='perusahaan_bentuk_badan_usaha' 		 />
+							<field name='perusahaan_nama_direksi' 				 />
+							<field name='perusahaan_domisili_perusahaan' 		 />
+							<field name='perusahaan_tanggal_kedaluarsa_siup' 	 />
+							<field name='perusahaan_kode_nasabah' 				 />
+							<field name='perusahaan_karakteristik_perusahaan' 	 />
+							<field name='perusahaan_status_domisili_kantor' 	 />
+							<field name='perusahaan_persentase_kepemilikan_saham' />
+							<field name='perusahaan_tanggal_kedaluarsa_tdp' 	 />
+							<field name='perusahaan_nomor_single_investor_id' 	 />
+							<field name='perusahaan_nama_bank_nomor_rekening' 	 />
+							<field name='perusahaan_nomor_formulir' 			 />
+							<field name='perusahaan_nama_equity_sales' 			 />
+							<field name='perusahaan_kode_equity_sales' 			 />
+							<field name='perusahaan_kantor_perwakilan_galery' 	 />
+							<field name='perusahaan_nomor_sub_rekening_efek' 	 />
+							<field name='perusahaan_nama_komisaris' 			 />
+							<field name='perusahaan_jabatan' 					 />
+							<field name='perusahaan_diterbitkan_di' 			 />
+							<field name='perusahaan_nomor_ijin_pma' 			 />
+							<field name='perusahaan_tanggal_kedaluarsa_pma' 	 />
+							<field name='perusahaan_diterbitkan_di' 			 />
+							<field name='perusahaan_tahun_berdiri_perusahaan' 	 />
+							<field name='perusahaan_jumlah_karyawan' 			 />
+							<field name='perusahaan_jumlah_karyawan_yang_diikutsertakan' />
+							<field name='perusahaan_polis_lain_yang_dimiliki' 	 />
+							<field name='perusahaan_tujuan_menutup_asuransi' 	 />
+							<field name='perusahaan_modal_disetor' 				 />
+							<field name='perusahaan_total_asset' 				 />
+							<field name='perusahaan_total_kewajiban' 			 />
+							<field name='perusahaan_laba_bersih' 				 />
+							<field name='perusahaan_pendapatan_operasional' 	 />
+							<field name='perusahaan_pendapatan_non_operasional'  />		
+						</group>
+            		</page>
+
+            		<page string="Related Partners" >
+            			<field name="related_partner_ids" readonly="1">
+            				<tree string="Related Parners">
+            					<field name="name"/>
+								<field name='reliance_id'/>
+
+								<field name='ajri_nomor_partisipan'/>
+								<field name='ajri_nomor_polis'/>
+
+								<field name='health_nomor_polis'/>
+								<field name='health_member_id'/>					
+
+								<field name='ls_client_sid'/>
+								<field name='ls_client_id'/>
+
+								<field name='refi_no_debitur'/>
+								<field name='rmi_sid'/>
+
+								<field name='arg_cust_code'/>
+							</tree>            			
+						</field>
+            		</page>
+
+            		<page string="LS" >
+
+        				<group>
+							<field name='ls_client_sid' 				 />
+							<field name='ls_client_id' 				 />   
+        				</group>
+            			
+            			<notebook string="LS">
+		            		<page string="LS Cash" >
+		            			<field name="partner_cash_ids">
+		            				<tree string="LS Cash"  editable="bottom">
+										<!-- <field name="client_id"		 /> -->
+										<field name="date"			 />
+										<field name="cash_on_hand"	 />
+										<field name="saldo_t1"		 />
+										<field name="saldo_t2"		 />
+		            				</tree>
+		            			</field>
+		            		</page>
+
+		            		<page string="LS Stock" >
+		            			<field name="partner_stock_ids">
+		            				<tree string="LS Stock"  editable="bottom">
+										<field name="date"				 />
+										<!-- <field name="client_id"			 /> -->
+										<field name="stock_id"			 />
+										<field name="stock_name"			 />
+										<field name="avg_price"			 />
+										<field name="close_price"		 />
+										<field name="balance"			 />
+										<field name="lpp"				 />
+										<field name="stock_avg_value"	 />
+										<field name="market_value"		 />
+										<field name="stock_type"		 />
+										<field name="sharesperlot"		 />
+									</tree>
+		            			</field>
+		            		</page>
+		            	</notebook>
+	            	</page>
+
+            		<page string="AJRI" >
+
+            			<group>
+							<field name='ajri_parent_id'  />
+							<field name='ajri_nomor_polis' 		 />
+							<field name='ajri_nomor_partisipan'  />
+						</group>
+
+						<separator string="Product"/>
+
+            			<field name="partner_ajri_product_ids">
+	            			<tree string="AJRI"  editable="bottom">
+								<field name='product_id'		 />
+								<field name='start_date'		 />
+								<field name='end_date'			 />
+								<field name='status'			 />
+								<field name='up'				 />
+								<field name="total_premi"		 />
+								<field name="status_klaim"		 />
+								<field name="status_bayar"		 />
+								<field name="tgl_bayar"			 />
+								<field name="klaim_disetujui" 	 />
+	            			</tree>
+	            		</field>
+					</page>	
+
+            		<page string="ARG" >
+            			<group>
+							<field name="arg_cust_code" />		
+							<field name="arg_nomor_polis" />		
+							<!-- <field name="arg_parent_id" />		 -->
+
+						</group>
+
+						<group string="Polis" >
+
+							<field name="partner_polis_ids"  
+								nolabel="1">
+								<tree string="Polis"  editable="bottom">
+									<field name="arg_nomor_polis" />		
+									<field name="arg_class" />		
+									<field name="arg_subclass" />	
+									<field name="arg_eff_date" />	
+									<field name="arg_exp_date" />	
+									<field name="arg_company_code" />	
+									<field name="arg_company_name" />	
+									<field name="arg_company_type" />	
+									<field name="arg_marketing_code" />
+									<field name="arg_marketing_name" />								
+									<field name="arg_qq" />		
+									<field name="arg_cp" />	
+								</tree>
+							</field>
+						</group>
+
+
+						<group string="Assets" >
+							<field name="partner_polis_risk_ids"  
+								nolabel="1">
+								<tree string="Polis Risk"  editable="bottom">
+									<field name="policy_id"					 />
+									<field name="asset_description"			 />
+									<field name="item_no"					 />
+									<field name="tahun"						 />
+									<field name="total_premi"				 />
+									<field name="total_nilai_pertanggungan"	 />
+								</tree>
+							</field>							
+						</group>
+
+					</page>	   
+
+            		<page string="RMI" >
+            			<group>
+							<field name="rmi_account_no" />
+							<field name="rmi_sid" />
+							<field name="rmi_tanggal_lahir" />
+							<field name="rmi_alamat_surat_menyurat" />	
+							<field name="rmi_kota_surat_menyurat" />	
+							<field name="rmi_propinsi_surat_menyurat" />	
+							<field name="rmi_kode_pos_surat_menyurat" />
+							<field name="rmi_negara_surat_menyurat" />	
+							<field name="rmi_alasan_berinvestasi" />	            				
+            			</group>
+
+            			<separator string="Product Holding"/>
+            			
+            			<group>
+							<field name="rmi_tanggal"				 />
+							<field name="rmi_product_id"				 />
+							<field name="rmi_product_name"				 />
+							<field name="rmi_unit_penyertaan"			 />
+							<field name="rmi_nab_saat_beli"				 />
+							<field name="rmi_nab_sampai_hari_ini"		 />
+							<field name="rmi_nominal_investasi_awal"	 />
+							<field name="rmi_nominal_investasi_akhir"	 />
+							<field name="rmi_profit_capital_loss"		 />            				
+            			</group>
+					</page>	 
+
+            		<page string="REFI" >
+
+            			<group>
+	            			<group>
+	            				<field name="refi_parent_id"/>
+	            				<field name="refi_tanggal_masuk_kerja"/>
+	            				<field name="refi_tanggal_bayar"/>
+	            				<field name="refi_frek_bayar"/>
+	            			</group>            				
+
+            				<group>
+								<field name='refi_no_debitur' />			
+								<field name='refi_wilayah' />				
+								<field name='refi_status_rumah' />			
+								<field name='refi_pisah_harta' />			
+								<field name='refi_tanggunan' />			
+							</group>
+
+							<group>
+								<field name="refi_domisili_kecamatan" /> 	
+								<field name="refi_domisili_kota" />		
+								<field name="refi_domisili_propinsi" />	
+								<field name="refi_kode_pos" />				
+								<field name="refi_tipe_id" />				
+							</group>
+						</group>
+
+
+						<group string="Statement">
+							<group>
+								<field name="refi_bulan_tahun_survey" />				
+								<field name="refi_time_deps_saving_account" />			
+								<field name="refi_vehicle" />							
+								<field name="refi_jml_kendaraan" />					
+								<field name="refi_properties" />						
+								<field name="refi_jml_rumah" />						
+								<field name="refi_others_aktiva_lainnya" />			
+								<field name="refi_mortagage_loan_inst" />				
+								<field name="refi_mortgage_loan_inst_balance" />		
+								<field name="refi_renting" />	
+							</group>
+
+							<group>
+								<field name="refi_car_credit" />						
+								<field name="refi_car_credit_balance" />				
+								<field name="refi_credit_card" />						
+								<field name="refi_credit_card_balance" />				
+								<field name="refi_credit_line" />						
+								<field name="refi_credit_line_balance" />				
+								<field name="refi_monthly_expenditure" />				
+								<field name="refi_monthly_expenditure_balance" />		
+								<field name="refi_mortgage_loan_int" />				
+								<field name="refi_mortgage_loan_int_balance_equity" />	
+								<field name="refi_other" />							
+								<field name="refi_other_balance_equity_net_income" />	
+								<field name="refi_spouse_income" />					
+								<field name="refi_other_income" />
+							</group>
+						</group>
+
+						<separator string="Kontrak"/>
+						<field name="refi_kontrak_ids">
+							<tree string="Kontrak"  editable="bottom">
+								<field name="contract_number" />	
+								<!-- <field name="customer_no" />		 -->
+								<!-- <field name="customer_name" />		 -->
+								<field name="product" />			
+								<field name="asset_name" />		
+								<field name="outstanding" />		
+								<field name="next_installment" />	
+								<field name="pass_due" />			
+								<field name="maturity_date" />
+							</tree>
+						</field>
+
+					</page>	   
+
+            		<page string="Health" >
+            			<group>
+							<field name='health_parent_id' />
+							<field name='health_nomor_polis' />
+							<field name='health_member_id' />
+							
+							<field name='health_product' />
+							<field name='health_effdt'	/>
+							<field name='health_expdt'/>
+							<field name='health_status' />
+							<field name='health_relationship'/>	
+						</group>	
+
+						<separator string="Benefit and Limit" />
+
+            			<field name="health_limit_ids">
+	            			<tree string="Benefit Limit" editable="bottom">
+								<field name="policyno" />
+								<field name="membid" />	
+								<field name="manfaat" />
+								<field name="limit" />		
+	            			</tree>
+	            		</field>										
+					</page>	            	
+            	</notebook>
+
+            </field>
+        </record>
+
+
+
+        <!-- graph -->
+        <record id="view_partner_graph" model="ir.ui.view">
+            <field name="name">partner_graph</field>
+            <field name="model">res.partner</field>
+            <field name="arch" type="xml">
+                <graph string="partner_analysis" type="pie">
+                    <field name="initial_bu"/>
+					<!-- <field name="real_order" operator="+"/>
+                    <field name="unfilled" operator="+"/> -->
+                </graph>
+            </field>
+        </record>
+	</data>
+</openerp>

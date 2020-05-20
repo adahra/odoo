@@ -1,0 +1,47 @@
+<openerp>
+<data>      
+
+<!--        <record id="vit_mrp_bom_component_tree_view" model="ir.ui.view">
+            <field name="name">mrp.bom.component.tree</field>
+            <field name="model">mrp.bom.line</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_component_tree_view"/>
+            <field name="arch" type="xml">
+            	<field name="product_qty" position="after">
+            		<field name="position"/>
+            		<field name="ket_bahan"/>
+            		<field name="ket_mesin"/>
+            	</field>
+            </field>
+        </record>   -->  		
+
+        <record id="vit_mrp_bom_form_view" model="ir.ui.view">
+            <field name="name">mrp.bom.form</field>
+            <field name="model">mrp.bom</field>
+            <field name="inherit_id" ref="mrp.mrp_bom_form_view"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='bom_line_ids']/tree/field[@name='date_stop']" position="after">    
+                    <field name="position"/>
+                    <field name="ket_bahan"/>
+                    <field name="ket_mesin"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="vit_mrp_workcenter_view2" model="ir.ui.view">
+            <field name="name">mrp.workcenter</field>
+            <field name="model">mrp.workcenter</field>
+            <field name="inherit_id" ref="mrp.mrp_workcenter_view"/>
+            <field name="arch" type="xml">
+                <field name="time_cycle" position="replace">
+                    <field name="time_cycle2" style="width: 20%"/>
+                    <field name="time_cycle" invisible="1"/>
+                    <field name="convert_tc1_ke_tc" invisible="1"/>
+                </field>     
+            </field>
+        </record>  
+
+
+</data>
+</openerp>            

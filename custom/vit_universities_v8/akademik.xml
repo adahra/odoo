@@ -1,0 +1,1080 @@
+<openerp>
+    <data>
+        
+        <!--master data kurikulum-->
+        <record model="ir.ui.view" id="kurikulum_search">
+            <field name="name">Cari kurikulum</field>
+            <field name="model">master.kurikulum</field>
+            <field name="arch" type="xml">
+                <search string="Cari kurikulum">
+                    <group col="10" colspan="4">
+                         <field name="name"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="12" col="10">
+                        <filter icon="terp-project" string="Tahun Ajaran" help="By Tahun Ajaran" context="{'group_by':'tahun_ajaran_id'}"/>
+                        <filter icon="terp-project" string="Fakultas" help="By Fakultas" context="{'group_by':'fakultas_id'}"/>
+                        <!-- <filter icon="terp-project" string="Jurusan" help="By Jurusan" context="{'group_by':'jurusan_id'}"/> -->
+                        <filter icon="terp-project" string="Program Studi" help="By Prodi" context="{'group_by':'prodi_id'}"/>
+                        <filter icon="terp-project" string="Semester" help="By Semester" context="{'group_by':'semester_id'}"/>
+                        <filter icon="terp-project" string="Status" help="By Status" context="{'group_by':'state'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="kurikulum_list_action">
+            <field name="name">Kurikulum</field>
+            <field name="res_model">master.kurikulum</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="kurikulum_search"/>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data kurikulum.</p><p>disini belum ada data tentang kurikulum !</p></field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="mk_list_action">
+            <field name="name">Matakuliah</field>
+            <field name="res_model">master.matakuliah</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data mata kuliah.</p><p>disini belum ada data tentang mata kuliah !</p></field>
+        </record>
+
+
+
+
+        <!-- master data kelas -->
+        <record model="ir.ui.view" id="kelas_search">
+            <field name="name">Cari Kelas</field>
+            <field name="model">master.kelas</field>
+            <field name="arch" type="xml">
+                <search string="Cari kelas">
+                    <group col="10" colspan="4">
+                         <field name="name"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="12" col="10">
+                        <filter icon="terp-project" string="Dosen" help="By Pengajar" context="{'group_by':'employee_id'}"/>
+                        <filter icon="terp-project" string="Tahun Ajaran" help="By Tahun Ajaran" context="{'group_by':'tahun_ajaran_id'}"/>
+                        <filter icon="terp-project" string="Fakultas" help="By Fakultas" context="{'group_by':'fakultas_id'}"/>
+                        <!-- <filter icon="terp-project" string="Jurusan" help="By Jurusan" context="{'group_by':'jurusan_id'}"/> -->
+                        <filter icon="terp-project" string="Program Studi" help="By Prodi" context="{'group_by':'prodi_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="kelas_list_action">
+            <field name="name">Kelas</field>
+            <field name="res_model">master.kelas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="kelas_search"/>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data kelas.</p><p>disini belum ada data tentang kelas !</p></field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="ruangan_list_action">
+            <field name="name">Ruangan</field>
+            <field name="res_model">master.ruangan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data ruangan.</p><p>disini belum ada data tentang ruangan !</p></field>
+        </record>
+
+        <record model="ir.actions.act_window" id="lokasi_kampus_list_action">
+            <field name="name">Lokasi Kampus</field>
+            <field name="res_model">master.alamat.kampus</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data lokasi kampus.</p><p>disini belum ada data tentang lokasi kampus !</p></field>
+        </record>
+
+        <!--  master data jadwal  -->
+        <record model="ir.ui.view" id="jadwal_kuliah_mhs_search">
+            <field name="name">Cari Jadwal</field>
+            <field name="model">master.jadwal</field>
+            <field name="arch" type="xml">
+                <search string="Cari jadwal">
+                    <group col="10" colspan="4">
+                         <field name="name"/>
+                         <field name="employee_id"/>
+                         <field name="wali_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="12" col="10">
+                        <filter icon="terp-project" string="Dosen" help="By Pengajar" context="{'group_by':'employee_id'}"/>
+                        <filter icon="terp-project" string="Dosen Wali" help="By Wali" context="{'group_by':'wali_id'}"/>
+                        <filter icon="terp-project" string="Tahun Ajaran" help="By Tahun Ajaran" context="{'group_by':'tahun_ajaran_id'}"/>
+                        <filter icon="terp-project" string="Fakultas" help="By Fakultas" context="{'group_by':'fakultas_id'}"/>
+                        <!-- <filter icon="terp-project" string="Jurusan" help="By Jurusan" context="{'group_by':'jurusan_id'}"/> -->
+                        <filter icon="terp-project" string="Program Studi" help="By Prodi" context="{'group_by':'prodi_id'}"/>
+                        <filter icon="terp-project" string="Kelas" help="By Kelas" context="{'group_by':'kelas_id'}"/>
+                        <filter icon="terp-project" string="Ruangan" help="By Ruangan" context="{'group_by':'ruangan_id'}"/>
+                        <filter icon="terp-project" string="Semester" help="By Semester" context="{'group_by':'semester_id'}"/>
+                        <filter icon="terp-project" string="Mata Kuliah" help="By Mata Kuliah" context="{'group_by':'mata_kuliah_id'}"/>
+                        <filter icon="terp-project" string="Lokasi Kps" help="By Lokasi Kampus" context="{'group_by':'alamat_id'}"/>
+                        <filter icon="terp-project" string="Total Sesi" help="By Total Sesi" context="{'group_by':'sesi'}"/>
+                        <filter icon="terp-project" string="Hari" help="By Hari" context="{'group_by':'hari'}"/>
+                        <filter icon="terp-project" string="Aktif" help="By Aktif" context="{'group_by':'is_active'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="jadwal_kuliah_mhs_list_action">
+            <field name="name">Jadwal</field>
+            <field name="res_model">master.jadwal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="search_view_id" ref="jadwal_kuliah_mhs_search"/>
+            <field name="view_id" ref="vit_universities_v8.jadwal_kuliah_mhs_tree_view"/>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data jadwal.</p><p>disini belum ada data tentang jadwal !</p></field>
+        </record>
+
+
+        <!--  action window master fakultas -->
+        <record model="ir.actions.act_window" id="fakultas_list_action">
+            <field name="name">Fakultas</field>
+            <field name="res_model">master.fakultas</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_is_internal':True}</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data fakultas.</p><p>disini belum ada data tentang fakultas !</p></field>
+        </record>
+        
+        <!--  tree fakultas -->
+        <record model="ir.ui.view" id="fakultas_tree_view">
+            <field name="name">fakultas.tree</field>
+            <field name="model">master.fakultas</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Fakultas" version="7.0" >
+                    <field name="kode"/>
+                    <field name="kode_dikti"/>
+                    <field name="name"/>
+                    <field name="pt_id"/>
+                    <field name="coa_hutang_id" invisible="1"/>
+                   <field name="coa_piutang_id" invisible="1"/>
+
+                </tree>
+            </field>
+        </record>
+
+        <!-- ini definisi search fakultas -->
+        <record id="view_fakultas_filter" model="ir.ui.view">
+            <field name="name">fakultas.filter</field>
+            <field name="model">master.fakultas</field>
+            <field name="arch" type="xml">
+                <search string="Search Fakultas">
+
+                    <filter icon="terp-mail-message-new" 
+                        string="Internal" 
+                         name="is_internal" domain="[('is_internal','=',True)]"/>
+                    <filter icon="terp-mail-message-new" 
+                        string="External" 
+                         name="is_external" domain="[('is_internal','=',False)]"/>
+                    <separator/>
+
+                    <field name="pt_id"/>
+                    <field name="name"/>
+                    
+                    <group expand="1" string="Group By...">
+                        <filter string="PT" icon="terp-personal" 
+                            domain="[]" 
+                             context="{'group_by':'pt_id'}"/>        
+                    </group>                                        
+        
+                </search>
+            </field>
+        </record>
+
+        <!--  action window master data jurusan  -->
+        <record model="ir.actions.act_window" id="jurusan_list_action">
+            <field name="name">Jurusan</field>
+            <field name="res_model">master.jurusan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data jurusan.</p><p>disini belum ada data tentang jurusan !</p></field>
+        </record>
+
+        
+        <!-- Prodi tree -->
+        <record model="ir.ui.view" id="prodi_tree_view">
+            <field name="name">prodi.tree</field>
+            <field name="model">master.prodi</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Program Studi" version="7.0">
+                    <field name="kode"/>
+                    <field name="kode_dikti"/>
+                    <field name="kode_internal"/>
+                    <field name="name"/>                    
+                    <!-- <field name="jurusan_id"/> -->
+                    <field name="fakultas_id"/>
+                    <field name="semester_id" widget="selection"/>
+                    <field name="jenjang"/>
+                    <field name="gelar_id"/>
+                </tree>
+            </field>
+        </record>
+
+        <!-- Prodi form -->
+        <record model="ir.ui.view" id="prodi_form_view">
+            <field name="name">prodi.form</field>
+            <field name="model">master.prodi</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Program Studi" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="kode"/>
+                                <field name="kode_dikti"/>
+                                <field name="kode_internal"/>
+                                <field name="name"/>                    
+                                <field name="fakultas_id"/>
+                            </group>
+
+                            <group >
+                                <field name="gelar_id"/>
+                                <field name="semester_id" widget="selection"/>
+                                <field name="jenjang"/> 
+                                <field name="is_internal"/>
+                                <field name="coa_hutang_id"/>
+                                <field name="coa_piutang_id"/>
+                            </group>                          
+                        </group>
+                    </sheet>                     
+                </form>               
+            </field>
+        </record>
+
+        <!-- Prodi search -->
+        <record model="ir.ui.view" id="prodi_search">
+            <field name="name">Cari Prodi</field>
+            <field name="model">master.prodi</field>
+            <field name="arch" type="xml">
+                <search string="Cari Prodi">
+                    <group col="10" colspan="4">
+                         <field name="name"/>
+                    </group>
+                    <filter icon="terp-mail-message-new" 
+                        string="Internal" 
+                         name="is_internal" domain="[('is_internal','=',True)]"/>
+
+                    <filter icon="terp-mail-message-new" 
+                        string="External" 
+                         name="is_external" domain="[('is_internal','=',False)]"/>
+
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="12" col="10">
+                        <filter icon="terp-project" string="Fakultas" name="fakultas_id" help="By Fakultas" context="{'group_by':'fakultas_id'}"/>
+                        <filter icon="terp-project" string="Jenjang" name="jenjang" help="By Jenjang" context="{'group_by':'jenjang'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>   
+             
+        <!--  action window master data prodi  -->
+        <record model="ir.actions.act_window" id="prodi_list_action">
+            <field name="name">Program Studi</field>
+            <field name="res_model">master.prodi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_is_internal':True}</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data program studi.</p><p>disini belum ada data tentang program studi !</p></field>
+        </record>
+
+        <!--  action window master konsentrasi  -->
+        <record model="ir.actions.act_window" id="konsentrasi_list_action">
+            <field name="name">konsentrasi</field>
+            <field name="res_model">master.konsentrasi</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data konsentrasi.</p><p>disini belum ada data tentang konsentrasi !</p></field>
+        </record>
+
+
+        <!-- master data Academic Years Information Tree View -->
+        <record model="ir.ui.view" id="view_academic_year_tree">
+            <field name="name">academic.year.tree</field>
+            <field name="model">academic.year</field>
+            <field name="arch" type="xml">
+                <tree string="Academic Years">
+                    <field name="name"/>  
+                    <field name="code"/>
+                    <field name="date_start"/>
+                    <field name="date_stop"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="thn_akademik_list_action">
+            <field name="name">Tahun Akademik</field>
+            <field name="res_model">academic.year</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_academic_year_tree"/>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data tahun akademik.</p><p>disini belum ada data tentang tahun akademik !</p></field>
+        </record>
+
+
+
+
+        <!-- master data Academic Months Information Tree View -->
+        <record model="ir.ui.view" id="view_academic_month_tree">
+            <field name="name">academic.month.tree</field>
+            <field name="model">academic.month</field>
+            <field name="arch" type="xml">
+                <tree string="Months">
+                    <field name="code"/>
+                    <field name="name"/>
+                    <field name="date_start"/>
+                    <field name="date_stop"/>
+                    <field name="year_id"/>
+                </tree>
+            </field>
+        </record>
+ 
+        <record model="ir.actions.act_window" id="bln_akademik_list_action">
+            <field name="name">Bulan Akademik</field>
+            <field name="res_model">academic.month</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_academic_month_tree"/>  
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data bulan akademik.</p><p>disini belum ada data tentang bulan akademik !</p></field>
+        </record>
+
+
+
+
+        <!--  master data semester  -->
+        <record model="ir.actions.act_window" id="semester_list_action">
+            <field name="name">Semester</field>
+            <field name="res_model">master.semester</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data semester.</p><p>disini belum ada data semester !</p></field>
+        </record>
+
+        <!--  master data nilai  -->        
+        <record model="ir.actions.act_window" id="nilai_list_action">
+            <field name="name">Nilai</field>
+            <field name="res_model">master.nilai</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data nilai.</p><p>disini belum ada data nilai !</p></field>
+        </record>
+
+        <!--  master data yudisium  -->
+        <record model="ir.ui.view" id="view_yudisium_tree">
+            <field name="name">Yudisium</field>
+            <field name="model">master.yudisium</field>
+            <field name="arch" type="xml">
+                <tree string="Months" editable="bottom">
+                    <field name="name"/>
+                    <field name="min"/>
+                    <field name="max"/>
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="yudisium_list_action">
+            <field name="name">Yudisium</field>
+            <field name="res_model">master.yudisium</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data yudisium.</p><p>disini belum ada data yudisium !</p></field>
+        </record>
+
+        <!--  master data jenis pelanggaran  -->
+        <record model="ir.actions.act_window" id="jenis_pelanggaran_list_action">
+            <field name="name">Jenis Pelanggaran</field>
+            <field name="res_model">master.jenis_pelanggaran</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data jenis-jenis pelanggaran.</p><p>disini belum ada data tentang jenis-jenis pelanggaran !</p></field>
+        </record>
+ 
+
+        <!--  master data dosen -->
+        <record model="ir.actions.act_window" id="dosen_list_action">
+            <field name="name">Dosen</field>
+            <field name="res_model">hr.employee</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <!-- <field name="view_id" ref="partner_tree_view3"/>  -->
+            <field name="domain">[('is_dosen','=',True)]</field>
+            <field name="context">{'default_is_dosen':True}</field>
+        <!--             <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data  Alumni.</p><p>disini belum ada data tentang Alumni!</p></field> -->
+        </record>
+
+
+        <!-- ortu tree -->
+        <record model="ir.ui.view" id="ortu_tree_view">
+            <field name="name">master.biodata_keluarga</field>
+            <field name="model">master.biodata_keluarga</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Orang Tua Mahasiswa" create="false" delete="false">
+                    <field name="nama"/>
+                    <field name="partner_id"/>
+                    <field name="jenis_kelamin"/>
+                    <field name="tempat_lahir" invisible="1"/>
+                    <field name="tanggal_lahir" invisible="1"/>
+                    <field name="hubungan_keluarga_id"/>
+                    <field name="penghasilan"/>  
+                    <field name="keadaan"/>
+                    <field name="jenjang_id" widget="selection" invisible="1"/>
+                    <field name="pekerjaan"/>
+                    <field name="alamat"/>
+                    <field name="telepon"/>
+                    
+                </tree>               
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="ortu_form_view">
+            <field name="name">master.biodata_keluarga</field>
+            <field name="model">master.biodata_keluarga</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Orang Tua" version="7.0" create="false" delete="false">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="nama"/>
+                                <field name="partner_id"/>
+                                <field name="jenis_kelamin"/>
+                                <field name="tempat_lahir"/>
+                                <field name="tanggal_lahir"/>
+                                <field name="hubungan_keluarga_id"/>
+                                <field name="penghasilan"/>
+                            </group>
+                            <group>    
+                                <field name="keadaan"/>
+                                <field name="jenjang_id" widget="selection"/>
+                                <field name="pekerjaan"/>
+                                <field name="alamat"/>
+                                <field name="telepon"/>
+                            </group>
+                        </group>
+                    </sheet>                     
+                </form>               
+            </field>
+        </record>
+
+        <!-- Prodi search -->
+        <record model="ir.ui.view" id="ortu_search">
+            <field name="name">Cari Orang Tua Mhs</field>
+            <field name="model">master.biodata_keluarga</field>
+            <field name="arch" type="xml">
+                <search string="Cari Prodi">
+                    <group col="10" colspan="4">
+                         <field name="nama"/>
+                         <field name="partner_id"/>
+                    </group>
+                    <group expand="0" string="Group By..." colspan="12" col="10">
+                        <filter icon="terp-project" string="Mahasiswa" help="By Mahasiswa" context="{'group_by':'partner_id'}"/>
+                        <filter icon="terp-project" string="Jenis Kelamin" help="By Jenis Kelamin" context="{'group_by':'jenis_kelamin'}"/>
+                        <filter icon="terp-project" string="Hubungan Keluarga" help="By Hubungan Keluarga" context="{'group_by':'hubungan_keluarga_id'}"/>
+                    </group>
+                </search>
+            </field>
+        </record> 
+
+        <!--  master data orang tua -->
+        <record model="ir.actions.act_window" id="orang_tua_list_action">
+            <field name="name">Orang Tua</field>
+            <field name="res_model">master.biodata_keluarga</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--  master data beasiswa-->
+        <record model="ir.actions.act_window" id="beasiswa_mahasiswa_list_action">
+            <field name="name">Beasiswa USM</field>
+            <field name="res_model">beasiswa.mahasiswa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>              
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data beasiswa USM mahasiswa.</p><p>disini belum ada data beasiswa mahasiswa !</p></field>
+        </record>
+
+
+        <record model="ir.ui.view" id="partner_tree_view">
+            <field name="name">Partner</field>
+            <field name="model">res.partner</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Calon Mahasiswa">
+                    <field name="reg"/>
+                    <field name="name" string="Nama"/>
+                    <field name="fakultas_id"/>
+                    <field name="prodi_id"/>
+                    <field name="tahun_ajaran_id"/>
+                    <field name="kelas_id"/> 
+                    <field name="keluarga_alumni_id"/> 
+                    <field name="marketing_id" invisible="1"/>
+                    <field name="jadwal_pagi" invisible="1"/>
+                    <field name="jadwal_siang" invisible="1"/>   
+                    <field name="jadwal_malam" invisible="1"/>
+                    <field name="invoice_state" string="Pendaftaran"/>
+                    <field name="invoice_bangunan_state" string="Bangunan"/>  
+                    <field name="reg_online" string="Reg. Ulang"/>             
+                </tree>
+            </field>
+        </record>          
+   
+          <record model="ir.ui.view" id="partner_tree_view2">
+            <field name="name">Partner</field>
+            <field name="model">res.partner</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Mahasiswa" version="7.0" create="false" delete="false">
+                    <field name="npm"/>
+                    <field name="name" string="Nama"/>
+                    <field name="fakultas_id"/>
+                    <field name="prodi_id"/>
+                    <field name="tahun_ajaran_id"/>
+                    <field name="kelas_id"/> 
+                    <field name="marketing_id" invisible="1"/> 
+                    <field name="jadwal_pagi" invisible="1"/>
+                    <field name="jadwal_siang" invisible="1"/>   
+                    <field name="jadwal_malam" invisible="1"/>                     
+                    <field name="invoice_state" invisible="1"/>
+                    <field name="invoice_bangunan_state" invisible="1"/>                                       
+                </tree>
+            </field>
+        </record>  
+        
+          <record model="ir.ui.view" id="partner_tree_view3">
+            <field name="name">Partner</field>
+            <field name="model">res.partner</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Alumni" version="7.0" create="false" delete="false">
+                    <field name="no_alumni"/>
+                    <field name="npm" invisible="1"/>
+                    <field name="name" string="Nama"/>
+                     <field name="fakultas_id"/>
+                    <field name="prodi_id"/>
+                    <field name="tahun_ajaran_id"/>
+                    <field name="kelas_id"/>
+                    <field name="jadwal_pagi" invisible="1"/>
+                    <field name="jadwal_siang" invisible="1"/>   
+                    <field name="jadwal_malam" invisible="1"/>                      
+                    <field name="tgl_lulus"/> 
+                    <field name="nilai_ujian"/>
+                    <field name="marketing_id" invisible="1"/>                  
+                </tree>
+            </field>
+        </record>   
+
+        <!--  personal -->
+        <record model="ir.actions.act_window" id="personal_list_action">
+            <field name="name">Mahasiswa</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="view_id" ref="partner_tree_view2"/>  
+            <field name="domain">[('status_mahasiswa','=','Mahasiswa')]</field> 
+            <field name="context">{'default_status_mahasiswa':'Mahasiswa','default_is_mahasiswa':True}</field>                    
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data mahasiswa.</p><p>disini belum ada data tentang mahasiswa !</p></field>
+            <!--field name="view_id" ref="personal_tree_view"/-->
+        </record>
+        
+        <!--  calon mahasiswa  -->
+        <record model="ir.actions.act_window" id="calon_list_action">
+            <field name="name">Calon Mahasiswa</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="view_id" ref="partner_tree_view"/> 
+            <field name="domain">[('status_mahasiswa','=','calon')]</field>
+            <field name="context">{'default_status_mahasiswa':'calon','default_is_mahasiswa':True}</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data  calon mahasiswa.</p><p>disini belum ada data tentang calon mahasiswa !</p></field>
+        </record>
+        
+        <!--  alumni  -->
+        <record model="ir.actions.act_window" id="alumni_list_action">
+            <field name="name">Alumni</field>
+            <field name="res_model">res.partner</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,graph</field>
+            <field name="view_id" ref="partner_tree_view3"/> 
+            <field name="domain">[('status_mahasiswa','=','alumni')]</field>
+            <field name="context">{'default_status_mahasiswa':'alumni','default_is_mahasiswa':True}</field>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data  Alumni.</p><p>disini belum ada data tentang Alumni!</p></field>
+        </record>
+
+        <!--  SPMB  -->
+        <record model="ir.ui.view" id="spmb_tree_view">
+            <field name="name">kurikulum.tree</field>
+            <field name="model">spmb.mahasiswa</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar SPMB">
+                    <field name="name"/>
+                    <field name="tahun_ajaran_id"/>
+                    <field name="fakultas_id"/>
+                    <!-- <field name="jurusan_id"/> -->
+                    <field name="prodi_id"/>
+                    <field name="kuota"/>
+                    <field name="nilai_min"/>  
+                    <field name="state"/>                   
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="spmb_list_action">
+            <field name="name">Passing Grade</field>
+            <field name="res_model">spmb.mahasiswa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="spmb_tree_view"/>                 
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data SPMB.</p><p>disini belum ada data tentang SPMB !</p></field>
+            <!--field name="view_id" ref="personal_tree_view"/-->
+        </record>
+
+        <!--  Wisuda  -->
+        <record model="ir.ui.view" id="wisuda_tree_view">
+            <field name="name">wisuda.tree</field>
+            <field name="model">wisuda.mahasiswa</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Wisudawan/i">
+                    <field name="name"/>
+                    <field name="tahun_ajaran_id"/>
+                    <field name="kuota"/>
+                    <field name="tgl_wisuda"/>
+                    <field name="lokasi_wisuda"/>
+                    <field name="state"/>                    
+                </tree>
+            </field>
+        </record>        
+        
+        <record model="ir.actions.act_window" id="wisuda_list_action">
+            <field name="name">Wisuda</field>
+            <field name="res_model">wisuda.mahasiswa</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="wisuda_tree_view"/>                 
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data Wisuda.</p><p>disini belum ada data tentang Wisuda !</p></field>
+            <!--field name="view_id" ref="personal_tree_view"/-->
+        </record>
+ 
+        <!-- KRS -->
+        <record model="ir.ui.view" id="kartu_studi_search">
+            <field name="name">Studi</field>
+            <field name="model">operasional.krs</field>
+            <field name="arch" type="xml">
+                <search string="Cari Kartu Studi">
+                    <group col="10" colspan="4">
+                         <field name="kode"/>
+                         <field name="partner_id"/>
+                    </group>
+                    <newline/>
+                    <group expand="0" string="Group By..." colspan="12" col="10">
+                        <filter icon="terp-project" string="Mahasiswa" help="By Mahasiswa" context="{'group_by':'partner_id'}"/>
+                        <filter icon="terp-project" string="Nomor Pokok Makasiswa" help="By NPM" context="{'group_by':'npm'}"/>
+                        <filter icon="terp-project" string="Tahun Ajaran" help="By Tahun Ajaran" context="{'group_by':'tahun_ajaran_id'}"/>
+                        <filter icon="terp-project" string="Prodi" help="By Prodi" context="{'group_by':'prodi_id'}"/>
+                        <filter icon="terp-project" string="Program Studi" help="By Prodi" context="{'group_by':'prodi_id'}"/>
+                        <filter icon="terp-project" string="Semester" help="By Semester" context="{'group_by':'semester_id'}"/>
+                        <filter icon="terp-project" string="Kurikulum" help="By Kurikulum" context="{'group_by':'kurikulum_id'}"/>
+                        <filter icon="terp-project" string="State" name="state" help="By Status" context="{'group_by':'state'}"/>
+                        <filter icon="terp-project" string="Kartu Studi Tambahan" name="is_tambahan" help="By Kartu Studi Tambahan" context="{'group_by':'is_tambahan'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="krs_list_action">
+            <field name="name">Kartu Rencana Studi</field>
+            <field name="res_model">operasional.krs</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','=','draft')]</field>
+            <field name="context">{'default_state':'draft'}</field> 
+            <field name="search_view_id" ref="kartu_studi_search"/>           
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data KRS.</p><p>disini belum ada data tentang KRS !</p></field>
+        </record>
+
+        <!-- KHS  -->
+        <record model="ir.actions.act_window" id="khs_list_action">
+            <field name="name">Kartu Hasil Studi</field>
+            <field name="res_model">operasional.krs</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="domain">[('state','in',('confirm','done'))]</field>
+            <field name="context">{'search_default_state':1}</field>
+            <field name="search_view_id" ref="kartu_studi_search"/>           
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Klik tombol Create untuk membuat data KHS.</p><p>disini belum ada data tentang KHS !</p></field>
+        </record>
+        
+        <record model="ir.actions.act_window" id="preview_list_action">
+            <field name="name">preview</field>
+            <field name="res_model">operasional.transkrip</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!--  Pembayaran   -->
+        <record model="ir.actions.act_window" id="pembayaran_list_action">
+            <field name="name">Pembayaran</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field> 
+            <field name="view_id" ref="account.invoice_form"/>
+            <field name="domain">[('type','=','out_invoice')]</field>
+            <field name="context">{'default_type':'out_invoice', 'type':'out_invoice', 'journal_type': 'sale'}</field>
+        </record>
+
+        <!--menu Akadmik -->
+        <menuitem id="si_akademik_menu" name="Akademik" groups="vit_universities_v8.group_univ_external_baak"/>
+            <menuitem id="master_data_reg" name="Pendaftaran" parent="si_akademik_menu" sequence="10" groups="vit_universities_v8.group_menu_pmb_baak"/>
+                <menuitem id="master_calon" name="Calon Mahasiswa" parent="master_data_reg" action="calon_list_action" sequence="10"/>
+                <menuitem id="spmb" name="Passing Grade" parent="master_data_reg" action="spmb_list_action" sequence="20"/>
+<!--                 <menuitem id="master_mahasiswa_pmb" name="Mahasiswa " parent="master_data_reg" action="personal_list_action" sequence="21"/>  -->
+            <menuitem id="master_data_kbm" name="Perkuliahan" parent="si_akademik_menu" sequence="20" groups="vit_universities_v8.group_menu_kbm_baak"/>
+                <menuitem id="master_kelas" name="Kelas" parent="master_data_kbm" action="kelas_list_action" sequence="10"/>
+            <!-- <menuitem id="master_data_jadwal" name="Jadwal" parent="si_akademik_menu" sequence="30"/> --> 
+                <menuitem id="master_jadwal" name="Jadwal" parent="master_data_kbm" action="jadwal_kuliah_mhs_list_action" sequence="20"/>
+   
+            <menuitem id="master_civitas" name="Civitas" parent="si_akademik_menu" groups="vit_universities_v8.group_menu_see_mhs" sequence="40" />
+                <menuitem id="master_mahasiswa" name="Mahasiswa" parent="master_civitas" action="personal_list_action" groups="vit_universities_v8.group_menu_see_mhs" sequence="11"/> 
+                <menuitem id="master_wisuda" name="Wisuda" parent="master_civitas" action="wisuda_list_action" groups="vit_universities_v8.group_menu_civitas_baak" sequence="20"/>  
+                <menuitem id="master_alumni" name="Alumni" parent="master_civitas" action="alumni_list_action" groups="vit_universities_v8.group_menu_civitas_baak" sequence="30"/>
+                <menuitem id="master_dosen" name="Dosen" parent="master_civitas" action="dosen_list_action" groups="vit_universities_v8.group_menu_civitas_baak" sequence="40"/>
+                <menuitem id="master_orangtua" name="Orang Tua Mahasiswa" parent="master_civitas" action="orang_tua_list_action" groups="vit_universities_v8.group_menu_civitas_baak" sequence="50"/>           
+            <menuitem id="operasional" name="Studi" parent="si_akademik_menu" sequence="60" groups="vit_universities_v8.group_menu_studi_baak"/>              
+                <menuitem id="master_krs" name="Kartu Rencana Studi" parent="operasional" action="krs_list_action" sequence="13"/>
+                <menuitem id="master_khs" name="Kartu Hasil Studi" parent="operasional" action="khs_list_action" sequence="14"/>
+                <menuitem id="preview_transkrip" name="Transkrip" parent="operasional" action="preview_list_action" sequence="15"/>    
+                     
+            <menuitem id="master_data_kurikulum" name="Kurikulum" parent="si_akademik_menu" sequence="80" groups="vit_universities_v8.group_menu_kurikulum_baak"/>
+                 <menuitem id="master_kurikulum" name="Kurikulum" parent="master_data_kurikulum" action="kurikulum_list_action"/>
+                 <menuitem id="master_mk" name="Matakuliah" parent="master_data_kurikulum" action="mk_list_action"/>
+            <menuitem id="master_data" name="Konfigurasi" parent="si_akademik_menu" sequence="90" groups="vit_universities_v8.group_menu_konfigurasi_baak"/>
+                <menuitem id="master_lokasi" name="Lokasi Kampus" parent="master_data" action="lokasi_kampus_list_action" sequence="5"/>
+                <menuitem id="master_ruangan" name="Ruangan" parent="master_data" action="ruangan_list_action" sequence="10"/>
+                <menuitem id="master_fakultas" name="Fakultas" parent="master_data" action="fakultas_list_action" sequence="20"/>
+                <!-- <menuitem id="master_jurusan" name="Jurusan" parent="master_data" action="jurusan_list_action" sequence="30"/> -->
+                <menuitem id="master_prodi" name="Program Studi" parent="master_data" action="prodi_list_action" sequence="40"/>
+                <menuitem id="master_konsentrasi" name="Konsentrasi" parent="master_data" action="konsentrasi_list_action" sequence="50"/>
+                <menuitem id="master_tahun_akademik" name="Tahun Akademik" parent="master_data" action="thn_akademik_list_action" sequence="50"/>
+                <!--                 <menuitem id="master_bulan_akademik" name="Bulan Akademik" parent="master_data" action="bln_akademik_list_action"/> -->
+                <menuitem id="master_semester" name="Semester" parent="master_data" action="semester_list_action" sequence="60"/>
+                <menuitem id="master_nilai" name="Nilai" parent="master_data" action="nilai_list_action" sequence="70"/>
+                <menuitem id="master_yudisium" name="Yudisium" parent="master_data" action="yudisium_list_action" sequence="80"/>
+                <menuitem id="master_jenis_pelangaran" name="Jenis Pelanggaran" parent="master_data" action="jenis_pelanggaran_list_action" sequence="90"/>
+
+                    
+                                
+
+        <!-- Mata Kuliah-->
+        <record model="ir.ui.view" id="mk_tree_view">
+            <field name="name">mata_kuliah.tree</field>
+            <field name="model">master.matakuliah</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Mata Kuliah" version="7.0">
+                    <field name="kode"/>
+                    <field name="nama"/>
+                    <field name="sks"/>
+                    <field name="jenis"/>
+                    <field name="prodi_id"/>
+                    <field name="dosen_id"/>
+                    <field name="jenjang_id"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="mk_form_view">
+            <field name="name">mata_kuliah.form</field>
+            <field name="model">master.matakuliah</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Daftar Mata Kuliah" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="kode"/>
+                                <field name="kode_dikti"/>
+                                <field name="nama"/>
+                                <field name="prodi_id" attrs="{'invisible': [('jenis','!=','mk_khusus')],'required': [('jenis','=','mk_khusus')]}"/>
+                                <field name="dosen_id"/>
+                            </group>
+                            <group>
+                                <field name="sks"/>
+                                <field name="jenis"/>
+                                <field name="jenjang_id"/>
+                                <field name="praktikum"/>
+                                <field name="seminar"/>
+                                <field name="penilaian100persen"/>
+                            </group>
+                        </group>    
+                    </sheet>
+                </form>
+            </field>
+        </record>
+ 
+        <!--sequance Mata Kuliah-->
+        <record forcecreate="1" id="seq_type_mk" model="ir.sequence.type">
+            <field name="name">Matakuliah</field>
+            <field name="code">master.matakuliah</field>
+        </record>
+        
+        <record  forcecreate="1" id="seq_matakuliah" model="ir.sequence">
+            <field name="name">Matakuliah</field>
+            <field name="code">master.matakuliah</field>
+            <field name="prefix">MK%(y)s-</field>
+            <field name="padding">3</field>
+        </record> 
+
+        <!-- Ruangan  -->
+        <record model="ir.ui.view" id="ruangan_tree_view">
+            <field name="name">ruangan.tree</field>
+            <field name="model">master.ruangan</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Ruangan">
+                    <field name="name"/>
+                    <field name="nama" invisible="1"/>
+                    <field name="kapasitas"/>
+                    <field name="kapasitas_uts"/>
+                    <field name="kapasitas_uas"/> 
+                    <field name="alamat_id"/>                   
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="ruangan_form_view">
+            <field name="name">ruangan.form</field>
+            <field name="model">master.ruangan</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Ruangan" version="7.0">
+                    <sheet>
+                        <group colspan="2">
+                            <group>
+                                <field name="name"/>
+                                <field name="nama"/>
+                            </group>
+                            <group>
+                                <field name="kapasitas"/>
+                                <field name="kapasitas_uts"/>
+                                <field name="kapasitas_uas"/>
+                            </group>                            
+                        </group>  
+                         <group>
+                            <group string="Kelengkapan Ruangan">
+                                <field name="ac"/>
+                                <field name="infocus"/>
+                            </group>
+                            <group string="Lokasi">
+                                <field name="alamat_id"/>
+                                <field name="gedung"/>
+                                <field name="alamat"/>
+                            </group>                            
+                        </group>
+                    </sheet>                     
+                </form>               
+            </field>
+        </record>
+
+        <!--sequance Ruangan-->
+        <record forcecreate="1" id="seq_type_ruangan" model="ir.sequence.type">
+            <field name="name">Ruangan</field>
+            <field name="code">master.ruangan</field>
+        </record>
+        
+        <record  forcecreate="1" id="seq_ruangan" model="ir.sequence">
+            <field name="name">Ruangan</field>
+            <field name="code">master.ruangan</field>
+            <field name="prefix">RG-</field>
+            <field name="padding">3</field>
+         </record>
+
+         <!-- Fakultas  -->       
+
+        
+        <!-- Jurusan  -->       
+        <record model="ir.ui.view" id="jurusan_tree_view">
+            <field name="name">jurusan.tree</field>
+            <field name="model">master.jurusan</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Jurusan" version="7.0" editable="bottom">
+                    <field name="kode"/>
+                    <field name="name"/>
+                    <field name="kapasitas"/>
+                    <field name="fakultas_id"/>
+                </tree>
+            </field>
+        </record>
+
+
+        
+        <!-- Nilai  -->
+        <record model="ir.ui.view" id="nilai_tree_view">
+            <field name="name">nilai.tree</field>
+            <field name="model">master.nilai</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Klasifikasi Bobot Nilai" version="7.0" editable="bottom">
+                    <field name="name"/>
+                    <field name="bobot"/>
+                    <field name="min"/>
+                    <field name="max"/>
+                </tree>
+            </field>
+        </record>
+        
+        <!-- Jenis pelanggaran  -->
+        <record model="ir.ui.view" id="jenis_pelanggaran_tree_view">
+            <field name="name">jenis_pelanggaran.tree</field>
+            <field name="model">master.jenis_pelanggaran</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Jenis-Jenis Pelanggaran" version="7.0">
+                    <field name="name"/>
+                    <field name="desc"/>
+                </tree>
+            </field>
+        </record>
+        
+
+        <!-- Academic Years Information From View -->
+        <record model="ir.ui.view" id="view_academic_year_form">
+            <field name="name">academic.year.form</field>
+            <field name="model">academic.year</field>
+            <field name="arch" type="xml">
+                <form string="Academic Years" version="7.0">
+                    <header>
+                        <button name="create_period" string="Create Months" type="object" groups="vit_universities_v8.group_univ_ka_baak"/>
+                    </header>
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <group>
+                                <field name="code" placeholder="Code"/> 
+                                <field name="name" placeholder="Name"/> 
+                                <label for="date_start" string="Tanggal"/>
+                                <div>
+                                    <field name="date_start" nolabel="1" class="oe_inline" placeholder="From"/><label string="-" class="oe_inline"/>
+                                    <field name="date_stop" nolabel="1" class="oe_inline" placeholder="To"/>
+                                </div>
+
+                            </group>
+                            <group> 
+                                <field name="mekanisme_nilai"/>                             
+                                <field name="max_mk"/>
+                                <field name="is_active"/>
+                            </group>
+                        </group>
+                        <notebook colspan="4">
+                            <page string="Months">
+                                <field name="month_ids" nolabel="1" colspan="4" readonly="1">
+                                    <tree string="Months">
+                                        <field name="name"/>  
+                                        <field name="code"/>
+                                        <field name="date_start"/>
+                                        <field name="date_stop"/>
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                        <newline/>
+                        <separator string="Description" colspan="4"/>
+                        <field name="description" colspan="4"/>
+                   </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- Academic Months Information From View -->
+        <record model="ir.ui.view" id="view_academic_month_form">
+            <field name="name">academic.month.form</field>
+            <field name="model">academic.month</field>
+            <field name="arch" type="xml">
+                <form string="Months" version="7.0">
+                    <sheet>
+                        <group col="4" colspan="4">
+                            <field name="name" />
+                            <field name="code" />
+                            <field name="date_start"/>
+                            <field name="date_stop"/>
+                            <field name="year_id" colspan="4"/>
+                            <field name="description" colspan="4"/>
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- Beasiswa Mahasiswa -->
+        <record model="ir.ui.view" id="beasiswa_tree_view">
+            <field name="name">beasiswa.tree</field>
+            <field name="model">beasiswa.mahasiswa</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Master Beasiswa" colors="gray:is_active == False">
+                    <field name="name"/>
+                    <field name="tahun_ajaran_id"/>
+                    <field name="limit_nilai_sma"/>
+                    <field name="is_active"/>
+                </tree>
+            </field>
+        </record>
+        
+        <record model="ir.ui.view" id="beasiswa_form_view">
+            <field name="name">beasiswa.form</field>
+            <field name="model">beasiswa.mahasiswa</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Daftar Master Beasiswa" version="7.0">
+                    <sheet>
+                        <group>
+                            <group>
+                                <field name="name"/>
+                                <field name="tahun_ajaran_id"/>
+                                <field name="limit_nilai_sma"/>
+                            </group>
+                            <group>
+                                <field name="user_id"/>
+                                <field name="is_active"/>
+                            </group>
+                        </group>    
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+    </data>   
+</openerp>

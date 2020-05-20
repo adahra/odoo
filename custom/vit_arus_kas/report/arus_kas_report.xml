@@ -1,0 +1,16 @@
+<?xml version="1.0"?> 
+<openerp> 
+    <data>
+        
+        <report 
+        id="arus_kas" 
+        string="Cash Flow" 
+        model="arus.kas" 
+        name="arus.kas" 
+        rml="vit_arus_kas/report/arus_kas.rml" 
+        menu="True"
+        auto="True" 
+        header="False"/>
+                     
+    </data> 
+</openerp>

@@ -1,0 +1,283 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+        <record model="ir.ui.view" id="product_custom_order_line">
+            <field name="name">Product Custom DJI SLU</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <form string="Sales Order" position="replace">
+                <form string="Sales Order" version="7.0">
+                    <header>
+                        <button
+                        name="compute_discount"
+                        string="Sent"
+                        type="object" states="draft"
+                        class="oe_highlight" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/>  
+
+                        <button
+                        name="reset_discount"
+                        string="Reset to Draft"
+                        type="object" states="sent" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/> 
+
+                        <button name="invoice_recreate" states="invoice_except" string="Recreate Invoice" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/>
+
+                        <button name="invoice_corrected" states="invoice_except" string="Ignore Exception" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/>
+<!--                         <button name="action_quotation_send" string="Send by Email" type="object" states="draft" class="oe_highlight" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/>
+
+                        <button name="action_quotation_send" string="Send by Email" type="object" states="sent" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/> -->
+
+                        <button name="print_quotation" string="Print" type="object" states="draft" class="oe_highlight" groups="base.group_sale_salesman_all_leads,base.group_sale_manager" invisible="1"/>
+
+                        <button name="print_quotation" string="Print" type="object" states="sent" groups="base.group_sale_salesman_all_leads,base.group_sale_manager" invisible="1"/>
+
+                        <button name="action_button_confirm" states="sent" string="Confirm Sale" class="oe_highlight" type="object" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/>
+
+                        <button name="action_view_invoice" string="View Invoice" type="object" class="oe_highlight" attrs="{'invisible': [('invoice_exists', '=', False)]}" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/>
+
+                        <button name="477" string="Create Invoice" type="action" states="manual" class="oe_highlight" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/>
+
+                        <button name="copy_quotation" states="cancel" string="New Copy of Quotation" type="object" groups="base.group_sale_manager" invisible="1"/>
+
+                        <button name="cancel" states="draft,sent" string="Cancel Quotation" groups="base.group_sale_salesman_all_leads,base.group_sale_manager"/>
+
+                        <button name="action_cancel" states="manual,progress" string="Cancel Order" type="object" groups="base.group_sale_salesman_all_leads,base.group_sale_manager" invisible="1"/>
+
+                        <button name="invoice_cancel" states="invoice_except" string="Cancel Order" groups="base.group_sale_salesman_all_leads,base.group_sale_manager" invisible="1"/>
+
+                        <field name="state" widget="statusbar" statusbar_visible="draft,sent,invoiced,done" statusbar_colors="{&quot;invoice_except&quot;:&quot;red&quot;,&quot;waiting_date&quot;:&quot;blue&quot;}"/>
+                    
+                </header>
+
+                    <h1>
+                        <label string="Draft SO " attrs="{'invisible': [('state','not in',('draft','sent'))]}"/>
+                        <label string="Sales Order " attrs="{'invisible': [('state','in',('draft','sent'))]}"/>
+                        <div>
+                        <field name="loc_code" class="oe_inline" attrs="{'invisible': ['|',('state','!=','draft'),('x_field','=',True)]}"/>   
+                        <field name="name" class="oe_inline" readonly="1"/>
+                        <field name="x_field" class="oe_inline" invisible="1"/>
+                        </div>
+                    </h1>
+                    <group>
+                        <group>
+                            <field name="partner_code" invisible="True"/>
+                            <field name="partner_id" on_change="onchange_partner_id(partner_id, context)" domain="[('customer','=',True)]" context="{'search_default_customer':1, 'show_address': 1}" options="{&quot;always_reload&quot;: True}" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="street" string=" " attrs="{'invisible': [('state','=','draft')]}" />
+                            <field name="street_onchange" string=" " attrs="{'invisible': [('state','!=','draft')]}"/>
+                            <field name="partner_id2" attrs="{'readonly': [('state','!=','draft')]}" invisible="1"/>
+                            <field name="partner_invoice_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'invoice'}"/>
+                            <field name="partner_shipping_id" groups="sale.group_delivery_invoice_address" context="{'default_type':'delivery'}"/>
+                            <field name="project_id" context="{'partner_id':partner_invoice_id, 'default_pricelist_id':pricelist_id, 'default_name':name, 'default_type': 'contract'}" groups="sale.group_analytic_accounting" domain="[('type','in',['view','normal','contract'])]"/>
+                        </group>
+                        <group>
+                            <field name="date_order"/>
+                            <field name="top_onchange" attrs="{'invisible': [('state','!=','draft')]}"/>
+                            <field name="client_order_ref"/>
+                          <!--   <field name="shop_id2" /> -->
+                            <field name="location_id" />
+                           <!--  <field name="company_id"/> -->
+                            <field domain="[('type','=','sale')]" name="pricelist_id" groups="product.group_sale_pricelist" on_change="onchange_pricelist_id(pricelist_id,order_line)" invisible="True"/>
+                            <field name="currency_id" invisible="1"/>
+                        </group>                          
+                        <group invisible="True">                            
+                            <field name="shop_id" groups="base.group_no_one" on_change="onchange_shop_id(shop_id, context)" widget="selection"/>
+                        </group>                      
+                    </group>
+
+                    <notebook>
+                        <page string="Order Lines">
+                            <field name="order_line" view_mode="tree,form" attrs="{'readonly': [('state','!=','draft')]}">
+                                <tree string="Sales Order Lines" editable="bottom">
+                            <!-- <tree string="Sales Order Lines" version="7.0"> -->
+                                    <field name="sequence" widget="handle"/>
+                                    <field name="state" invisible="1"/>
+                                    <field name="th_weight" invisible="1"/>
+                                    <field name="coeff" invisible="True"/>
+                                    <field name="product_id" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}" groups="base.group_user" on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)"  domain="[('bonus','=', False)]" required="1"/>
+                                    <field name="name" attrs="{'readonly': [('state','!=','draft')]}" invisible="1"/>
+                                     <field name="supplier_id" options="{&quot;no_open&quot;: True}" readonly="1"/>
+                                    <field name="volume" invisible="1"/>
+
+                                    <field name="product_uos_qty" groups="product.group_uos" on_change="onchange_uos(coeff,product_uos_qty)" string="Big Qty" invisible="1"/>
+                                    <field name="qty_big"/>    
+                                    <field name="product_uos" string="Big UoM" options="{&quot;no_open&quot;: True}" readonly="1"/>
+                                    <field name="uos2" readonly="True" invisible="True"/>
+                                    <field name="qty_small"/>
+                                    <field name="product_uom_qty" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}" on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, False, parent.fiscal_position, True, context)" string="Small Qty" invisible="1"/>
+                                    <field name="product_uom" on_change="product_uom_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, context)" groups="product.group_uom" options="{&quot;no_open&quot;: True}" string="Small UoM" readonly="1"/>                                   
+                                    <field name="tax_id" groups="base.group_sale_salesman_all_leads" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]" invisible="1"/>                                   
+                                    <field name="price_unit" readonly="1" />
+                                    <field name="gross_tot" invisible="1"/>
+                                    <field name="r_func" invisible="1"/>
+                                    <field name="r_calc" readonly="1"/>
+
+                                    <field name="disc_value" invisible="1"/>
+                                    <field name="qty_awal" invisible="1"/>
+                                    <field name="discount1" readonly="1"/>
+                                    <field name="p_calc" readonly="1"/>
+                                    <field name="r_flat" invisible="1"/> 
+
+
+                                    <field name="p_func" invisible="1"/>
+                                    <field name="p_disc_value" invisible="1"/>
+                                    <field name="p_disc_pre" readonly="1"/>
+                                    <field name="p_flat" invisible="1"/>
+                     
+                                    <field name="x_func" invisible="1"/>
+                                    <field name="p_disc_value_x" invisible="1"/>
+                                    <field name="x_calc" readonly="1"/>
+                                    <field name="p_disc_pre_x" readonly="1"/> 
+                                    <field name="x_flat" invisible="1"/>
+
+                                    <field name="c_func" invisible="1"/>
+                                    <field name="p_disc_value_c" invisible="1"/>
+                                    <field name="c_calc" readonly="1"/>
+                                    <field name="p_disc_pre_c" readonly="1"/> 
+                                    <field name="c_flat" invisible="1"/>
+
+                                    <field name="m_func" invisible="1"/>
+                                    <field name="p_disc_value_m" invisible="1"/>
+                                    <field name="m_calc" readonly="1"/>
+                                    <field name="p_disc_pre_m" readonly="1"/> 
+                                    <field name="m_flat" invisible="1"/>
+                                    
+                                    <field name="price_subtotal"/>
+                                    <!-- <field name="tes"/> -->
+                                </tree> 
+
+                                <form string="Sales Order Lines">
+                                    <group colspan="2">
+                                        <group>
+                                            <field name="state" invisible="1"/>
+                                            <field name="coeff" invisible="1"/>
+                                            <field name="product_id" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}" groups="base.group_user" on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, True, parent.date_order, False, parent.fiscal_position, False, context)" attrs="{'readonly': [('state','!=','draft')]}" domain="[('bonus','=', False)]"/>
+                                            <field name="supplier_id" invisible="1"/>
+                                            <label for="product_uos_qty" groups="product.group_uos" string="Big Qty"/>
+                                            <div groups="product.group_uos">
+                                                <field name="product_uos_qty" class="oe_inline" on_change="onchange_uos(coeff,product_uos_qty)" invisible="True"/>
+                                                <field name="qty_big"/> 
+                                                <field name="product_uos" invisible="True"/>
+                                            </div>                                            
+                                            <label for="qty_small" string="Small Qty"/>
+                                            <div>
+                                                <field name="qty_small"/>
+                                                <field name="product_uom" groups="product.group_uom" class="oe_inline oe_no_button" on_change="product_uom_change(parent.pricelist_id,product_id,product_uom_qty,product_uom,product_uos_qty,product_uos,name,parent.partner_id, False, False, parent.date_order, context)" invisible="1"/>
+                                            </div>
+                                            <field name="qty_awal" invisible="1"/>
+                                                                                     
+                                            <field name="gross_tot" invisible="1"/>
+                                            <field name="price_unit" invisible="1"/>
+                                            <label for="discount" groups="sale.group_discount_per_so_line"/>
+                                            <div name="discount" groups="sale.group_discount_per_so_line">
+                                                <field name="disc_value" class="oe_inline" invisible="1"/>
+                                                <field name="discount" class="oe_inline" invisible="1"/>
+                                            </div>
+                                            <field name="th_weight" invisible="1"/>
+                                            <field name="volume" invisible="1"/>
+                                        </group>
+                                        <group>
+                                            <field name="name" attrs="{'readonly': [('state','!=','draft')]}" invisible="True"/>
+                                        </group>                                            
+                                        <group invisible="1">
+                                            <field name="tax_id" widget="many2many_tags" domain="[('parent_id','=',False),('type_tax_use','&lt;&gt;','purchase')]" invisible="1"/>
+                                            <field name="type" invisible="1"/>
+                                            <field name="product_uom_qty" context="{'partner_id':parent.partner_id, 'quantity':product_uom_qty, 'pricelist':parent.pricelist_id, 'shop':parent.shop_id, 'uom':product_uom}" on_change="product_id_change(parent.pricelist_id, product_id, product_uom_qty, product_uom, product_uos_qty, product_uos, name, parent.partner_id, False, False, parent.date_order, False, parent.fiscal_position, True, context)" string="Small Qty" invisible="True"/>
+                                            <field name="address_allotment_id" invisible="1"/>
+                                        </group>
+                                    </group>
+                                    <div groups="base.group_no_one" invisible="1">
+                                        <label for="invoice_lines" />
+                                        <field name="invoice_lines" />
+                                    </div>
+                                </form>
+
+                            </field>
+                            <group class="oe_subtotal_footer oe_right" colspan="2" name="sale_total">
+                                <field name="amount_untaxed" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                                <field name="amount_tax" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+
+                                <div class="oe_subtotal_footer_separator oe_inline">
+                                    <div>
+                                        <group>
+                                    <button name="recalculate" type="object" string="Recalculate" states="sent"/>
+                                    <label for="amount_total"/>
+
+                                    <button name="button_dummy" states="draft" string="(update)" type="object" class="oe_edit_only oe_link"/>
+                               </group>
+                                </div>
+                                </div>
+                                <field name="amount_total" nolabel="1" class="oe_subtotal_footer_separator" widget="monetary" options="{'currency_field': 'currency_id'}"/>
+                            </group>
+                            <group colspan="2">
+                                <field name="credit"/>
+                                <field name="credit_limit"/>
+                            </group>                              
+                            <div class="oe_clear"/>
+                            <field name="note" class="oe_inline" placeholder="Terms and conditions..."/>
+                        </page>
+                        <page string="Other Information" groups="base.group_user">
+                            <group>
+                                <!-- <field name="picking_policy"/> -->
+                                <group name="sales_person" groups="base.group_user">
+                                    <field name="nik"/>
+                                    <field name="user_id" readonly="True" string="Salesman"/>
+                                    <field groups="base.group_no_one" name="origin"/>
+                                </group>
+                                <group name="sale_pay">
+                                    <field name="payment_term" widget="selection" invisible="True"/>
+                                    <field name="due_date" invisible="0"/>
+                                    <field name="fiscal_position" widget="selection" invisible="True"/>
+                                    <field name="property_payment_term" attrs="{'invisible': [('state','=','draft')]}"/>/>
+                                    <field name="volume_tot" attrs="{'invisible': [('state','=','draft')]}"/>
+                                    <field name="tonase_tot" attrs="{'invisible': [('state','=','draft')]}"/>
+                                    <field name="company_id" widget="selection" groups="base.group_multi_company" invisible="False"/>
+                                </group>
+                                <group>
+                                    <field name="invoiced"/>
+                                    <field name="invoice_exists" invisible="1"/>
+                                    
+                                </group>
+                            </group>
+                        </page>
+                    </notebook>
+
+                <div class="oe_chatter">
+                    <field name="message_follower_ids" widget="mail_followers" groups="base.group_user"/>
+                    <field name="message_ids" widget="mail_thread"/>
+                </div>
+                </form>
+            </form>
+
+            </field>
+        </record>
+
+
+<!-- Master Reason -->
+        <record id="view_reason_tree" model="ir.ui.view">
+            <field name="name">Reason</field>
+            <field name="model">master.reason</field>
+            <field name="arch" type="xml">
+                <tree string="Reason" editable="top">
+                    <field name="name"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="action_reason" model="ir.actions.act_window">
+            <field name="name">Reason</field>
+            <field name="res_model">master.reason</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_reason_tree"/>
+<!--             <field name="search_view_id" ref="view_partner_pricelist_items_search"/> -->
+        </record>
+
+        <menuitem action="action_reason"
+            name="Reason"
+            id="menu_action_reason"
+            parent="base.menu_base_config"/>
+
+
+    </data>
+</openerp>

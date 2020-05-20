@@ -1,0 +1,271 @@
+<?xml version="1.0"?>
+<openerp>
+    <data>
+
+
+        <record model="ir.ui.view" id="custom_fleet">
+            <field name="name">Kendaraan</field>
+            <field name="model">fleet.vehicle</field>
+            <field name="inherit_id" ref="fleet.fleet_vehicle_form"/>
+            <field name="arch" type="xml">
+                <field name="color" position="after">
+                        <field name="volume"/>
+                        <field name="tonase"/>
+                </field>   
+                <field name="driver_id" position="replace">
+                        <field name="driver_id2"/>
+                </field>  
+            </field>
+        </record>  
+
+
+<!-- Surat Jalan -->
+        <record id="view_sj_tree" model="ir.ui.view">
+            <field name="name">Picking List</field>
+            <field name="model">surat.jalan</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Picking List">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="user_id" invisible="0"/>
+                    <field name="based_route_id"/>                    
+                    <field name="car_id"/>
+                    <field name="driver_id2"/>
+                    <field name="location_id"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sj_tree2" model="ir.ui.view">
+            <field name="name">Picking List</field>
+            <field name="model">surat.jalan</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Picking List" create="false">
+                    <field name="name"/>
+                    <field name="date"/>
+                    <field name="user_id" invisible="0"/>
+                    <field name="based_route_id"/>                    
+                    <field name="car_id"/>
+                    <field name="driver_id2"/>
+                    <field name="location_id"/>
+                    <field name="state" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="view_sj_form" model="ir.ui.view">
+            <field name="name">Picking list</field>
+            <field name="model">surat.jalan</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">\
+                <form string="Picking List" version="7.0">
+                <header>                                             
+                    <button string="Deliver" type="object" 
+                        states="draft" name="action_on_deliver"
+                        groups="stock.group_stock_user,stock.group_stock_manager"/>                 
+                                             
+                    <button string="Done" type="object" 
+                        states="on_deliver" name="action_return"
+                        groups="stock.group_stock_user,stock.group_stock_manager"/>
+
+                    <button string="Set to Draft" type="object" 
+                        states="on_deliver" name="action_draft"
+                        groups="stock.group_stock_user,stock.group_stock_manager"/>
+
+                    <field name="state" widget="statusbar"/>
+
+                </header>
+                <sheet>
+<!--                 <form string="Surat Jalan"> -->
+                    <group>
+                        <group>
+                            <field name="name"/>
+                            <field name="date" readonly="True"/>
+                            <field name="based_route_id" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="location_id"/>                                                  
+                            </group>
+                        <group >
+                            <field name="user_id"/>
+                            <field name="car_id" on_change="onchange_volume(car_id)" attrs="{'readonly': [('state','!=','draft')]}" /> 
+                            <field name="driver_id2" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="volume" attrs="{'readonly': [('state','!=','draft')]}"/>
+                            <field name="weight" attrs="{'readonly': [('state','!=','draft')]}"/> 
+                            <field name="vol_in_list" invisible="True"/>                     
+                        </group>
+                    </group>
+                    <notebook colspan="4">
+                        <page string="Invoice List">
+                            <field view_mode="tree,form" name="inv_ids" nolabel="1" attrs="{'readonly':[('state','!=','draft')]}">
+                                <tree string="Faktur" editable="bottom">
+                                    <field name="partner_id" readonly="True"/>
+                                    <!-- <field name="number"/> -->
+                                    <field name="origin" readonly="True"/>
+                                    <field name="date_invoice" readonly="True"/>
+                                    <field name="volume" sum="Total Volume"/>
+                                    <field name="weight" sum="Total Weight"/>
+                                    <field name="state"/>
+                                    <field name="button_hidden" invisible="True"/>
+                                    <field name="note" invisible="1"/>
+                                    <field name="description" attrs="{'readonly':[('button_hidden','=',False)],'required': [('state','not in','draft','on_deliver')]}" widget="selection"/>
+
+                                    <button name="invoice_open" icon="STOCK_APPLY" states="deliver,ttf" string="Validate" class="oe_highlight" groups="base.group_user" attrs="{'invisible':['|',('state', 'in', ('draft','open','cancel','paid')),('button_hidden','=',False)]}"/>
+
+                                    <button name="action_ttf" string="Not TTF" type="object" attrs="{'invisible':['|',('note','=','TTF'),('state','!=','open')]}"/>
+
+                                    <button name="action_not_ttf" string="TTF" type="object" attrs="{'invisible':['|',('state','!=','open'),('note','=',False)]}"/>
+
+                                    <button name="258" type="action" icon="STOCK_REVERT_TO_SAVED" string="CN Conf" groups="base.group_user" attrs="{'invisible':['|','|',('button_hidden','=',False),('state','!=','open'),('note','=','CN Conf')]}"/>
+
+                                    <button name="invoice_cancel" states="deliver,ttf" icon="STOCK_CANCEL" string="Cancel" groups="base.group_user" attrs="{'invisible':[('state', '!=', 'ttf')]}"/>
+
+                                    <button name="action_cancel_draft_2" icon="STOCK_NEW" string="Reset to Draft" type="object" groups="base.group_user" attrs="{'invisible':['|',('button_hidden','=',False),('state','!=','cancel')]}"/>
+                                </tree>  
+                            </field>      
+                        </page>
+
+                        <page string="Batch Number"> 
+                            <button
+                            name="view_product"
+                            string="Fill Product"
+                            type="object" states="draft"
+                            attrs="{'invisible':[('state', '!=', 'draft')]}"/>  
+                            <field view_mode="tree" name="move_ids" nolabel="1" readonly="True">
+                                <tree string="Batch Number" editable="bottom">
+                                    <field name="origin" readonly="True"/>
+                                    <field name="product_id" readonly="True"/>
+                                    <field name="product_qty" readonly="True" sum="Total Qty"/>
+                                    <field name="product_uom" readonly="True"/>
+                                     <field name="location_id" invisible="True"/>
+                                    <field name="prodlot_id" context="{'location_id':location_id, 'product_id':product_id}" domain="[('product_id','=?',product_id),('is_bad','=',False)]" on_change="onchange_lot_id(prodlot_id,product_qty, location_id, product_id, product_uom)" options="{'limit': 8, 'create': false, 'create_edit': false}" required="True"/>
+                                    <button name="410" states="draft,waiting,confirmed,assigned" string="Split" type="action" icon="gtk-justify-fill"/>
+                                    <field name="state" invisible="1"/>
+                                </tree>
+                            </field> 
+                        </page>
+
+                        <page string="Product List">                        
+                            <field view_mode="tree" name="list_product_ids" nolabel="1" readonly="True">
+                                <tree string="List" editable="bottom">
+                                <field name="product_id"/>
+                                <field name="big_qty"/>
+                                <field name="big_uom"/>
+                                <field name="small_qty"/>
+                                <field name="small_uom"/>
+                                <field name="prodlot_id"/>
+                            </tree>
+                            </field>    
+                        </page> 
+
+
+<!--                         <page string="Batch Number"> 
+                            <button
+                            name="view_product"
+                            string="View Product"
+                            type="object" states="draft"
+                            attrs="{'invisible':[('state', '!=', 'draft')]}"/>                                                  
+                            <field view_mode="tree" name="move_id" nolabel="1">
+                                <tree string="Batch Number" editable="bottom">
+                                    <field name="move_id"/>
+                                    <field name="origin"/>
+                                    <field name="name"/>
+                                    <field name="product_qty"/>
+                                </tree>
+                            </field>    
+                        </page>   -->
+
+
+                    </notebook>   
+                    <field name="note" nolabel="1" placeholder="Note..."/>         
+                </sheet>  
+            </form>
+            </field>
+        </record>        
+
+        <record id="view_sj_search" model="ir.ui.view">
+            <field name="name">surat.jalan.search</field>
+            <field name="model">surat.jalan</field>
+            <field name="arch" type="xml">
+                <search string="Picking List">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Code"/>
+                    <filter icon="terp-sale" string="Draft" domain="[('state','=','draft')]"/>
+                    <filter icon="terp-sale" string="Delivery" domain="[('state','=','on_deliver')]"/>
+                    <filter icon="terp-sale" string="Return" domain="[('state','=','return')]"/>
+                    <filter name="mypicking" string="My Picking List" domain="[('user_id','=',uid)]" help="My Picking List" invisible="0"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Based Route" icon="terp-folder-orange" domain="" context="{'group_by':'based_route_id'}"/>
+                        <filter string="Location" icon="terp-stock_symbol-selection" domain="" context="{'group_by':'location_id'}"/>
+                        <filter string="User" icon="terp-stock_symbol-selection" domain="" context="{'group_by':'user_id'}"/>
+                        <filter string="state" icon="terp-stock_symbol-selection" domain="" context="{'group_by':'state'}"/>
+                        <filter string="Car" icon="terp-stock_symbol-selection" domain="" context="{'group_by':'car_id'}"/>
+                        <filter string="Driver" icon="terp-stock_symbol-selection" domain="" context="{'group_by':'driver_id2'}"/>
+
+                    </group>
+                </search>
+            </field>
+        </record>
+
+        <!-- state draft -->
+        <record id="action_sj" model="ir.actions.act_window">
+            <field name="name">Picking List</field>
+            <field name="res_model">surat.jalan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sj_tree"/>
+            <field name="search_view_id" ref="view_sj_search"/>
+            <field name="domain">[('state','=','draft')]</field>
+            <field name="context">{'contact_display': 'partner_address', 'search_default_mypicking': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Sorry....
+              </p><p>
+                No record now...
+              </p>
+            </field>
+
+        </record>
+
+        <!-- state in progress dan done -->
+        <record id="action_sj_onprogress" model="ir.actions.act_window">
+            <field name="name">Delivery Checking</field>
+            <field name="res_model">surat.jalan</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form</field>
+            <field name="view_id" ref="view_sj_tree2"/>
+            <field name="search_view_id" ref="view_sj_search"/>
+            <field name="domain">[('state','!=','draft')]</field>
+            <field name="context">{'contact_display': 'partner_address', 'search_default_mypicking': 1}</field>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Sorry....
+              </p><p>
+                No record now...
+              </p>
+            </field>
+
+        </record>        
+
+        <!-- <menuitem id="menu_action_sj" name="Picking List" parent="stock.menu_stock_warehouse_mgmt" sequence="6"/> -->
+        <menuitem action="action_sj" id="menu_action_sj1" parent="stock.menu_stock_warehouse_mgmt" sequence="6"/> 
+        <menuitem action="action_sj_onprogress" id="menu_action_sj2" parent="stock.menu_stock_warehouse_mgmt" sequence="7"/>     
+
+
+        <!-- Sequences for picking list -->
+        <record id="seq_type_sj" model="ir.sequence.type">
+            <field name="name">Picking List</field>
+            <field name="code">surat.jalan</field>
+        </record>
+
+        <record id="seq_sj" model="ir.sequence">
+            <field name="name">Picking List</field>
+            <field name="code">surat.jalan</field>
+            <field name="prefix">SJ </field>
+            <field name="padding">5</field>
+        </record>
+
+            
+
+    </data>
+</openerp>

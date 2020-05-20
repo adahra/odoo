@@ -1,0 +1,19 @@
+ <openerp>
+    <data>
+
+        <!-- inherit invoice -->
+        <record model="ir.ui.view" id="lph_invoice">
+            <field name="name">Invoice</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_form"/>
+            <field name="arch" type="xml">
+                <field name="journal_id" position="after"> 
+                    <field name="pay_estimates_date"/>
+                    <field name="is_cn" invisible="True"/>
+                </field>               
+            </field>
+        </record>
+
+
+    </data>
+</openerp>

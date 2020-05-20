@@ -1,0 +1,486 @@
+<openerp>
+    <data>
+        <!-- main mlm home pages iconic menu -->
+        <template id="icon_menu">
+            <section class="s_big_icon_circle oe_custom_bg oe_img_bg mt0" style="background-image: url(&quot;/website/image/ir.attachment/244_63d68f4/datas&quot;); height: 208px; overflow: hidden;">
+                <div class="container">
+                  <div class="row mb64">
+                    <div class="col-sm-12 mt16 mb32 col-md-2 col-md-offset-1">
+                      <div class="s_big_icon_circle_box">
+                        <div class="s_big_icon_circle_icon col-md-4">
+                        <a href="/">
+                          <span class="fa fa-home" style="transition: none 0s ease 0s ;"/>
+                          </a>
+                          <h5>Accueil</h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12 mt16 mb32">
+                      <div class="s_big_icon_circle_box">
+                        <div class="s_big_icon_circle_icon col-md-4 o_animate" style="animation-play-state: paused;">
+                          <a href="/mlm/member/create/">
+                            <span class="fa fa-envelope-o" style="transition: none 0s ease 0s ;"/>
+                          </a>
+                          <h5>
+                            <font class="text-white">
+                              <a href="/mlm/member/create/" style="text-decoration: none">Faire une Invitation</a>
+                            </font>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12 mt16 mb32">
+                      <div class="s_big_icon_circle_box o_animate" style="animation-play-state: paused;">
+                        <div class="s_big_icon_circle_icon col-md-4 o_animate" style="animation-play-state: paused;">
+                          <a href="/mlm/member/list">
+                            <span class="fa fa-check-square-o" style="transition: none 0s ease 0s ;"/>
+                          </a>
+                          <h5>
+                            <a href="/mlm/member/list/" style="text-decoration: none">Liste de vos invités</a>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12 mt16 mb32">
+                      <div class="s_big_icon_circle_box">
+                        <div class="s_big_icon_circle_icon col-md-4">
+                          <a href="/page/compensation-plan">
+                            <span class="fa fa-money" style="transition: none 0s ease 0s ;"/>
+                          </a>
+                          <h5>
+                            <a href="/page/compensation-plan" style="text-decoration: none">Plan de <sub>Rémunération</sub></a>
+                          </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="col-md-2 col-sm-12 mt16 mb32">
+                      <div class="s_big_icon_circle_box">
+                        <div class="s_big_icon_circle_icon col-md-4">
+                        <a href="/survey/start/votre-opinion-svp-2">
+                          <span class="fa fa-pencil-square" style="transition: none 0s ease 0s ;"/>
+                          </a>
+                          <h5>Votre opinion svp</h5>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+            </section>
+            <div id="mlm_custum_wrap_before" class="oe_structure oe_editable"/>
+        </template>
+
+        <!-- override the main website menu -->
+        <template id="member_view2" inherit_id="vit_mlm_website.member_view">
+            <xpath expr="//div[@class='oe_structure']" position="attributes">
+                <attribute name="style">background-color: gray;</attribute>
+            </xpath>
+
+            <xpath expr="//h1" position="attributes">
+                <attribute name="style">color: white;</attribute>
+            </xpath>
+            <xpath expr="//h2" position="attributes">
+                <attribute name="style">color: white;</attribute>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_custum_wrap_before']" position="after">
+                <section class="s_title">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <h2>GUEST SHEET</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                <t t-call="vit_mlm_reiva.icon_menu"/>
+            </xpath>
+            <xpath expr="//a[@id='mlm_member_edit']" position="after">
+                <t t-if="member.state == 'draft'">
+                    <a t-attf-href="/mlm/member/invite/{{ slug(member) }}"
+                       class="btn btn-primary" >Send Invitation</a>
+                </t>
+            </xpath>
+            <li id="tab_bonus" position="replace"/>
+            <xpath expr="//div[@id='downlines']/table/tr/th[contains(.,'BBM')]" position="replace" />
+
+            <xpath expr="//li[@id='tab_tree']" position="attributes">
+                <attribute name="style">display:none</attribute>
+            </xpath>
+
+        </template>
+
+        <!-- override the main website menu -->
+        <template id="mlm_homepage2" name="MLM Homepage" inherit_id="vit_mlm_website.mlm_homepage">
+
+            <xpath expr="//div[@id='mlm_new_member']" position="before">
+                <t t-if="user_id and user_id.name != 'Public user'">
+                    <t t-if="user_id.partner_id.state == 'invited'">
+                        <br />
+                        <div class="alert alert-success">
+                            Dear <span t-esc="user_id.partner_id.name"/>, <br/>
+                            Your current state is an invited Guest. To upgrade your state please accept this invitation.
+                            <br/>
+                            <br/>
+                            <a t-attf-href="/mlm/member/accept_invitation/{{ slug(user_id) }}" role="button" class="btn btn-primary btn-lg">Accept Invitation</a>
+                            <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                        </div>
+                    </t>
+                </t>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_list_member']" position="replace">
+                <div id="mlm_list_member" class="col-md-4 text-center">
+                    <span class="fa fa-users fa-5x"/>
+                    <h4 class="mt16">
+                        <a t-attf-href="/mlm/member/list">Pre-Registration</a>
+                    </h4>
+                  <p>Pre-Registration List</p>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_new_member']" position="replace">
+                <div id="mlm_invite" class="col-md-4 text-center">
+                    <span class="fa fa-envelope fa-5x"/>
+                    <h4 class="mt16">
+                        <a t-attf-href="/mlm/member/create">Invite potential Associate</a>
+                    </h4>
+                  <p>Send an invitation email to potential Independent Associate</p>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_stockist_member']" position="replace">
+                <div id="mlm_stockist_member" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_shop']" position="replace">
+                <div id="mlm_shop" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_blog']" position="replace">
+                <div id="mlm_blog" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_list_member']" position="after">
+                <div id="mlm_compensation_plan" class="col-md-4 text-center">
+                    <span class="fa fa-suitcase fa-5x"/>
+                    <h4 class="mt16">
+                        <a t-attf-href="/page/compensation-plan">Compensation Plan</a>
+                    </h4>
+                  <p>Preview REIVA Compensation Plan and unique advantages for future Independent Associates</p>
+                </div>
+
+                <div id="mlm_survey" class="col-md-4 text-center">
+                    <span class="fa fa-pencil-square-o fa-5x"/>
+                    <h4 class="mt16">
+                        <a t-attf-href="/survey/start/guests-interest-1/phantom">Survey</a>
+                    </h4>
+                  <p>Please take 15 seconds to complete this short survey about your interest in REIVA</p>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_custum_wrap_before']" position="after">
+                <section class="s_title_small">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <h2>BIENVENUE À TOUS NOS INVITÉS!</h2>
+                        </div>
+                      </div>
+                    </div>
+                </section>
+                <t t-call="vit_mlm_reiva.icon_menu"/>
+                <section class="s_title_small">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12 text-center mb32">
+                        <h2>Les outils de développement de votre équipe Reïva</h2>
+                        <h3 class="text-muted"/>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section class="s_color_blocks_2">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6 s_color_blocks_2_block bg-alpha text-center oe_custom_bg oe_img_bg" style="background-image: url(&quot;/website/image/ir.attachment/244_63d68f4/datas&quot;);">
+                        <font class="text-white">
+                          <font class="bg-white">
+                            <span class="center-block fa fa-envelope-o fa-5x" style=""/>
+                          </font>
+                        </font>
+                        <h2 class="text-center">
+                          <font class="text-white">Faire une invitation&amp;nbsp;</font>
+                        </h2>
+                        <h3 class="text-center text-muted mb16"/>
+                        <p class="text-justify mb32" style="text-align: center;">
+                          <font class="text-white">
+                            <span style="line-height: 25.7143px; text-align: center;">Invitez les personnes parmi vos contacts qui sont susceptibles d'être intéressées&amp;nbsp;par l'opporutnité d'affaires REIVA et qui pourraient se joindre à votre équipe.&amp;nbsp;</span>
+                          </font>
+                        </p>
+                        <a class="btn btn-primary" href="/mlm/member/create/">
+                          <i class="fa fa-cog"/>
+                          <font class="text-stone">&amp;nbsp;</font>
+                          <strong>
+                            <font class="text-white"> </font>
+                          </strong>
+                          <strong>
+                            <strong>
+                              <font class="text-white"> Inviter une personne</font>
+                            </strong>
+                          </strong>
+                          <font class="text-stone"/>
+                        </a>
+                      </div>
+                      <div class="col-md-6 s_color_blocks_2_block bg-gamma text-center oe_custom_bg oe_img_bg" style="background-image: url(&quot;/website/image/ir.attachment/410_741181d/datas&quot;);">
+                        <span class="center-block fa fa-check-square-o fa-5x" style=""/>
+                        <h2 class="text-center">Liste de vos invités</h2>
+                        <h3 class="text-center text-muted mb16"/>
+                        <p class="text-justify mb32" style="text-align: center;">
+                          <span style="line-height: 25.7143px; text-align: center;">&amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp; &amp;nbsp;Vous pouvez consulter ici les résultats de vos invitations : la liste de vos invités&amp;nbsp;et ceux qui ont répondu&amp;nbsp;à votre invitation.</span>
+                        </p>
+                        <p>
+                          <a class="btn btn-warning" href="/mlm/member/list"><i class="fa fa-cog"/>&amp;nbsp;<strong>Consulter</strong></a>
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section class="s_color_blocks_2">
+                  <div class="container-fluid">
+                    <div class="row">
+                      <div class="col-md-6 s_color_blocks_2_block bg-alpha text-center oe_custom_bg oe_img_bg" style="background-image: url(&quot;/website/image/ir.attachment/410_741181d/datas&quot;);">
+                        <span class="center-block fa fa-money fa-5x" style=""/>
+                        <h2 class="text-center">
+                          <font class="text-white">Plan de rémunération</font>
+                        </h2>
+                        <h3 class="text-center text-muted mb16"/>
+                        <p class="text-justify mb32" style="text-align: center;">
+                          <font class="text-white">
+                            <span style="line-height: 25.7143px; text-align: center;">Découvrez en primeur le PLAN de RÉMUNÉRATION REÏVA&amp;nbsp;avant même son prélancement</span>
+                          </font>
+                        </p>
+                        <a class="btn btn-warning" href="/page/compensation-plan"><i class="fa fa-cog"/>&amp;nbsp;<strong>Voir le plan</strong></a>
+                      </div>
+                      <div class="col-md-6 s_color_blocks_2_block bg-gamma text-center oe_custom_bg oe_img_bg" style="background-image: url(&quot;/website/image/ir.attachment/244_63d68f4/datas&quot;);">
+                        <span class="fa fa-cube fa-5x center-block"/>
+                        <h2 class="text-center">Donnez votre opinion</h2>
+                        <h3 class="text-center text-muted mb16"/>
+                        <p class="text-justify mb32" style="text-align: center;"><span style="line-height: 25.7143px; text-align: center;">Veuillez prendre 15 secondes pour répondre à ce court sondage sur votre intérêt envers REÏVA</span>&amp;nbsp; &amp;nbsp;</p>
+                        <a class="btn btn-primary" href="/survey/start/votre-opinion-svp-2">
+                          <i class="fa fa-cog"/>
+                          <strong>Répondre au sondage</strong>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                </section>
+                <section class="s_process_step mt64">
+                  <div class="container">
+                    <div class="row">
+                      <div class="col-md-12 text-center">
+                        <h2>Vous pouvez démarrer dès maintenant et sans obligation</h2>
+                        <h3 class="text-muted"/>
+                      </div>
+                    </div>
+                  </div>
+                  <section style="">
+                    <div class="container s_process_step_steps">
+                      <div class="row">
+                        <div class="col-md-3 mb16">
+                          <h5>ÉTAPE&amp;nbsp; 1</h5>
+                          <a class="btn btn-primary o_animate" style="animation-play-state: paused;" type="button">
+                            <span class="fa fa-folder-open-o" style=""/>
+                          </a>
+                          <h4 class="text-muted">Découvrir l'opportunité</h4>
+                          <div class="s_process_step_content">
+                            <p>Découvrez le Plan de Rémunération Reïva au moyen d'une présentation sommaire et d'une présentation détaillée exposant son fonctionnement.</p>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <h5>ÉTAPE&amp;nbsp; 2</h5>
+                          <a class="btn btn-success o_animate" style="animation-play-state: paused;" type="button">
+                            <span class="fa fa-phone" style="transition: none 0s ease 0s"/>
+                          </a>
+                          <h4 class="text-muted">Partager</h4>
+                          <div class="s_process_step_content">
+                            <p>Contactez par téléphone les gens de votre entourage qui sont susceptibles d'être intéressés et mentionnez qu'ils recevront une invitation de votre part par courriel.</p>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <h5>ÉTAPE&amp;nbsp; 3</h5>
+                          <a class="btn btn-info" type="button">
+                            <span class="fa fa-envelope-o" style="transition: none;"/>
+                          </a>
+                          <h4 class="text-muted">Inviter</h4>
+                          <div class="s_process_step_content">
+                            <p>Lancez vos invitations : vos invités recevront un message avec un lien et pourront choisir un mot de passe pour se connecter ensuite à volonté afin de pouvoir consulter notre opportunité et faire leurs invitations.</p>
+                          </div>
+                        </div>
+                        <div class="col-md-3">
+                          <h5>ÉTAPE&amp;nbsp; 4</h5>
+                          <a class="btn btn-danger" type="button">
+                            <span class="fa fa-bar-chart-o fa-4x" style="transition: none 0s ease 0s ;"/>
+                          </a>
+                          <h4 class="text-muted">Vos résultats</h4>
+                          <div class="s_process_step_content">
+                            <p>Vous pourrez consulter les résultats de vos invitations et vous serez prévenu un peu avant notre pré-lancement afin de vous donner l’occasion, si vous le désirez, de prendre place en respectant l’ordre des invitations.</p>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                </section>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_iconic_menu']" position="replace">
+                <div id="mlm_iconic_menu" style="display:none"></div>
+            </xpath>
+
+
+        </template>
+
+        <!-- override member registration form -->
+        <template id="member_form2" inherit_id="vit_mlm_website.member_form">
+
+            <xpath expr="//div[@id='form_group_parent_id']" position="replace">
+                <div t-attf-class="form-group" id="form_group_parent_id">
+                    <label class="col-md-3 col-sm-4 control-label" for="parent_id">Upline ID</label>
+                    <div class="col-md-7 col-sm-8">
+                        <input type="hidden"
+                               t-attf-value="#{(member and member.parent_id and member.parent_id.id) or (default_parent and default_parent.id) or ''}"
+                               name="parent_id" />
+                        <input class="form-control"
+                               readonly="true"
+                                t-attf-value="#{(member and member.parent_id and member.parent_id.name) or (default_parent and default_parent.name) or ''}" />
+                    </div>
+                </div>
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_paket_id']" position="replace">
+                <input type="hidden"
+                       t-attf-value="#{member and member.paket_id and member.paket_id.id or default_paket[0].id}"
+                       name="paket_id" />
+
+                <!--div t-attf-class="form-group required" id="form_group_paket_id">
+                    <label class="col-md-3 col-sm-4 control-label" for="paket_id">Package ID</label>
+
+
+                    <div class="col-md-7 col-sm-8">
+                        <input class="form-control" readonly="true" id="paket_id"
+                            t-attf-value="#{member and member.paket_id and member.paket_id.name or default_paket[0].name}" />
+                    </div>
+                </div-->
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_sponsor_id']" position="replace">
+                <div id="form_group_sponsor_id" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_bbm']" position="replace">
+                <div id="form_group_bbm" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_fax']" position="replace">
+                <div id="form_group_fax" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_bank_no']" position="replace">
+                <div id="form_group_bank_no" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_bank_account_name']" position="replace">
+                <div id="form_group_bank_account_name" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_bank_name']" position="replace">
+                <div id="form_group_bank_name" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_bank_branch']" position="replace">
+                <div id="form_group_bank_branch" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_id_number']" position="replace">
+                <div id="form_group_id_number" style="display:none"></div>
+            </xpath>
+
+            <xpath expr="//div[@id='form_group_signature']" position="replace">
+                <div id="form_group_signature" style="display:none"></div>
+            </xpath>
+            <xpath expr="//div[@id='form_group_products']" position="replace">
+                <div id="form_group_products" style="display:none"></div>
+            </xpath>
+
+        </template>
+
+
+        <!-- override tree -->
+        <template id="member_list2" inherit_id="vit_mlm_website.member_list">
+
+            <xpath expr="//div[@class='oe_structure']" position="attributes">
+                <attribute name="style">background-color: gray;</attribute>
+            </xpath>
+
+            <xpath expr="//h1" position="attributes">
+                <attribute name="style">color: white;</attribute>
+            </xpath>
+
+            <xpath expr="//th[@id='th_sponsor']" position="replace"/>
+            <xpath expr="//td[@id='td_sponsor']" position="replace"/>
+            <xpath expr="//div[@id='mlm_custum_wrap_before']" position="after">
+                  <section class="s_title_small">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <h2>YOUR INVITATIONS</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                <t t-call="vit_mlm_reiva.icon_menu"/>
+            </xpath>
+        </template>
+
+        <!-- override crate-->
+        <template id="member_create2" inherit_id="vit_mlm_website.member_create">
+            <xpath expr="//div[@class='oe_structure']" position="attributes">
+                <attribute name="style">background-color: gray;</attribute>
+            </xpath>
+
+            <xpath expr="//h1" position="attributes">
+                <attribute name="style">color: white;margin-left: 25%;</attribute>
+            </xpath>
+
+            <xpath expr="//div[@id='mlm_custum_wrap_before']" position="after">
+                  <section class="s_title_small">
+                    <div class="container">
+                      <div class="row">
+                        <div class="col-md-12 text-center">
+                          <h2>SEND AN INVITATION</h2>
+                        </div>
+                      </div>
+                    </div>
+                  </section>
+                <t t-call="vit_mlm_reiva.icon_menu"/>
+            </xpath>
+        </template>
+
+        <!-- override edit-->
+        <template id="member_edit2" inherit_id="vit_mlm_website.member_edit">
+            <xpath expr="//div[@id='mlm_custum_wrap_before']" position="after">
+                <t t-call="vit_mlm_reiva.icon_menu"/>
+            </xpath>
+        </template>
+
+        <record id="vit_mlm_website.member_menu" model="website.menu">
+            <field name="parent_id" eval="False"/>
+        </record>
+
+
+        <template id="reiva_theme_asset" name="website asset for reiva mlm app" inherit_id="website.assets_frontend">
+            <xpath expr="." position="inside">
+                <link rel="stylesheet" href="/vit_mlm_reiva/static/css/reiva.css"/>
+            </xpath>
+        </template>
+    </data>
+</openerp>

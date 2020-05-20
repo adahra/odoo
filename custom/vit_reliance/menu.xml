@@ -1,0 +1,145 @@
+<openerp>
+	<data>
+
+		<!-- customer list -->
+
+		<record id="action_customer_list" model="ir.actions.act_window">
+			<field name="name">Customer</field>
+			<field name="res_model">res.partner</field>
+			<field name="view_mode">tree,form,graph</field>
+			<field name="search_view_id" ref="view_partner_filter_reliance"/>
+            <!-- <field name="context">{'search_default_group_by_country_id': 1}</field> -->
+		</record>
+
+
+		<!-- ir_filters list -->
+
+		<record id="action_campaign_list" model="ir.actions.act_window">
+			<field name="name">Campaigns</field>
+			<field name="res_model">ir.filters</field>
+			<field name="view_mode">tree,form</field>
+            <field name="context">{'search_default_model_id': 'res.partner'}</field>
+		</record>
+
+
+		<!-- product list -->
+
+		<record id="action_product_list" model="ir.actions.act_window">
+			<field name="name">Product</field>
+			<field name="res_model">product.product</field>
+			<field name="view_mode">tree,form</field>
+			<field name="view_id" ref="view_product_tree"/>
+		</record>
+
+		<!-- product category list -->
+
+		<record id="action_product_category_list" model="ir.actions.act_window">
+			<field name="name">Product Category</field>
+			<field name="res_model">product.category</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<!-- company list -->
+
+		<record id="action_company_list" model="ir.actions.act_window">
+			<field name="name">Company</field>
+			<field name="res_model">res.company</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- country list -->
+
+		<record id="action_country_list" model="ir.actions.act_window">
+			<field name="name">Countries</field>
+			<field name="res_model">res.country</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<!-- state list -->
+
+		<record id="action_country_state_list" model="ir.actions.act_window">
+			<field name="name">State</field>
+			<field name="res_model">res.country.state</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+
+		<!-- top menu -->
+
+		<menuitem id="rcm" name="RCM" sequence="10" />
+		
+
+		<!-- customer menu -->
+
+		<menuitem id="rcm_customer" name="Customer" sequence="10" parent="rcm"
+			groups="base.group_sale_manager"/>
+
+			<menuitem id="rcm_customer_customer"
+			 action="action_customer_list"
+			 name="Customer"
+			 sequence="10"
+			 parent="rcm_customer"/>
+
+			<menuitem id="rcm_customer_campaign"
+			 action="action_campaign_list"
+			 name="Campaign"
+			 sequence="20"
+			 parent="rcm_customer"/>
+
+		<!-- product menu -->
+
+		<menuitem id="rcm_product" name="Products" sequence="30" parent="rcm"
+			groups="base.group_sale_manager"/>
+
+
+			<menuitem id="rcm_product_product"
+			 action="action_product_list"
+			 name="Product"
+			 sequence="10"
+			 parent="rcm_product"/>
+
+			<menuitem id="rcm_product_category"
+			 action="action_product_category_list"
+			 name="Product Category"
+			 sequence="10"
+			 parent="rcm_product"/>
+
+
+		<!-- company menu -->
+
+		<menuitem id="rcm_company" name="Companies" sequence="30" parent="rcm"
+			groups="base.group_sale_manager"/>
+
+			<menuitem id="rcm_company_company"
+			 action="action_company_list"
+			 name="Companies"
+			 sequence="10"
+			 parent="rcm_company"/>
+		
+		<!-- imports menu -->
+
+		<menuitem id="rcm_import" name="Imports" sequence="40" parent="rcm"/>
+		<menuitem id="rcm_import_ftp" name="Import FTP Logs" sequence="50" parent="rcm"/>
+		<menuitem id="rcm_import_zip" name="Import ZIPs" sequence="60" parent="rcm"/>
+
+		<!-- configuration data menu -->
+
+		<menuitem id="rcm_configuration" name="Configuration" sequence="500" parent="rcm" 
+			groups="base.group_sale_manager"/>
+			<menuitem id="rcm_country"
+			 action="action_country_list"
+			 name="Countries"
+			 sequence="10"
+			 parent="rcm_configuration"/>
+			 
+			<menuitem id="rcm_country_state"
+			 action="action_country_state_list"
+			 name="States"
+			 sequence="20"
+			 parent="rcm_configuration"/>
+
+	
+	</data>
+</openerp>

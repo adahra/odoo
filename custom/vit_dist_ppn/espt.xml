@@ -1,0 +1,46 @@
+<openerp>
+	<data>
+		<!-- action list espt -->
+		<record id="action_espt_list" model="ir.actions.act_window">
+			<field name="name">List e-SPT</field>
+			<field name="res_model">vit_dist_ppn.espt</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="view_espt_tree" model="ir.ui.view">
+		    <field name="name">vit_dist_ppn_espt_tree</field>
+		    <field name="model">vit_dist_ppn.espt</field>
+		    <field name="arch" type="xml">
+		    	<tree string="list espt">
+					<!--field name="invoice_id" /--> 							
+					<field name="kode_pajak" />							
+					<field name="kode_transaksi" />						
+					<field name="kode_status" />							
+					<field name="kode_dokumen" />							
+					<field name="flag_vat" />								
+					<field name="npwp_nomor_paspor" />						
+					<field name="nama_lawan_transaksi" />					
+					<field name="nomor_faktur_dokumen" />					
+					<field name="jenis_dokumen" />							
+					<field name="nomor_faktur_pengganti_retur" />			
+					<field name="jenis_dokumen_dokumen_pengganti_retur" />
+					<field name="tanggal_faktur_dokumen" />				
+					<field name="tanggal_ssp" />							
+					<field name="masa_pajak" />							
+					<field name="tahun_pajak" />							
+					<field name="pembetulan" />							
+					<field name="dpp" />									
+					<field name="ppn" />									
+					<field name="ppn_bm" />													           
+		        </tree>    
+		    </field>
+		</record>
+
+	    <menuitem id="list_espt_menu" 
+    	 parent="value_added_tax" name="List e-SPT" sequence="70" 
+    	 action="action_espt_list" />
+
+
+
+	</data>
+</openerp>

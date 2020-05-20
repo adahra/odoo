@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<openerp>
+
+    <data inherit_id="account.report_invoice_document">
+
+        <xpath expr="(//div[@class='row'])[2]" position="after">
+            <p style="text-align:right">
+                <img t-if="o.user_id.partner_id.signature" t-att-src="'data:image/png;base64,%s' % o.user_id.partner_id.signature" style="max-height: 65px;"/>
+            </p>
+            <p style="text-align:right">
+                ( <span t-field="o.user_id" /> )
+            </p>
+        </xpath>
+    </data>
+
+</openerp>

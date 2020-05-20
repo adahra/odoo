@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="view_split_in_lots_custom" model="ir.ui.view">
+            <field name="name">Split in Serial Numbers Inherit</field>
+            <field name="model">stock.move.split</field>
+            <field name="inherit_id" ref="stock.view_split_in_lots"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/field[@name='line_ids']/tree/field[@name='name']" position="after">
+                    <field name="expire"/>
+                    <field name="reason"  attrs="{'required' : [('is_bad', '=', True)]}"/>
+                    <field name="is_bad"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_production_lot_tree_custom" model="ir.ui.view">
+            <field name="name">stock production lot tree Inherit</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+            <field name="arch" type="xml">
+                <xpath expr="/tree/field[@name='name']" position="after">
+                    <field name="life_date"/>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="view_production_lot_form_xcustom" model="ir.ui.view">
+            <field name="name">stock.production.lot.form</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/group" position="after">
+                    <group>
+                        <group>
+                            <field name="is_bad"/>
+                            <field name="reason" attrs="{'required' : [('is_bad', '=', True)]}"/>
+                        </group>
+                    </group>
+                    <group />
+                </xpath>
+            </field>
+        </record>
+
+        
+        <!-- Add ED on onchange date -->
+        
+        <record id="stock_partial_picking_form_addED" model="ir.ui.view">
+            <field name="name">stock.partial.picking.add_ed</field>
+            <field name="model">stock.partial.picking</field>
+            <field name="inherit_id" ref="stock.stock_partial_picking_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="/form/field[@name='move_ids']/tree/field[@name='prodlot_id']" position="attributes">
+                    <attribute name='required'>1</attribute>
+                </xpath>
+                <!-- <xpath expr="/form/field[@name='move_ids']/tree/field[@name='product_uom']" position="after">
+                    <field name="prodlot_id2"/>
+                    <field name="ed_date" on_change="on_change_ed(ed_date,prodlot_id2,product_id)"/>
+                </xpath> -->
+            </field>
+        </record>
+
+    </data>
+</openerp>
+        

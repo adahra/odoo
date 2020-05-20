@@ -1,0 +1,119 @@
+<openerp>
+	<data>
+
+    
+        <record model="ir.ui.view" id="jadwal_kuliah_mhs_tree_view">
+            <field name="name">jadwal.tree</field>
+            <field name="model">master.jadwal</field>
+            <field name="type">tree</field>
+            <field name="arch" type="xml">
+                <tree string="Daftar Jadwal Kuliah" version="7.0">
+                    <field name="name"/>
+                    <field name="employee_id"/>
+                    <field name="wali_id"/> 
+                    <field name="kelas_id"/>                   
+                    <field name="tahun_ajaran_id" invisible="1"/>
+                    <field name="fakultas_id" invisible="1"/>
+                    <field name="prodi_id" invisible="1"/>
+                    <field name="ruangan_id"/>
+                    <field name="hari"/>
+                    <field name="sesi" invisible="1"/>
+                    <field name="hours_from" widget="float_time"/>
+                    <field name="hours_to" widget="float_time"/>
+                    <field name="mata_kuliah_id"/>
+                    <field name="is_active" invisible="1"/>
+                    <field name="user_id" invisible="1"/>
+                    <field name="alamat_id" invisible="1"/>
+                </tree>
+            </field>
+        </record>
+
+        
+        <record model="ir.ui.view" id="jadwal_kuliah_mhs_form_view">
+            <field name="name">jadwal.form</field>
+            <field name="model">master.jadwal</field>
+            <field name="type">form</field>
+            <field name="arch" type="xml">
+                <form string="Daftar Jadwal Kuliah" version="7.0">                   
+                	<sheet>
+                		<group>
+                			<group>
+                                <field name="name"/> 
+                                <field name="tahun_ajaran_id"/>
+                                <field name="fakultas_id" domain="[('is_internal','=',True)]"/>
+                                <field name="prodi_id" domain="[('fakultas_id','=',fakultas_id),('is_internal','=',True)]"/>
+                                <field name="konsentrasi_id" required="True"/>
+                                <field name="kelas_id" domain="[('prodi_id','=',prodi_id)]"/>
+                                <field name="mata_kuliah_id"/>                                
+                            </group>
+                			<group>
+                                <field name="employee_id"/>
+                                <field name="sks" attrs="{'invisible':[('employee_id','=',False)]}"/>
+                                <field name="employee_id2"/>
+                                <field name="sks2" attrs="{'invisible':[('employee_id2','=',False)]}"/>
+                                <field name="employee_id3"/>
+                                <field name="sks3" attrs="{'invisible':[('employee_id3','=',False)]}"/>
+                                <field name="user_id" invisible="1"/>
+                			</group>
+                        </group>
+                        <group>    
+                            <group> 
+                                <field name="semester_id"/>  
+                                <field name="ruangan_id"/>   
+                                <field name="alamat_id" attrs="{'invisible':[('alamat_id','=',False)]}"/> 
+                                <field name="kapasitas" readonly="1"/>
+                                <field name="sisa_kapasitas" readonly="1"/>  
+                                <field name="sisa_kapasitas_field" invisible="1"/> 
+                            </group>
+                            <group>  
+                                <field name="hari" placeholder="-- pilih hari --"/>                                
+                                <field name="sesi"/> 
+                                <label for="hours_from" string="Waktu"/> 
+                                <div>  
+                                    <field name="hours_from" widget="float_time" nolabel="1" class="oe_inline" /><label string="-" class="oe_inline"/>
+                                    <field name="hours_to" widget="float_time" nolabel="1" class="oe_inline" />
+                                </div>                                                                                            
+                            </group>
+                            <group>
+                                <field name="is_active"/>
+                            </group>
+                            <group>
+                                <field name="wali_id"/> 
+                            </group>                            
+                		</group>
+	                </sheet>    
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.actions.act_window" id="jadwal_kuliah_list_action_by_mhs">
+            <field name="name">Jadwal Kuliah</field>
+            <field name="res_model">master.jadwal</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree</field>
+            <field name="domain">[('is_active','=',True)]</field> 
+            <!-- <field name="search_view_id" ref="vit_universities_v8.jadwal_kuliah_mhs_search"/> -->
+            <field name="view_id" ref="vit_universities_v8.jadwal_kuliah_mhs_tree_view"/>
+            <field name="help" type="html">
+            <p class="oe_view_nocontent_create">Jadwal not found !</p><p>disini belum ada data tentang jadwal !</p></field>
+        </record>
+
+        <menuitem name="Jadwal" id="portal_jadwal" parent="portal.portal_menu" sequence="40" />
+            <menuitem id="jadwal_kuliah_portal" name="Jadwal Kuliah" parent="portal_jadwal" action="jadwal_kuliah_list_action_by_mhs" sequence="10" groups="vit_universities_v8.group_univ_mahasiswa"/>
+
+
+        <!--sequance-->
+        <record forcecreate="1" id="seq_type_jadwal" model="ir.sequence.type">
+            <field name="name">Jadwal</field>
+            <field name="code">master.jadwal</field>
+        </record>
+        
+        <record  forcecreate="1" id="seq_jadwal" model="ir.sequence">
+            <field name="name">Jadwal</field>
+            <field name="code">master.jadwal</field>
+            <field name="prefix">%(y)s/</field>
+            <field name="padding">5</field>
+        </record> 
+
+	</data>
+</openerp>	

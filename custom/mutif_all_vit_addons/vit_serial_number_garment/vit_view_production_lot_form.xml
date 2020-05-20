@@ -1,0 +1,98 @@
+<openerp>
+<data>      
+
+        <record id="vit_view_production_lot_form_view" model="ir.ui.view">
+            <field name="name">stock.production.lot</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_form"/>
+            <field name="arch" type="xml">
+                <field name="ref" position="after">
+                        <field name="is_used" readonly="1"/>
+                        <field name="date_sn_input_in" readonly="1"/>
+                        <field name="date_sn_input" readonly="1"/>
+                </field>                
+                <field name="stock_available" position="after">
+                    <newline/>
+                        <field name="spk_cutting_id"/>
+                        <field name="spk_makloon_id"/>                            
+                        <field name="makloon" readonly="1"/>
+                        <field name="tanggal"/>
+                </field>
+                <page string="Revisions" position="before"> 
+                    <page string="History Serial Number">
+                        <group string="In">
+                            <field name="history_sn_ids" view_type="tree,form" nolabel="1">
+                                <tree string="History Serial Number">
+                                    <field name="stock_move_id" />
+                                    <field name="type" invisible="1"/>
+                                    <field name="serial_number_id" invisible="1"/>
+                                    <field name="picking_id"/> 
+                                    <field name="date_picking"/> 
+                                    <field name="product_id" invisible="1"/>                  
+                                    <field name="qty"/>
+                                    <field name="sale_order_id" invisible="1"/>
+                                    <field name="date_sale" invisible="1"/>
+                                    <field name="invoice_id" invisible="1"/> 
+                                    <field name="date_invoices" invisible="1"/> 
+                                    <field name="unit_prices" invisible="1"/>    
+                                </tree>
+                            </field>  
+                        </group>
+                        <group string='Out'>                     
+                            <field name="history2_sn_ids" view_type="tree,form" nolabel="1">
+                                <tree string="History Serial Number">
+                                    <field name="stock_move_id" />
+                                    <field name="type" invisible="1" />
+                                    <field name="serial_number_id" invisible="1"/>
+                                    <field name="picking_id"/> 
+                                    <field name="date_picking"/> 
+                                    <field name="product_id" invisible="1"/>                  
+                                    <field name="qty"/>
+                                    <field name="sale_order_id" />
+                                    <field name="date_sale" />
+                                    <field name="invoice_id" groups="account.group_account_manager"/> 
+                                    <field name="date_invoices" groups="account.group_account_manager"/> 
+                                    <field name="unit_prices" groups="account.group_account_manager"/>
+                                    <field name="discount" groups="account.group_account_manager"/>
+                                    <field name="total" groups="account.group_account_manager"/>    
+                                </tree>
+                            </field>
+                        </group>
+                    </page>
+                </page>       
+            </field>
+        </record> 
+
+        <record id="vit_view_production_lot_tree_view" model="ir.ui.view">
+            <field name="name">stock.production.lot</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.view_production_lot_tree"/>
+            <field name="arch" type="xml">
+                <field name="prefix" position="replace">
+                        <field name="spk_cutting_id"/>
+                        <field name="spk_makloon_id"/>                            
+                        <field name="makloon" readonly="1"/>
+                        <field name="date_sn_input_in" readonly="1"/>
+                        <field name="date_sn_input" readonly="1"/>
+                </field>
+     
+            </field>
+        </record> 
+
+        <record id="vit_search_product_lot_filter" model="ir.ui.view">
+            <field name="name">stock.production.lot</field>
+            <field name="model">stock.production.lot</field>
+            <field name="inherit_id" ref="stock.search_product_lot_filter"/>
+            <field name="arch" type="xml">
+                <filter string="Product" position="after">
+                        <filter string="SPK Cutting" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'spk_cutting_id'}"/>
+                        <filter string="SPK Makloon" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'spk_makloon_id'}"/>
+                        <filter string="Reference" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'ref'}"/>
+                        <filter string="Tanggal DO" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date_sn_input'}"/>
+                        <filter string="Tanggal Incoming" icon="terp-accessories-archiver" domain="[]" context="{'group_by':'date_sn_input_in'}"/>
+                </filter>                       
+            </field>
+        </record> 
+
+</data>
+</openerp> 

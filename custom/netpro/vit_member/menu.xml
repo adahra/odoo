@@ -1,0 +1,8 @@
+<?xml version="1.0"?>
+<openerp>
+	<data>
+	    <menuitem name="Member" id="menu_netpro_member" parent="vit_actuary.menu_netpro_transaction"/>
+	    <menuitem name="Member Group" id="menu_netpro_member_group" parent="menu_netpro_member" action="action_netpro_member"/>
+	    <menuitem name="Member Individu" id="menu_netpro_member_individu" parent="menu_netpro_member" action="action_netpro_member_individu"/>
+	 </data>
+</openerp>

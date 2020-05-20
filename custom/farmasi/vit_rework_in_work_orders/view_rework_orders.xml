@@ -1,0 +1,50 @@
+<openerp>
+<data>
+ 
+        <record id="input_rework" model="ir.actions.act_window">
+            <field name="name">Input Rework</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">vit.rework.wizard</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">form</field>
+            <field name="target">new</field>
+            <field name="context">{'form_view_ref': False}</field>
+        </record>
+
+        <record id="vit_rework_workorder_view" model="ir.ui.view">
+            <field name="name">mrp.production.workcenter.line</field>
+            <field name="model">mrp.production.workcenter.line</field>
+            <field name="inherit_id" ref="mrp_operations.mrp_production_workcenter_form_view_inherit"/>
+            <field name="arch" type="xml">
+                <button name="button_cancel" position="after">
+                    <button name="action_reprocess" string="Reprocess" states="done" />
+                </button>            
+            	<page string="Information" position="after">
+                    <field name="is_origin" invisible="1"/>
+                    <page string="Reprocess">
+                        <button
+                           name="%(input_rework)d"
+                           string="Create Reprocess"
+                           type="action" icon="gtk-justify-fill"
+                           attrs="{'invisible':[('state','not in',('done','cancel'))]}" groups="vit_lucas_groups.group_qa_manager"/>
+                        <field name="move_ids" nolabel="1"/>                             
+                        <field name="notes" nolabel="1" placeholder="Notes..."/>   
+                    </page>                                                               
+                </page>
+            </field>
+        </record>	
+
+        <!--  WO List View -->
+        <record id="vit_mrp_production_workcenter_tree_view_inherit2" model="ir.ui.view">
+            <field name="name">mrp.production.workcenter.line</field>
+            <field name="model">mrp.production.workcenter.line</field>
+            <field name="inherit_id" ref="mrp_operations.mrp_production_workcenter_tree_view_inherit"/>
+            <field name="arch" type="xml">
+                <field name="state" position="before">
+                    <field name="notes"/>
+                </field>
+            </field>
+        </record>  
+
+</data>
+</openerp>

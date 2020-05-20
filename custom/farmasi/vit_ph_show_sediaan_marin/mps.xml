@@ -1,0 +1,33 @@
+<openerp>
+
+    <data>
+        
+        <record id="view_mps_form_marin" model="ir.ui.view">
+            <field name="name">mps_form_marin</field>
+            <field name="model">vit_pharmacy_manufacture.mps</field>
+            <field name="inherit_id" ref="vit_pharmacy_manufacture.view_mps_form"/>
+            <field name="arch" type="xml">
+                <notebook string="Syrup" position="attributes">
+                    <attribute name='invisible'>1</attribute> 
+                </notebook>
+                <notebook string="Soft Capsule" position="attributes">
+                    <attribute name='invisible'>1</attribute> 
+                </notebook>
+                <notebook string="Injeksi" position="attributes">
+                    <attribute name='invisible'>1</attribute> 
+                </notebook>
+                <notebook string="Larutan" position="attributes">
+                    <attribute name='invisible'>1</attribute> 
+                </notebook>
+
+                <notebook string="Betalaktam" position="attributes">
+                    <attribute name='invisible'>1</attribute> 
+                </notebook>
+                 <notebook string="Kapsul" position="attributes">
+                    <attribute name='invisible'>1</attribute> 
+                </notebook>
+            </field>
+        </record>
+    </data>
+</openerp>
+

@@ -1,0 +1,45 @@
+<openerp>
+	<data>
+
+    <report auto="False"
+	    id="report_purchase_order"
+	    model="purchase.order"
+	    name="vit.purchase.order.webkit"
+	    file="vit_dist_po/report/purchase_order.mako"
+	    string="PO / RFQ"
+	    report_type="webkit"
+	    webkit_header="ir_header_webkit_vit_l"
+	    />
+
+    <report auto="False"
+	    id="report_plan_purchase_order"
+	    model="purchase.order"
+	    name="vit.plan.purchase.order.webkit"
+	    file="vit_dist_po/report/plan_purchase_order.mako"
+	    string="Plan Kedatangan Barang"
+	    report_type="webkit"
+	    webkit_header="ir_header_webkit_vit_l"
+	    />
+
+    <report auto="False"
+	    id="report_po_invo"
+	    model="account.invoice"
+	    name="vit.po.supp.invo.webkit"
+	    file="vit_dist_po/report/po_invo.mako"
+	    string="Faktur Pembelian"
+	    report_type="webkit"
+	    webkit_header="ir_header_webkit_vit_l"
+	    />
+
+    <report auto="False"
+	    id="report_bukti_inship_fisik"
+	    model="stock.picking.in"
+	    name="vit.inship.fisik.webkit"
+	    file="vit_dist_po/report/inship_fisik.mako"
+	    string="Bukti Penerimaan Barang"
+	    report_type="webkit"
+	    webkit_header="ir_header_webkit_vit_p"
+	    />
+
+	</data>
+</openerp>

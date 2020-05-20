@@ -1,0 +1,121 @@
+<openerp>
+<data>
+
+
+<!-- LOA -->
+
+<template id="vit_claim_web.loa">
+    <t t-call="website.layout">
+        <t t-set="title">Eligibility</t>
+        <div class="container">
+
+            <t t-if="message_error">
+                <br />
+                <div class="alert alert-danger">
+                    <t t-esc="message_error"/>
+                    <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                </div>
+            </t>
+
+            <t t-if="message_success">
+                <br />
+                <div class="alert alert-success">
+                    <t t-esc="message_success"/>
+                    <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                </div>
+            </t>
+
+            <t t-if="message">
+                <br />
+                <div class="alert alert-info">
+                    <t t-esc="message"/>
+                    <button type="button" class="close" data-dismiss="alert">&amp;times;</button>
+                </div>
+            </t>
+
+        	<h2>Letter of Authorization</h2>
+
+            <t t-call="vit_claim_web.patient_data">
+                <t t-set="member" t-value="member"/>
+            </t>    
+
+        	<h3>Benefit <t t-esc="member_plan.product_plan_id.product_plan_base_id.name"/> - <t t-esc="member_plan.product_plan_id.product_plan_base_id.pplan"/> </h3>
+
+            <form t-attf-action="/claim/registration_process" method="post" class="form-horizontal mt32" enctype="multipart/form-data">
+
+                <t t-foreach="member_plan.member_plan_detail_ids" t-as="plan">
+
+                 	<div class="row">
+                    	<div class="col-md-4 col-sm-4">
+                            <label class="control-label"><t t-esc="plan.benefit_id.code"/> - <t t-esc="plan.benefit_id.name"/></label>
+                        </div>
+                        <div class="col-md-4 col-sm-4">
+                           	<t t-esc="'{0:,.2f}'.format(int(plan.remaining))" />
+                        </div>
+                    </div> 	
+                </t>
+             	
+                <div class="row">
+                    <div class="col-sm-8 col-md-7">
+                        <t t-if="not claim">
+                            <button type="submit" name="confirm" class="btn btn-primary">
+                                Confirm
+                            </button>
+                        </t>
+                        <t t-if="claim">
+                            <input type="hidden" name="claim_id" t-attf-value="{{ claim.id }}" />
+                            <t t-if="claim.state == 'open'">
+                                <button type="submit" name="email" class="btn btn-warning email">
+                                    Email
+                                </button>
+                                <button type="submit" name="print" class="btn btn-danger print">
+                                    Print
+                                </button>
+                            </t>
+                        </t>
+                    </div>
+                </div>    
+
+                <input type="hidden" name="member_id" t-attf-value="{{ member.id }}" />
+                <input type="hidden" name="member_plan_id" t-attf-value="{{ member_plan.id }}" />
+            </form>
+        </div>
+    </t>
+</template>
+
+<!-- Eligibility -->
+
+<template id="vit_claim_web.eligibility" name="Claim Eligibility" page="True">
+    <t t-call="website.layout">
+        <t t-set="title">Eligibility</t>
+        <div class="container">
+        	<t t-call="vit_claim_web.patient_data"/>	
+
+            <div class="col-sm-12 col-md-12">
+		        <t t-foreach="member.member_plan_ids" t-as="plan">
+                    <!-- /claim/loa/<member>/<product_type> -->
+                    <a t-attf-href="/claim/loa/{{ slug(member) }}/{{ slug(plan) }}">
+	                    <button class="btn btn-primary">
+	                    	<t t-esc="plan.product_plan_id.product_plan_base_id.pplan" />
+	                    </button>
+                    </a>
+                </t>
+            </div>
+
+        </div>
+        <br/>
+    </t>	
+</template>
+
+
+<template id="vit_claim_web.registration_process" name="Registration" page="True">
+    <t t-call="website.layout">
+        <t t-set="title">Registration</t>
+        <div class="container">
+            <h2>Registration Sukses</h2>
+        </div>
+    </t>
+</template>
+
+</data>
+</openerp>

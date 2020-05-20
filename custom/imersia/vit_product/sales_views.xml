@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="vi_view_quotation_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name='inherit_id' ref="sale.view_quotation_tree"/>
+            <field name="arch" type="xml">
+                <field name='name' position="replace">
+                    <field name="name" string="Proforma Invoice Number"/>
+                </field>
+            </field>
+        </record>
+
+        <!-- <record id="vit_pi_view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form inherit</field>
+            <field name="model">sale.order</field>
+            <field name='inherit_id' ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet/h1/label[@string='Quotation ']" position='attributes'>
+                    <attribute name='string'>Proforma Invoice </attribute>
+                </xpath>
+            </field>
+        </record> -->
+
+        <record id="vi_action_quotations_salesteams" model="ir.actions.act_window">
+            <field name="name">Proforma Invoices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="sale.view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{
+                    'search_default_section_id': [active_id],
+                    'default_section_id': active_id,
+                    'show_address': 1,
+                }
+            </field>
+            <field name="domain">[('state','in',('draft','sent','cancel'))]</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a proforma invoice, the first step of a new sale.
+              </p><p>
+                Odoo will help you handle efficiently the complete sale flow:
+                from the proforma invoice to the sales order, the
+                delivery, the invoicing and the payment collection.
+              </p><p>
+                The social feature helps you organize discussions on each sales
+                order, and allow your customers to keep track of the evolution
+                of the sales order.
+              </p>
+            </field>
+        </record>
+
+        <record id="vit_view_quotation_tree" model="ir.ui.view">
+            <field name="name">vi sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="priority">4</field>
+            <field name='inherit_id' ref='sale.view_quotation_tree'/>
+            <field name="arch" type="xml">
+                <xpath expr="//tree[@string='Quotation']" position='attributes'>
+                    <attribute name='string'>Proforma Invoice</attribute>
+                </xpath>
+            </field>
+        </record>
+
+        <record id="vit_x_view_quotation_tree" model="ir.ui.view">
+            <field name="name">sale.order.tree</field>
+            <field name="model">sale.order</field>
+            <field name="priority">4</field>
+            <field name="arch" type="xml">
+                <tree string="Proforma Invoices" fonts="bold:message_unread==True" colors="grey:state=='cancel';blue:state in ('waiting_date','manual');red:state in ('invoice_except','shipping_except')">
+                    <field name="message_unread" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="proforma_no" string="Proforma Invoice Number" />
+                    <field name="date_order"/>
+                    <field name="partner_id"/>
+                    <field name="user_id"/>
+                    <field name="amount_total" sum="Total Tax Included"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="vit_action_quotations" model="ir.actions.act_window">
+            <field name="name">Proforma Invoices</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="res_model">sale.order</field>
+            <field name="view_type">form</field>
+            <field name="view_id" ref="vit_x_view_quotation_tree"/>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field name="context">{'search_default_my_sale_orders_filter': 1}</field>
+            <field name="domain">[('state','in',('draft','sent','cancel'))]</field>
+            <field name="search_view_id" ref="sale.view_sales_order_filter"/>
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a Proforma Invoice, the first step of a new sale.
+              </p><p>
+                Odoo will help you handle efficiently the complete sale flow:
+                from the Proforma Invoice to the sales order, the
+                delivery, the invoicing and the payment collection.
+              </p><p>
+                The social feature helps you organize discussions on each sales
+                order, and allow your customers to keep track of the evolution
+                of the sales order.
+              </p>
+            </field>
+        </record>
+
+        <menuitem id="sale.menu_sale_quotations"
+            action="vit_action_quotations" parent="base.menu_sales"
+            sequence="5"/>
+
+        <!-- Sales form -->
+        <record id="vi_x_view_order_form" model="ir.ui.view">
+            <field name="name">sale.order.form x</field>
+            <field name="model">sale.order</field>
+            <field name="inherit_id" ref="sale.view_order_form"/>
+            <field name="arch" type="xml">
+                <xpath expr="//form/sheet//h1/label[@string='Quotation ']" position='attributes'>
+                    <attribute name='string'>Proforma Invoice </attribute>
+                </xpath>
+                <xpath expr="//form/sheet//h1/field[@name='name']" position='replace'>
+                    <field name="name" class="oe_inline" attrs="{'invisible' : [('state','in',['draft','sent'])]}" readonly="1"/>
+                    <field name="proforma_no" class="oe_inline" attrs="{'invisible' : [('state','not in',['draft','sent'])]}" readonly="1"/>
+                </xpath>
+                <xpath expr="//group" position='inside'>
+                    <group>
+                        <field name='port_name'/>
+                        <field name='port_discharge'/>
+                        <field name='qty_total'/>
+                        <label for='readiness_date'/>
+                        <div>
+                            <field name='readiness_date' class='oe_inline' style="width : 30% !important;" nolabel='1' on_change="readydate_change(readiness_date)"/>
+                            <field name='week_of_year' class='oe_inline' nolabel='1' widget="statinfo"/>
+                        </div>
+                        <field name='etd_date'/>
+                    </group>
+                    <group>
+                          <field name='comment'/>
+                          <field name='desc_goods'/>
+                    </group>
+                </xpath>
+                
+                <!-- so line details form -->
+                <!-- <xpath expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/form[@string='Sales Order Lines']/field[@name='name']" position='attributes'>
+                    <attribute name='invisible'>True</attribute>
+                </xpath> -->
+                <!-- <label for="name" position='replace'>
+                    <label for="description"/>
+                    <field name='description' />
+                </label> -->
+
+                <!-- so line details tree -->
+                <!-- <xpath expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='name']" position='attributes'>
+                    <attribute name='invisible'>True</attribute>
+                </xpath>
+                <xpath expr="//notebook/page[@string='Order Lines']/field[@name='order_line']/tree[@string='Sales Order Lines']/field[@name='product_id']" position='after'>
+                    <field name='description' />
+                </xpath> -->
+
+                <xpath expr="//form/header//button[@name='copy_quotation']" position='attributes'>
+                    <attribute name='string'>New Copy of Proforma Invoice</attribute>
+                </xpath>
+                <xpath expr="//button[@name='cancel']" position='attributes'>
+                    <attribute name='string'>Cancel Proforma Invoice</attribute>
+                </xpath>
+                <page string="Order Lines" position='after'>
+                	<page string="Measurement"> 
+                	   <group><group style="width:600">
+                            <field view_mode="tree,form" name="sale_line_measurements" nolabel="1">
+                                <tree string="Measurements">
+                                    <field name="product_larg" class="text-center"/>
+                                    <field name="product_length" class="text-center"/>
+                                    <field name="product_height" class="text-center"/>
+                                    <field name="product_volume_total" class="text-center"/>
+                                    <field name="product_unbuilt_volume12" class="text-center"/>
+                                </tree>                                                              
+                            </field>  
+                        </group><group/></group>
+                     </page>  
+                </page>   
+            </field>
+        </record>
+
+    </data>
+</openerp>

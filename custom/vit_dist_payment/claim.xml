@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="utf-8"?>
+<openerp>
+    <data>
+
+        <record id="invoice_tree_claim" model="ir.ui.view">
+            <field name="name">account.invoice.tree.claim</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <tree colors="blue:state == 'draft';black:state in ('proforma','proforma2','open');gray:state == 'cancel'" string="Invoice Claim">
+                    <field name="partner_id" groups="base.group_user"/>
+                    <field name="date_invoice"/>
+                    <field name="number"/>
+                    <field name="reference" invisible="1"/>
+                    <field name="name" invisible="1"/>
+                    <field name="journal_id" invisible="1"/>
+                    <field name="period_id" invisible="1" groups="account.group_account_user"/>
+                    <field name="company_id" groups="base.group_multi_company" widget="selection"/>
+                    <field name="user_id"/>
+                    <field name="date_due"/>
+                    <field name="origin"/>
+                    <field name="currency_id" groups="base.group_multi_currency"/>
+                    <field name="residual" sum="Residual Amount"/>
+                    <field name="amount_untaxed" sum="Untaxed Amount"/>
+                    <field name="amount_total" sum="Total Amount"/>
+                    <field name="state"/>
+                </tree>
+            </field>
+        </record>
+
+        <record id="claim_form" model="ir.ui.view">
+            <field name="name">claim.form</field>
+            <field name="model">account.invoice</field>
+            <field name="inherit_id" ref="account.invoice_supplier_form"/>
+            <field name="arch" type="xml">
+
+                <xpath expr="//field[@name='journal_id']" position="after">
+                    <field name="is_claim" invisible="1"/>
+                </xpath>
+
+            </field>
+        </record>
+
+        <record id="view_account_invoice_filter" model="ir.ui.view">
+            <field name="name">account.invoice.select</field>
+            <field name="model">account.invoice</field>
+            <field name="arch" type="xml">
+                <search string="Search Invoice">
+                    <field name="number" string="Invoice" filter_domain="['|','|','|', ('number','ilike',self), ('origin','ilike',self), ('supplier_invoice_number', 'ilike', self), ('partner_id', 'child_of', self)]"/>
+                    <filter name="draft" string="Draft" domain="[('state','=','draft')]" help="Draft Invoices"/>
+                    <filter name="proforma" string="Proforma" domain="[('state','=','proforma2')]" help="Proforma Invoices" groups="account.group_proforma_invoices"/>
+                    <filter name="invoices" string="Invoices" domain="[('state','not in',['draft','cancel'])]" help="Proforma/Open/Paid Invoices"/>
+                    <filter name="unpaid" string="Unpaid" domain="[('state','=','open')]" help="Unpaid Invoices"/>
+                    <separator/>
+                    <filter domain="[('user_id','=',uid)]" help="My Invoices" icon="terp-personal"/>
+                    <field name="partner_id" filter_domain="[('partner_id', 'child_of', self)]"/>
+                    <field name="user_id" string="Salesperson"/>
+                    <field name="period_id" string="Period"/>
+                    <group expand="0" string="Group By...">
+                        <filter string="Partner" icon="terp-partner" domain="[]" context="{'group_by':'partner_id'}"/>
+                        <filter string="Responsible" icon="terp-personal" domain="[]"  context="{'group_by':'user_id'}"/>
+                        <filter string="Journal" icon="terp-folder-orange" domain="[]" context="{'group_by':'journal_id'}"/>
+                        <filter string="Status" icon="terp-stock_effects-object-colorize" domain="[]"  context="{'group_by':'state'}"/>
+                        <filter string="Period" icon="terp-go-month" domain="[]" context="{'group_by':'period_id'}"/>
+                        <filter string="Invoice Date" icon="terp-go-month" domain="[]"  context="{'group_by':'date_invoice'}"/>
+                        <filter string="Due Date" icon="terp-go-month" domain="[]"  context="{'group_by':'date_due'}"/>
+                    </group>
+               </search>
+            </field>
+        </record>
+
+        <record id="action_claim" model="ir.actions.act_window">
+            <field name="name">Supplier Claim</field>
+            <field name="res_model">account.invoice</field>
+            <field name="view_type">form</field>
+            <field name="view_mode">tree,form,calendar,graph</field>
+            <field eval="False" name="view_id"/>
+            <field name="domain">[('type','=','out_refund'),('is_claim','=',True)]</field>
+            <field name="context">{'default_type':'out_refund', 'type':'out_refund', 'journal_type': 'sale_refund','default_is_claim':True}</field>
+            <field name="search_view_id" ref="view_account_invoice_filter"/>
+            <field name="view_id" ref="claim_form"/>
+            <field name="act_window_id" ref="claim_form"/>
+
+            <field name="help" type="html">
+              <p class="oe_view_nocontent_create">
+                Click to create a supplier claim. 
+              </p><p>
+                A claim is a document that credits an invoice completely or
+                partially.
+              </p><p>
+                Instead of manually creating a supplier claim, you
+                can generate it directly from the related supplier invoice.
+              </p>
+            </field>
+        </record>
+
+<!--         <record id="action_claim_tree_view1" model="ir.actions.act_window.view">
+            <field eval="1" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="act_window_id" ref="action_claim"/>
+        </record> -->
+<!-- 
+        <record id="action_claim_form_view2" model="ir.actions.act_window.view">
+            <field eval="2" name="sequence"/>
+            <field name="view_mode">tree</field>
+            <field name="view_id" ref="account.invoice_tree_claim"/>
+            <field name="act_window_id" ref="action_claim"/>
+        </record> -->
+
+        <!-- menu claim supplier -->
+		<menuitem id="claim"
+			 action="action_claim"
+			 name="Supplier Claim"
+			 sequence="10"
+			 parent="account.menu_finance_payables"/>
+
+	</data>
+</openerp>        

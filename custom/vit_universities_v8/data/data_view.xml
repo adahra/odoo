@@ -1,0 +1,431 @@
+<openerp>
+    <data>
+
+
+    <!-- Master Nilai -->
+	    <record model="master.nilai" id="nilai_a" >
+	    	<field name="name">A</field>
+	    	<field name="bobot">4</field>
+	    	<field name="min">80</field>
+	    	<field name="max">100</field>
+	    </record>
+	    <record model="master.nilai" id="nilai_a-" >
+	    	<field name="name">A-</field>
+	    	<field name="bobot">3.7</field>
+	    	<field name="min">75</field>
+	    	<field name="max">79.99</field>
+	    </record>
+	    <record model="master.nilai" id="nilai_b+" >
+	    	<field name="name">B+</field>
+	    	<field name="bobot">3.3</field>
+	    	<field name="min">72</field>
+	    	<field name="max">74.99</field>
+	    </record>
+	    <record model="master.nilai" id="nilai_b" >
+	    	<field name="name">B</field>
+	    	<field name="bobot">3</field>
+	    	<field name="min">68</field>
+	    	<field name="max">71.99</field>
+	    </record>	
+	    <record model="master.nilai" id="nilai_b-" >
+	    	<field name="name">B-</field>
+	    	<field name="bobot">2.7</field>
+	    	<field name="min">65</field>
+	    	<field name="max">67.99</field>
+	    </record>
+	    <record model="master.nilai" id="nilai_c+" >
+	    	<field name="name">C+</field>
+	    	<field name="bobot">2.3</field>
+	    	<field name="min">62</field>
+	    	<field name="max">64.99</field>
+	    </record>
+	    <record model="master.nilai" id="nilai_c" >
+	    	<field name="name">C</field>
+	    	<field name="bobot">2</field>
+	    	<field name="min">55</field>
+	    	<field name="max">61.99</field>
+	    </record>	
+	    <record model="master.nilai" id="nilai_d" >
+	    	<field name="name">D</field>
+	    	<field name="bobot">1</field>
+	    	<field name="min">41</field>
+	    	<field name="max">54.99</field>
+	    </record>
+	    <record model="master.nilai" id="nilai_e" >
+	    	<field name="name">E</field>
+	    	<field name="bobot">0</field>
+	    	<field name="min">0</field>
+	    	<field name="max">40.99</field>
+	    </record>
+
+<!-- Master Yudisium -->
+	    <record model="master.yudisium" id="yudisium_a" >
+	    	<field name="name">Cumlaude</field>
+	    	<field name="min">3.51</field>
+	    	<field name="max">4.00</field>
+	    </record>
+	    <record model="master.yudisium" id="yudisium_b" >
+	    	<field name="name">Sangat Memuaskan</field>
+
+	    	<field name="min">3.01</field>
+	    	<field name="max">3.50</field>
+	    </record>	
+	    <record model="master.yudisium" id="yudisium_c" >
+	    	<field name="name">Memuaskan</field>
+	    	<field name="min">2.50</field>
+	    	<field name="max">3.00</field>
+	    </record>
+
+<!-- Master Semester -->
+	    <record model="master.semester" id="semester1" >
+	    	<field name="name">1</field>
+	    </record>
+	    <record model="master.semester" id="semester2" >
+	    	<field name="name">2</field>
+	    </record>	
+	    <record model="master.semester" id="semester3" >
+	    	<field name="name">3</field>
+	    </record>
+	    <record model="master.semester" id="semester4" >
+	    	<field name="name">4</field>
+	    </record>
+	    <record model="master.semester" id="semester5" >
+	    	<field name="name">5</field>
+	    </record>	
+	    <record model="master.semester" id="semester6" >
+	    	<field name="name">6</field>	    	
+	    </record>
+	    <record model="master.semester" id="semester7" >
+	    	<field name="name">7</field>
+	    </record>	
+	    <record model="master.semester" id="semester8" >
+	    	<field name="name">8</field>
+	    </record>
+
+
+<!-- Master Ruangan -->
+	    <record model="master.ruangan" id="ruangan1" >
+	    	<field name="name">RG-X</field>
+	    	<field name="kapasitas">5</field>
+	    </record>
+	    <record model="master.ruangan" id="ruangan2" >
+	    	<field name="name">RG-Y</field>
+	    	<field name="kapasitas">10</field>
+	    </record>	
+	    <record model="master.ruangan" id="ruangan3" >
+	    	<field name="name">RG-Z</field>
+	    	<field name="kapasitas">15</field>
+	    </record>
+
+<!-- Master Fakultas -->
+	    <!-- <record model="master.fakultas" id="fakultas1" >
+	    	<field name="kode">01</field>
+	    	<field name="name">Fakultas Kedokteran</field>
+	    </record>
+	    <record model="master.fakultas" id="fakultas2" >
+	    	<field name="kode">02</field>
+	    	<field name="name">Fakultas Teknik</field>
+	    </record>	
+	    <record model="master.fakultas" id="fakultas3" >
+	    	<field name="kode">03</field>
+	    	<field name="name">Fakultas Hukum</field>
+	    </record> -->
+<!-- Master Jurusan -->
+ 	   <!--  <record model="master.jurusan" id="jurusan1" >
+	    	<field name="kode">01</field>
+	    	<field name="name">Pendidikan Dokter</field>
+	    	<field name="fakultas_id" search="[('kode','=','01')]" model="master.fakultas"/>
+	    </record>
+	    <record model="master.jurusan" id="jurusan2" >
+	    	<field name="kode">02</field>
+	    	<field name="name">Ilmu Keperawatan</field>
+	    	<field name="fakultas_id"  search="[('kode','=','01')]" model="master.fakultas"/>
+	    </record>
+	    <record model="master.jurusan" id="jurusan3" >
+	    	<field name="kode">03</field>
+	    	<field name="name">Teknik Industri</field>
+	    	<field name="fakultas_id" search="[('kode','=','02')]" model="master.fakultas"/>
+	    </record>
+	    <record model="master.jurusan" id="jurusan7" >
+	    	<field name="kode">07</field>
+	    	<field name="name">Teknik Informatika</field>
+	    	<field name="fakultas_id" search="[('kode','=','02')]" model="master.fakultas"/>
+	    </record>	    	        
+
+	    <record model="master.jurusan" id="jurusan4" >
+	    	<field name="kode">04</field>
+	    	<field name="name">Teknik Elektro</field>
+	    	<field name="fakultas_id" search="[('kode','=','02')]" model="master.fakultas"/>
+	    </record>
+	    <record model="master.jurusan" id="jurusan5" >
+	    	<field name="kode">05</field>
+	    	<field name="name">Hukum Administrasi Negara</field>
+	    	<field name="fakultas_id" search="[('kode','=','03')]" model="master.fakultas"/>
+	    </record>
+	    <record model="master.jurusan" id="jurusan6" >
+	    	<field name="kode">06</field>
+	    	<field name="name">Hukum Pidana</field>
+	    	<field name="fakultas_id" search="[('kode','=','03')]" model="master.fakultas"/>
+	    </record>	 -->	
+
+	    <!-- program studi -->
+	    <!-- <record model="master.prodi" id="prodi1" >
+	    	<field name="kode">01</field>
+	    	<field name="name">Prodi Teknik Komputer</field>
+	    	<field name="jurusan_id" search="[('kode','=','04')]" model="master.jurusan"/>
+	    	<field name="gelar_id" search="[('name','=','Sarjana Teknik')]" model="res.partner.title"/>
+	    	<field name="semester_id" search="[('name','=','6')]" model="master.semester"/>
+	    	<field name="jenjang">sarjana</field>
+	    </record>
+ -->
+	    <!-- <record model="master.prodi" id="prodi2" > -->
+	    	<!-- <field name="kode">03</field> -->
+	    	<!-- <field name="name">Prodi Teknik Arus Kuat</field> -->
+	    	<!-- <field name="jurusan_id" search="[('kode','=','04')]" model="master.jurusan"/> -->
+	    <!-- </record> -->
+
+<!-- Master hubugan keluarga -->
+	    <record model="master.hubungan_keluarga" id="hub_kel_1" >
+	    	<field name="name">Ayah</field>
+	    </record>
+	    <record model="master.hubungan_keluarga" id="hub_kel_2" >
+	    	<field name="name">Ibu</field>
+	    </record>
+	    <record model="master.hubungan_keluarga" id="hub_kel_3" >
+	    	<field name="name">Saudara Kandung</field>
+	    </record>
+	    <record model="master.hubungan_keluarga" id="hub_kel_4" >
+	    	<field name="name">Saudara Lain</field>
+	    </record>
+	    <record model="master.hubungan_keluarga" id="hub_kel_5" >
+	    	<field name="name">Perusahaan</field>
+	    </record>
+	    <record model="master.hubungan_keluarga" id="hub_kel_6" >
+	    	<field name="name">Dinas</field>
+	    </record>
+
+
+<!-- email template tagihan pendaftaran-->
+    <record id="notif_email_pendaftaran" model="email.template">
+        <field name="name">[PMB ISTN] Bukti Booking Nomor Pendaftaran Mahasiswa Baru</field>
+        <field name="subject">[PMB ISTN] Bukti Booking Nomor Pendaftaran Mahasiswa Baru</field>
+        <field name="email_from">${(object.company_id.email or 'noreply@' + object.company_id.name + '.ac.id')|safe}</field>
+        <field name="email_to">${object.partner_id.email}</field>
+        <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+        <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="user_signature" eval="0"/>
+        <field name="body_html"><![CDATA[<p>Selamat ${object.partner_id.name or 'Calon Mahasiswa'}, pendaftaran anda sukses,</p>
+        <p>Silahkan lakukan pembayaran di Bank/ATM BNI terdekat dengan Nomor Pendaftaran ${object.partner_id.reg} sebesar Rp. ${'%d'%object.amount_total}</p>
+    	<p>
+		Konfirmasi bukti pembayaran Non BNI dapat anda emailkan ke : pmb@istn.ac.id atau fax ke : (021) 786 6955	
+    	</p>
+        <p>Terima Kasih,<br/>Panitia Penerimaan Mahasiswa Baru ISTN</p>]]>
+		</field>
+    </record>
+<!-- <p>Jika pembayaran dilakukan selain Bank BNI dapat ditransfer ke Rekening BNI Cabang UI Depok
+        Dengan Nomor Rekening BNI : 019-042-0913 a/n : Yayasan Perguruan Cikini ISTN 
+        dengan mencantumkan Nomor Pendaftaran ${object.partner_id.reg}
+    	</p> -->
+    
+
+
+<!-- email template remider tagihan pendaftaran-->
+    <record id="notif_email_reminder_pendaftaran" model="email.template">
+        <field name="name">[REMINDER] Pendaftaran Mahasiswa Baru ISTN</field>
+        <field name="subject">[REMINDER] Pendaftaran Mahasiswa Baru ISTN</field>
+        <field name="email_from">${(object.company_id.email or 'noreply@' + object.company_id.name + '.ac.id')|safe}</field>
+        <field name="email_to">${object.partner_id.email}</field>
+        <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+        <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="user_signature" eval="0"/>
+        <field name="body_html"><![CDATA[<p>Selamat ${object.partner_id.name or 'Calon Mahasiswa'}, pendaftaran anda sukses,</p>
+        <p>Silahkan lakukan pembayaran di Bank/ATM BNI terdekat dengan Nomor Pendaftaran ${object.partner_id.reg} sebesar Rp. ${'%d'%object.amount_total}</p>
+    	<p>
+		Konfirmasi bukti pembayaran Non BNI dapat anda emailkan ke : pmb@istn.ac.id atau fax ke : (021) 786 6955	
+    	</p>
+        <p>Terima Kasih,<br/>Panitia Penerimaan Mahasiswa Baru ISTN</p>]]>
+		</field>
+    </record>
+<!-- <p>Jika pembayaran dilakukan selain Bank BNI dapat ditransfer ke Rekening BNI Cabang UI Depok
+        Dengan Nomor Rekening BNI : 019-042-0913 a/n : Yayasan Perguruan Cikini ISTN 
+        dengan mencantumkan Nomor Pendaftaran ${object.partner_id.reg}
+    	</p> -->
+
+
+<!-- email template tagihan UP UK-->
+    <record id="notif_email_up_uk" model="email.template">
+        <field name="name">Uang Pengembangan dan Uang Kuliah ISTN</field>
+        <field name="subject">Uang Pengembangan dan Uang Kuliah ISTN</field>
+        <field name="email_from">${(object.company_id.email or 'noreply@' + object.company_id.name + '.ac.id')|safe}</field>
+        <field name="email_to">${object.partner_id.email}</field>
+        <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+        <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="user_signature" eval="0"/>
+        <field name="body_html"><![CDATA[<p>Selamat ${object.partner_id.name or 'Calon Mahasiswa'}, TPA anda berhasil,</p>
+        <p>Silahkan lakukan pembayaran di Bank/ATM BNI terdekat dengan Nomor Pendaftaran ${object.partner_id.reg} sebesar Rp. ${'%d'%object.amount_total}</p>
+        
+    	<p>
+		Konfirmasi bukti pembayaran Non BNI dapat anda emailkan ke : pmb@istn.ac.id atau fax ke : (021) 786 6955	
+    	</p>
+        <p>Terima Kasih,<br/>Panitia Penerimaan Mahasiswa Baru ISTN</p>]]>
+		</field>
+    </record>
+<!-- <p>Jika pembayaran dilakukan selain Bank BNI dapat ditransfer ke Rekening BNI Cabang UI Depok
+        Dengan Nomor Rekening BNI : 019-042-0913 a/n : Yayasan Perguruan Cikini ISTN 
+        dengan mencantumkan Nomor Pendaftaran ${object.partner_id.reg}
+    	</p>
+ -->
+
+<!-- email template tagihan UK-->
+    <record id="notif_email_uk" model="email.template">
+        <field name="name">Uang Kuliah ISTN</field>
+        <field name="subject">Uang Kuliah ISTN</field>
+        <field name="email_from">${(object.company_id.email or 'noreply@' + object.company_id.name + '.ac.id')|safe}</field>
+        <field name="email_to">${object.partner_id.email}</field>
+        <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+        <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+        <field name="model_id" ref="account.model_account_invoice"/>
+        <field name="user_signature" eval="0"/>
+        <field name="body_html"><![CDATA[<p>Saudara/i ${object.partner_id.name or 'Mahasiswa'}, tagihan Uang Kuliah(UP) anda telah dibuat,</p>
+        <p>Silahkan lakukan pembayaran di Bank/ATM BNI terdekat dengan NIM ${object.partner_id.npm} sebesar Rp. ${'%d'%object.amount_total}</p>
+    	<p>
+		Konfirmasi bukti pembayaran Non BNI dapat anda emailkan ke : pmb@istn.ac.id atau fax ke : (021) 786 6955	
+    	</p>
+        <p>Terima Kasih,<br/>Keuangan ISTN</p>]]>
+		</field>
+    </record>
+<!-- <p>Jika pembayaran dilakukan selain Bank BNI dapat ditransfer ke Rekening BNI Cabang UI Depok
+        Dengan Nomor Rekening BNI : 019-042-0913 a/n : Yayasan Perguruan Cikini ISTN 
+        dengan mencantumkan NIM ${object.partner_id.npm}
+    	</p> -->
+
+
+<!-- email template pembayaran pendaftaran-->
+    <record id="notif_email_pembayaran_pendaftaran" model="email.template">
+        <field name="name">[PMB ISTN] Bukti Pembayaran Pendaftaran Mahasiswa Baru</field>
+        <field name="subject">[PMB ISTN] Bukti Pembayaran Pendaftaran Mahasiswa Baru</field>
+        <field name="email_from">${(object.company_id.email or 'noreply@' + object.company_id.name + '.ac.id')|safe}</field>
+        <field name="email_to">${object.partner_id.email}</field>
+        <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+        <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+        <field name="model_id" ref="account_voucher.model_account_voucher"/>
+        <field name="user_signature" eval="0"/>
+        <field name="body_html"><![CDATA[<p>Terima kasih ${object.partner_id.name},</p>
+        <p>Pembayaran Pendaftaran Mahasiswa Baru ISTN sebesar Rp. ${'%d'%object.amount} telah diterima
+        <br/>Silahkan klik link http://istn.ac.id/tpa untuk melakukan Test Potensi Akademik (TPA) Online !</p>
+        <p>Terima Kasih,<br/>Panitia Penerimaan Mahasiswa Baru ISTN</p>]]>
+		</field>
+    </record>
+
+<!-- email template pembayaran UP UK-->
+    <record id="notif_email_pembayaran_up_uk" model="email.template">
+        <field name="name">Pembayaran Uang Pengembangan dan Uang Kuliah Mahasiswa Baru ISTN</field>
+        <field name="subject">Pembayaran Uang Pengembangan dan Uang Kuliah Mahasiswa Baru ISTN</field>
+        <field name="email_from">${(object.company_id.email or 'noreply@' + object.company_id.name + '.ac.id')|safe}</field>
+        <field name="email_to">${object.partner_id.email}</field>
+        <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+        <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+        <field name="model_id" ref="account_voucher.model_account_voucher"/>
+        <field name="user_signature" eval="0"/>
+        <field name="body_html"><![CDATA[<p><p>Terima kasih ${object.partner_id.name },</p>
+        <p>Pembayaran Uang Pengembangan(UP) dan Uang Kuliah(UK) Mahasiswa Baru ISTN sebesar Rp. ${'%d'%object.amount} telah diterima. Silahkan cek di portal mahasiswa untuk melihat detail tagihan dan pembayarannya !</p><p><span style="font-weight: bold;"></span></p><span style="font-weight: bold;"><h2>Selamat !!!...</h2></span> Anda telah menjadi mahasiswa ISTN dengan NIM ${object.partner_id.npm }<p><a></a></p>
+        <p>Terima Kasih,<br>Panitia Penerimaan Mahasiswa Baru ISTN</p>]]>
+		</field>
+    </record>
+
+
+<!-- email template pembayaran UK-->
+    <record id="notif_email_pembayaran_uk" model="email.template">
+        <field name="name">Pembayaran Uang Kuliah Mahasiswa ISTN</field>
+        <field name="subject">Pembayaran Uang Kuliah Mahasiswa ISTN</field>
+        <field name="email_from">${(object.company_id.email or 'noreply@' + object.company_id.name + '.ac.id')|safe}</field>
+        <field name="email_to">${object.partner_id.email}</field>
+        <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+        <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+        <field name="model_id" ref="account_voucher.model_account_voucher"/>
+        <field name="user_signature" eval="0"/>
+        <field name="body_html"><![CDATA[<p>Terima kasih ${object.partner_id.name },</p>
+        <p>Pembayaran Uang Kuliah(UK) Mahasiswa ISTN sebesar Rp. ${'%d'%object.amount} telah diterima
+        <br/>Silahkan cek di portal mahasiswa untuk melihat detail tagihan dan pembayarannya !</p>
+        <p>Terima Kasih,<br/>Keuangan ISTN</p>]]>
+		</field>
+    </record>
+
+<!-- email template verivikasi daftal ulang-->
+<!--     <record id="notif_email_pembayaran_uk" model="email.template">
+        <field name="name">Verifikasi Registrasi Ulang Calon Mahasiswa ISTN</field>
+        <field name="subject">Verifikasi Registrasi Ulang Calon Mahasiswa ISTN</field>
+        <field name="email_from">${(object.company_id.email or 'noreply@' + object.company_id.name + '.ac.id')|safe}</field>
+        <field name="email_to">${object.partner_id.email}</field>
+        <field name="partner_to">${object.partner_id and object.partner_id.id or ''}</field>
+        <field name="lang">${object.partner_id and object.partner_id.lang or ''}</field>
+        <field name="model_id" ref="base.model_res_users"/>
+        <field name="user_signature" eval="0"/>
+        <field name="body_html"><![CDATA[<p>Hallo ${object.partner_id.name },</p>
+        <p>Pembayaran Uang Kuliah(UK) Mahasiswa ISTN sebesar Rp. ${'%d'%object.amount} telah diterima
+        <br/>Silahkan cek di portal mahasiswa untuk melihat detail tagihan dan pembayarannya !</p>
+        <p>Terima Kasih,<br/>PMB ISTN</p>]]>
+		</field>
+    </record>  -->   
+	    
+<!-- Cron Job Cuti Mahasiswa -->
+        <record model="ir.cron" id="cuti_mahasiswa_cron">
+            <field name="name">Activasi cuti mahasiswa</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <!-- <field name="nextcall"></field> -->
+            <field name="active" eval="False"/>
+            <field name="doall" eval="True"/>
+            <field name="model" eval="'cuti.kuliah'"/>
+            <field name="function" eval="'cron_aktivasi_cuti_mahasiswa'"/>
+            <field name="args" eval="'()'" />
+        </record>
+
+<!-- Cron Job Cuti Mahasiswa otomatis karena ad invoice yg nunggak -->
+        <record model="ir.cron" id="cuti_mahasiswa_nunggak_cron">
+            <field name="name">Otomatis cuti mahasiswa karena nunggak</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <!-- <field name="nextcall"></field> -->
+            <field name="active" eval="False"/>
+            <field name="doall" eval="True"/>
+            <field name="model" eval="'cuti.kuliah'"/>
+            <field name="function" eval="'cron_cuti_mahasiswa_karena_nunggak'"/>
+            <field name="args" eval="'()'" />
+        </record>
+
+<!-- Cron tagihan uang pendaftaran -->
+        <record model="ir.cron" id="tagihan_pendaftaran_cron">
+            <field name="name">Tagihan Uang Pendaftaran</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <!-- <field name="nextcall"></field> -->
+            <field name="active" eval="True"/>
+            <field name="doall" eval="True"/>
+            <field name="model" eval="'res.partner'"/>
+            <field name="function" eval="'cron_reminder_tagihan_pendaftaran'"/>
+            <field name="args" eval="'()'" />
+        </record>
+
+<!-- Cron notif email konversi-->
+        <record model="ir.cron" id="dokumen_konversi_cron">
+            <field name="name">Konversi Mahasiswa Baru</field>
+            <field name="interval_number">1</field>
+            <field name="interval_type">days</field>
+            <field name="numbercall">-1</field>
+            <!-- <field name="nextcall"></field> -->
+            <field name="active" eval="True"/>
+            <field name="doall" eval="True"/>
+            <field name="model" eval="'akademik.konversi'"/>
+            <field name="function" eval="'cron_notif_email_konversi'"/>
+            <field name="args" eval="'()'" />
+        </record>
+
+	</data>
+</openerp>

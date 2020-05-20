@@ -1,0 +1,297 @@
+<openerp>
+	<data>
+
+		<!-- improt arg list -->
+
+		<record id="action_import_arg_list" model="ir.actions.act_window">
+			<field name="name">ARG Polis</field>
+			<field name="res_model">reliance.import_arg</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+		<record id="action_import_arg_polis_risk_list" model="ir.actions.act_window">
+			<field name="name">ARG Polis Risk</field>
+			<field name="res_model">reliance.import_arg_polis_risk</field>
+			<field name="view_mode">tree,form</field>
+		</record>
+
+
+		<menuitem id="rcm_import_arg" name="ARG" sequence="30" parent="rcm_import"/>
+
+			<!-- import ARG polis menu -->
+			<menuitem id="rcm_import_arg_cust"
+			 action="action_import_arg_list"
+			 name="ARG Polis"
+			 sequence="10"
+			 parent="rcm_import_arg"/>
+
+			<!-- import ARG polis risk menu -->
+			<menuitem id="rcm_import_arg_polis_risk"
+			 action="action_import_arg_polis_risk_list"
+			 name="ARG Polis Risk"
+			 sequence="20"
+			 parent="rcm_import_arg"/>
+
+
+		<!-- POLIS -->
+		
+		<!-- tree import_arg reliance -->
+		<record id="view_import_arg_tree" model="ir.ui.view">
+		    <field name="name">reliance_import_arg_tree</field>
+		    <field name="model">reliance.import_arg</field>
+		    <field name="arch" type="xml">
+		    	<tree string="list import_arg" colors="grey:is_imported==True; blue:is_imported==False">
+					<field name="policy_no" />			
+					<field name="product_class" />				
+					<field name="subclass" />			
+					<field name="eff_date" />			
+					<field name="exp_date" />			
+					<field name="company_code" />		
+					<field name="company_name" />		
+					<field name="company_type" />		
+					<field name="marketing_code" />	
+					<field name="marketing_name" />	
+					<field name="cust_code" />			
+					<field name="cust_name" />			
+					<field name="cust_fullname" />		
+					<field name="qq" />				
+					<field name="cust_cp" />			
+					<field name="cust_addr_1" />		
+					<field name="cust_addr_2" />		
+					<field name="cust_city" />			
+					<field name="cust_postal_code" />	
+					<field name="cust_province" />		
+					<field name="cust_country_name" />	
+					<field name='is_imported' 		 />
+					<field name="notes"				 />
+					<field name="source"/>
+		        </tree>    
+		    </field>
+		</record>
+
+		<!-- search import_arg reliance -->
+		<record id="view_import_arg_filter_reliance" model="ir.ui.view">
+		    <field name="name">import_arg.filter.reliance</field>
+		    <field name="model">reliance.import_arg</field>
+		    <field name="arch" type="xml">
+		        <search string="Search Import ARG">
+
+		            <filter icon="terp-mail-message-new" 
+		                string="Imported" 
+		            	 name="imported" domain="[('is_imported','=',True)]"/>
+		            <filter icon="terp-mail-message-new" 
+		                string="Not Imported" 
+		            	 name="not_imported" domain="[('is_imported','=',False)]"/>
+		            
+		            <separator/>
+					<field name="policy_no" />			
+					<field name="product_class" />				
+					<field name="subclass" />			
+					<field name="eff_date" />			
+					<field name="exp_date" />			
+					<field name="company_code" />		
+					<field name="company_name" />		
+					<field name="company_type" />		
+					<field name="marketing_code" />	
+					<field name="marketing_name" />	
+					<field name="cust_code" />			
+					<field name="cust_name" />			
+					<field name="cust_fullname" />		
+					<field name="qq" />				
+					<field name="cust_cp" />			
+					<field name='is_imported' 		 />
+					<field name="notes"				 />
+					<field name="source"/>
+		
+		            <group expand="1" string="Group By...">
+		                <filter string="Is Imported" icon="terp-personal" 
+		                    domain="[]" name="group_by_is_imported"
+		                	 context="{'group_by':'is_imported'}"/>
+		                <filter string="Policy No" icon="terp-personal" 
+		                    domain="[]" name="group_by_policy_no"
+		                	 context="{'group_by':'policy_no'}"/>
+		                <filter string="Product Class" icon="terp-personal" 
+		                    domain="[]" name="group_by_product_class"
+		                	 context="{'group_by':'product_class'}"/>
+		                <filter string="Company Name" icon="terp-personal" 
+		                    domain="[]" name="group_by_company_name"
+		                	 context="{'group_by':'company_name'}"/>
+		                <filter string="Cust Name" icon="terp-personal" 
+		                    domain="[]" name="group_by_cust_name"
+		                	 context="{'group_by':'cust_name'}"/>
+		                <filter string="QQ Name" icon="terp-personal" 
+		                    domain="[]" name="group_by_qq"
+		                	 context="{'group_by':'qq'}"/>
+		            </group>                                        
+
+		        </search>
+		    </field>
+		</record>
+
+		<!-- form import_arg reliance -->
+        <record id="view_import_arg_form_reliance" model="ir.ui.view">
+            <field name="name">reliance_import_arg_form_reliance</field>
+            <field name="model">reliance.import_arg</field>
+            <field name="arch" type="xml">
+
+            	<form version="7">
+            		<header>
+            		</header>
+	            	<group>
+						<field name="policy_no" />			
+						<field name="product_class" />				
+						<field name="subclass" />			
+						<field name="eff_date" />			
+						<field name="exp_date" />			
+						<field name="company_code" />		
+						<field name="company_name" />		
+						<field name="company_type" />		
+						<field name="marketing_code" />	
+						<field name="marketing_name" />	
+						<field name="cust_code" />			
+						<field name="cust_name" />			
+						<field name="cust_fullname" />		
+						<field name="qq" />				
+						<field name="cust_cp" />			
+						<field name="cust_addr_1" />		
+						<field name="cust_addr_2" />		
+						<field name="cust_city" />			
+						<field name="cust_postal_code" />	
+						<field name="cust_province" />		
+						<field name="cust_country_name" />
+						
+						<field name='is_imported' 		 />
+						<field name="notes"				 />
+						<field name="source"/>
+		            </group>
+
+	            </form>
+            </field>
+        </record>
+
+	    <!-- context menu More.. di tree import_arg -->
+	    <record id="action_import_arg_partner" model="ir.actions.server">
+	        <field name="name">Import to Partner</field>
+	        <field name="condition">True</field>
+	        <field name="model_id" ref="model_reliance_import_arg"/>
+	        <field name="state">code</field>
+	        <field name="code">action = pool.get('reliance.import_arg').action_import_partner(cr, uid, context)</field>
+	    </record>
+
+	    <record id="ir_import_arg_partner" model="ir.values">
+	        <field eval="'client_action_multi'" name="key2"/>
+	        <field eval="'reliance.import_arg'" name="model"/>
+	        <field name="name">Import to Partner</field>
+	        <field eval="'ir.actions.server,%d'%action_import_arg_partner" name="value"/>
+	    </record>
+
+
+
+
+
+		<!-- POLIS RISK -->
+		
+		<!-- tree import_arg_polis_risk reliance -->
+		<record id="view_import_arg_polis_risk_tree" model="ir.ui.view">
+		    <field name="name">reliance_import_arg_polis_risk_tree</field>
+		    <field name="model">reliance.import_arg_polis_risk</field>
+		    <field name="arch" type="xml">
+		    	<tree string="list import_arg_polis_risk" colors="grey:is_imported==True; blue:is_imported==False">
+					<field name="policy_no" />					
+					<field name="asset_description" />			
+					<field name="item_no" />			
+					<field name="tahun" />			
+					<field name="total_premi" />				
+					<field name="total_nilai_pertanggungan" />	
+					<field name='is_imported' 		 />
+					<field name="notes"				 />
+					<field name="source"				 />
+		        </tree>    
+		    </field>
+		</record>
+
+		<!-- search import_arg_polis_risk reliance -->
+		<record id="view_import_arg_polis_risk_filter_reliance" model="ir.ui.view">
+		    <field name="name">import_arg_polis_risk.filter.reliance</field>
+		    <field name="model">reliance.import_arg_polis_risk</field>
+		    <field name="arch" type="xml">
+		        <search string="Search Import ARG">
+
+		            <filter icon="terp-mail-message-new" 
+		                string="Imported" 
+		            	 name="imported" domain="[('is_imported','=',True)]"/>
+		            <filter icon="terp-mail-message-new" 
+		                string="Not Imported" 
+		            	 name="not_imported" domain="[('is_imported','=',False)]"/>
+		            
+		            <separator/>
+
+					<field name="policy_no" />					
+					<field name="asset_description" />			
+					<field name="total_premi" />				
+					<field name="total_nilai_pertanggungan" />						
+
+
+					<field name='is_imported' 		 />
+					<field name="notes"				 />
+					<field name="source"				 />
+		
+		            <group expand="1" string="Group By...">
+		                <filter string="Is Imported" icon="terp-personal" 
+		                    domain="[]" name="group_by_is_imported"
+		                	 context="{'group_by':'is_imported'}"/>
+		                <filter string="Policy No" icon="terp-personal" 
+		                    domain="[]" name="group_by_policy_no"
+		                	 context="{'group_by':'policy_no'}"/>
+		            </group>                                        
+
+		        </search>
+		    </field>
+		</record>
+
+		<!-- form import_arg_polis_risk reliance -->
+        <record id="view_import_arg_polis_risk_form_reliance" model="ir.ui.view">
+            <field name="name">reliance_import_arg_polis_risk_form_reliance</field>
+            <field name="model">reliance.import_arg_polis_risk</field>
+            <field name="arch" type="xml">
+
+            	<form version="7">
+            		<header>
+            		</header>
+	            	<group>
+	            		
+						<field name="policy_no" />					
+						<field name="asset_description" />			
+						<field name="item_no" />			
+						<field name="tahun" />			
+						
+						<field name="total_premi" />				
+						<field name="total_nilai_pertanggungan" />	
+						
+						<field name='is_imported' 		 />
+						<field name="notes"				 />						
+						<field name="source"				 />						
+		            </group>
+
+	            </form>
+            </field>
+        </record>
+
+	    <!-- context menu More.. di tree import_arg_polis_risk -->
+	    <record id="action_import_arg_polis_risk" model="ir.actions.server">
+	        <field name="name">Import to Polis Risk</field>
+	        <field name="condition">True</field>
+	        <field name="model_id" ref="model_reliance_import_arg_polis_risk"/>
+	        <field name="state">code</field>
+	        <field name="code">action = pool.get('reliance.import_arg_polis_risk').action_import(cr, uid, context)</field>
+	    </record>
+
+	    <record id="ir_import_arg_polis_risk" model="ir.values">
+	        <field eval="'client_action_multi'" name="key2"/>
+	        <field eval="'reliance.import_arg_polis_risk'" name="model"/>
+	        <field name="name">Import to Polis Risk</field>
+	        <field eval="'ir.actions.server,%d'%action_import_arg_polis_risk" name="value"/>
+	    </record>
+
+	</data>
+</openerp>

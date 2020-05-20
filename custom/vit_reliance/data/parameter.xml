@@ -1,0 +1,147 @@
+<openerp>
+    <data noupdate="1">
+
+		<!-- ls_import_partner_limit -->
+		<record id="ls_import_partner_limit" model="ir.config_parameter">
+			<field name="key">ls_import_partner_limit</field>
+			<field name="value">500</field>
+		</record>
+		
+		<!-- ls_import_partner_cash_limit -->
+		<record id="ls_import_partner_cash_limit" model="ir.config_parameter">
+			<field name="key">ls_import_partner_cash_limit</field>
+			<field name="value">500</field>
+		</record>		
+
+		<!-- ls_import_partner_stock_limit -->
+		<record id="ls_import_partner_stock_limit" model="ir.config_parameter">
+			<field name="key">ls_import_partner_stock_limit</field>
+			<field name="value">500</field>
+		</record>
+
+
+
+
+		<!-- ajri_import_polis_limit -->
+		<record id="ajri_import_partner_limit" model="ir.config_parameter">
+			<field name="key">ajri_import_partner_limit</field>
+			<field name="value">500</field>
+		</record>
+
+
+
+
+		<!-- arg_import_polis_risk_limit -->
+		<record id="arg_import_polis_risk_limit" model="ir.config_parameter">
+			<field name="key">arg_import_polis_risk_limit</field>
+			<field name="value">500</field>
+		</record>
+
+
+
+
+		<!-- health_import_polis_limit -->
+		<record id="health_import_polis_limit" model="ir.config_parameter">
+			<field name="key">health_import_polis_limit</field>
+			<field name="value">500</field>
+		</record>	
+
+		<!-- health_import_peserta_limit -->
+		<record id="health_import_peserta_limit" model="ir.config_parameter">
+			<field name="key">health_import_peserta_limit</field>
+			<field name="value">500</field>
+		</record>	
+		
+		<!-- health_import_limit_limit -->
+		<record id="health_import_limit_limit" model="ir.config_parameter">
+			<field name="key">health_import_limit_limit</field>
+			<field name="value">500</field>
+		</record>	
+			
+
+
+			
+		<!-- refi_import_partner_limit -->
+		<record id="refi_import_partner_limit" model="ir.config_parameter">
+			<field name="key">refi_import_partner_limit</field>
+			<field name="value">500</field>
+		</record>	
+				
+		<!-- refi_import_pekerjaan_limit -->
+		<record id="refi_import_pekerjaan_limit" model="ir.config_parameter">
+			<field name="key">refi_import_pekerjaan_limit</field>
+			<field name="value">500</field>
+		</record>	
+					
+		<!-- refi_import_keluarga_limit -->
+		<record id="refi_import_keluarga_limit" model="ir.config_parameter">
+			<field name="key">refi_import_keluarga_limit</field>
+			<field name="value">500</field>
+		</record>	
+
+		<!-- refi_import_statement_limit -->
+		<record id="refi_import_statement_limit" model="ir.config_parameter">
+			<field name="key">refi_import_statement_limit</field>
+			<field name="value">500</field>
+		</record>	
+		
+		<!-- refi_import_kontrak_limit -->
+		<record id="refi_import_kontrak_limit" model="ir.config_parameter">
+			<field name="key">refi_import_kontrak_limit</field>
+			<field name="value">500</field>
+		</record>	
+	
+
+
+	
+		<!-- rmi_import_partner_limit -->
+		<record id="rmi_import_partner_limit" model="ir.config_parameter">
+			<field name="key">rmi_import_partner_limit</field>
+			<field name="value">500</field>
+		</record>		
+
+		<!-- rmi_import_product_holding_limit -->
+		<record id="rmi_import_product_holding_limit" model="ir.config_parameter">
+			<field name="key">rmi_import_product_holding_limit</field>
+			<field name="value">500</field>
+		</record>	
+	
+		<!-- ftp_ls_folder -->
+		<record id="ftp_ls_folder" model="ir.config_parameter">
+			<field name="key">ftp_ls_folder</field>
+			<field name="value">/home/ls</field>
+		</record>	
+
+		<!-- ftp_arg_folder -->
+		<record id="ftp_arg_folder" model="ir.config_parameter">
+			<field name="key">ftp_arg_folder</field>
+			<field name="value">/home/arg</field>
+		</record>	
+	
+		<!-- ftp_ajri_folder -->
+		<record id="ftp_ajri_folder" model="ir.config_parameter">
+			<field name="key">ftp_ajri_folder</field>
+			<field name="value">/home/ajri</field>
+		</record>
+
+		<!-- ftp_health_folder -->
+		<record id="ftp_health_folder" model="ir.config_parameter">
+			<field name="key">ftp_health_folder</field>
+			<field name="value">/home/health</field>
+		</record>	
+
+		<!-- ftp_rmi_folder -->
+		<record id="ftp_rmi_folder" model="ir.config_parameter">
+			<field name="key">ftp_rmi_folder</field>
+			<field name="value">/home/rmi</field>
+		</record>	
+		
+		<!-- ftp_refi_folder -->
+		<record id="ftp_refi_folder" model="ir.config_parameter">
+			<field name="key">ftp_refi_folder</field>
+			<field name="value">/home/refi</field>
+		</record>	
+	
+		
+	</data>
+</openerp>

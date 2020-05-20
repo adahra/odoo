@@ -1,0 +1,112 @@
+<openerp>
+  <data>
+ 
+        <record id="view_hand_tag_tree" model="ir.ui.view">
+            <field name="name">vit.hand.tag</field>
+            <field name="model">vit.hand.tag</field>
+            <field name="arch" type="xml">
+                <tree string="Hand Tag List">
+                    <field name="name" />
+                    <field name="spk_cutting_id" />
+                    <field name="spk_makloon_id"/> 
+                    <field name="makloon"/> 
+                    <field name="tanggal"/>                  
+                    <field name="state"/>                 
+                </tree>
+            </field>
+        </record> 
+
+         <record id="view_vit_hand_tag__form" model="ir.ui.view">
+            <field name="name">vit.hand.tag</field>
+            <field name="model">vit.hand.tag</field>
+            <field name="arch" type="xml">
+                <form string="Penyerahan Hand Tag" version="7.0">
+                    <header>
+                        <button name="confirm" states="draft" string="Confirm" confirm="Data yang sudah di confirm tidak bisa di cancel, anda yakin ?" type="object" groups="base.group_user"/>                        
+                        <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
+                    </header>
+                    <sheet>
+                    <xpath expr="//div[@name='buttons']" position="inside">
+                        <group>
+                            <group>
+                            </group>
+                            <group>
+                                 <button name="update_spk_cutting_dan_spk_makloon" states="confirm" string="Update SPK Cutting dan SPK Makloon" confirm="Data SPK Cutting dan SPK Makloon pada Barcode akan diupdate , anda yakin ?" type="object" class="oe_link"/>
+                            </group>
+                        </group>    
+                    </xpath>
+                        <group>
+                            <group>                                
+                                <field name="name"/>
+                                <field name="tanggal"/> 
+                                <field name="total_qty_sn"/>  
+                            </group>
+                            <group>
+                                <field name="spk_cutting_id"/>
+                                <field name="spk_makloon_id"/> 
+<!--                                 <field name="spk_cutting_id" domain="[('is_used_handtag','=',False)]"/>
+                                <field name="spk_makloon_id" domain="[('is_used_handtag','=',False)]"/>   -->                               
+                                <field name="makloon"/> 
+                            </group>
+                        </group>
+                        <notebook colspan="4" rowspan="4">
+                             <page string="Barcode">
+                                 <field name="vit_hand_tag_barcode_ids" view_mode="tree" nolabel="1">
+                                    <tree editable="bottom">
+                                         <field name="name"/>                             
+                                    </tree>                 
+                                 </field>        
+                            </page>                           
+                        </notebook>
+                        <field name='notes' nolabel="1" placeholder="Notes..."/> 
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record id="view_vit_hand_tag_search" model="ir.ui.view">
+            <field name="name">vit.hand.tag</field>
+            <field name="model">vit.hand.tag</field>
+            <field name="arch" type="xml">
+                <search string="Hand Tag">
+                    <field name="name" filter_domain="[('name','ilike',self)]" string="Nomor"/>
+                    <field name="spk_cutting_id" />
+                    <field name="spk_makloon_id" />
+                    <group expand="0" string="Group By...">
+                        <filter string="SPK Cutting" icon="terp-folder-orange" domain="" context="{'group_by':'spk_cutting_id'}"/>
+                        <filter string="SPK Makloon" icon="terp-folder-orange" domain="" context="{'group_by':'spk_makloon_id'}"/>
+                        <filter string="Tanggal" icon="terp-folder-orange" domain="" context="{'group_by':'tanggal'}"/>
+                    </group>
+                </search>
+            </field>
+        </record>
+
+    <record model="ir.actions.act_window" id="action_view_hand_tag" >
+        <field name="name">Hang Tag</field>
+        <field name="res_model">vit.hand.tag</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p>Penyerahan Hand Tag</p>
+        </field>
+    </record>
+
+
+    <menuitem id="menu_vit_hand_tag" action="action_view_hand_tag" parent="stock.menu_traceability" name="Hang Tag" sequence="1" />
+
+
+        <record id="seq_create_hand_tag" forcecreate="1" model="ir.sequence.type">
+            <field name="name">Hang Tag</field>
+            <field name="code">vit.hand.tag.seq</field>
+        </record>
+        <record id="seq_c_spk" forcecreate="1" model="ir.sequence">
+            <field name="name">Hang tag</field>
+            <field name="code">vit.hand.tag.seq</field>
+            <field name="prefix"></field>
+            <field name="suffix">/HangTag/%(year)s</field>
+            <field name="padding">3</field>
+        </record>
+
+
+
+ </data>
+</openerp>
