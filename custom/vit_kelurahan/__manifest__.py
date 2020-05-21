@@ -8,14 +8,11 @@
 	"author": "vitraining.com",
 	"category": "Sales",
 	'website': 'http://www.vitraining.com',
-	"description": """\
-
-this module provide kecamatan, kelurahan, and state data for indonesian
-
-
-            Find our other interesting modules that can make your life easier:
+	"description": """
+			this module provide kecamatan, kelurahan, and state data for indonesian
+            Find our other interesting modules that can make your life easier
             https://www.odoo.com/apps/modules/browse?search=vitraining
-""",
+		""",
 	"data": [
 		#"data/res.country.state.csv",
 		"data/vit.kota.csv",
