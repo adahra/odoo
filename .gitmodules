@@ -2,3 +2,7 @@
 	path = custom/corona_virus_api
 	url = https://github.com/adahra/corona_virus_api.git
 	branch = master
+[submodule "custom/aset_bangunan"]
+	path = custom/aset_bangunan
+	url = https://github.com/adahra/aset_bangunan.git
+	branch = master
