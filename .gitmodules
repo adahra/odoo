@@ -6,3 +6,6 @@
 	path = custom/aset_bangunan
 	url = https://github.com/adahra/aset_bangunan.git
 	branch = master
+[submodule "custom/vit_portofolio"]
+	path = custom/vit_portofolio
+	url = https://github.com/adahra/vit_portofolio.git
