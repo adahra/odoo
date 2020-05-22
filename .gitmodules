@@ -1,0 +1,4 @@
+[submodule "custom/corona_virus_api"]
+	path = custom/corona_virus_api
+	url = https://github.com/adahra/corona_virus_api.git
+	branch = master
