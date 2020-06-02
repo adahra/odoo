@@ -10,6 +10,8 @@ from odoo.tools import misc, view_validation
 _logger = logging.getLogger(__name__)
 
 _activity_validator = None
+
+
 @view_validation.validate('activity')
 def schema_activity(arch):
     """ Check the activity view against its schema

@@ -29,7 +29,7 @@
         'views/lab.xml',
         'views/sale_order.xml',
         'views/template.xml',
-        'views/settings.xml',
+        # 'views/settings.xml',
         'views/portal_template.xml',
         'views/dashboard.xml',
         'reports/patient_card.xml',
